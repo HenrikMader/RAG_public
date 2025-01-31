@@ -1,0 +1,43 @@
+###
+### DO NOT MODIFY!
+###
+### This file is a copy from https://github.com/DahlitzFlorian/ai-on-ibm-power-playbooks
+### If you need to make changes to it, make them there first.
+###
+- name: Create prefix directory
+  ansible.builtin.file:
+    path: "{{ conda_dir }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    mode: 0775
+    recurse: yes
+
+- name: Create temporary directory
+  ansible.builtin.tempfile:
+    state: directory
+  register: tmpdir
+
+- name: Install micromamba
+  ansible.builtin.unarchive:
+    remote_src: true
+    src: "https://micro.mamba.pm/api/micromamba/{{ arch }}/{{ version }}"
+    dest: "{{ tmpdir.path }}"
+
+- name: Copy micromamba to destination
+  become: true
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ tmpdir.path }}/bin/micromamba"
+    dest: "{{ micromamba_location }}"
+    mode: "u=rwx,g=rx,o=rx"
+
+- name: Remove temporary directory
+  ansible.builtin.file:
+    path: "{{ tmpdir.path }}"
+    state: absent
+
+- name: Create shell function for micromamba
+  ansible.builtin.shell: "micromamba shell init --shell=bash"
+    
+- name: Activate micromamba environment
+  ansible.builtin.shell: "echo 'micromamba activate --prefix={{ conda_dir }}' >> /home/{{ ansible_user }}/.bashrc"

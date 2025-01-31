@@ -1,0 +1,17 @@
+name: rag-demo
+channels:
+  - rocketce
+  - defaults
+dependencies:
+  - python=%{ python_version }%
+  - pip
+  # from chroma requirements.txt:
+  - numpy>=1.22.5
+  - onnxruntime>=1.14.1
+  - fastapi>=0.95.2
+  - tqdm>=4.65.0
+  - tokenizers>=0.13.2
+  - pytorch
+  - transformers
+  - langchain-text-splitters
+  - uvloop
