@@ -10,6 +10,8 @@
 #   - micromamba_location (path): executable location for micromamba, should be in $PATH
 #   - working_directory (path):   directory to put all related files.
 #   - conda_dir (path):           conda root prefix
+#   - model_repository (string):  The huggingface Reposotory to pull the model from
+#   - model_name (string):        The name of the actual model/file (gguf) of the model in the model_repository.
 #
 - name: Micromamba Setup
   hosts: techzone
@@ -36,7 +38,7 @@
      ansible.builtin.dnf:
       name:
        - bzip2
-     when: not dest_stat.stat.exists
+       - git
 
    - name: Install micromamba
      ansible.builtin.import_tasks: download-and-extract-micromamba.yml
@@ -59,8 +61,8 @@
 
    - name: Insert Python version into Environment file
      ansible.builtin.replace:
-      path: "rag-environment.yml"
-      regexp: "%{ python_verion }%"
+      path: "{{ working_directory }}/rag-environment.yml"
+      regexp: "%{ python_version }%"
       replace: "{{ python_version }}"
 
    - name: Creating Environment
@@ -73,3 +75,74 @@
        - --yes
        - -f
        - "{{ working_directory }}/rag-environment.yml"
+
+   - name: Copying requirements file
+     ansible.builtin.copy:
+      src: requirements.txt
+      dest: "{{ working_directory }}/requirements.txt"
+      mode: a=r
+
+   - name: Install Pip requirements
+     ansible.builtin.command:
+      argv:
+       - micromamba
+       - run
+       - --root-prefix
+       - "{{ conda_dir }}"
+       - -n
+       - rag-demo
+       - pip
+       - install
+       - -U
+       - --extra-index-url
+       - https://repo.fury.io/mgiessing
+       - --prefer-binary
+       - -r
+       - "{{ working_directory }}/requirements.txt"
+
+   - name: Clone Demo Reposotory
+     ansible.builtin.git:
+      repo: https://github.com/HenrikMader/RAG_public.git
+      dest: "{{ working_directory }}/repo"
+      clone: true
+      update: true
+      force: true
+ 
+- name: Fill Database and start Server
+  hosts: techzone
+  tasks:
+   - name: Download Model from huggingface
+     ansible.builtin.command:
+      argv:
+       - micromamba
+       - run
+       - -n
+       - rag-demo
+       - --root-prefix
+       - "{{ conda_dir }}"
+       - huggingface-cli
+       - download
+       - "{{ model_repository }}"
+       - "{{ model_name }}"
+       - --local-dir
+       - "{{ working_directory }}/model"
+       - --local-dir-use-symlinks
+       - "False"
+
+   - name: Fill ChromaDB
+     ansible.builtin.command:
+      argv:
+       - micromamba
+       - run
+       - -n
+       - rag-demo
+       - --root-prefix
+       - "{{ conda_dir }}"
+       - python
+       - chromaDB_md.py
+      chdir: "{{ working_directory }}/repo"
+
+   - name: Run Model
+     when: auto_start
+     ansible.builtin.raw: |
+      RAG_MODEL_PATH={{ working_directory }}/model/{{ model_name }} nohup micromamba run -n rag-demo --root-prefix {{ conda_dir }} python {{ working_directory }}/repo/run_model.py </dev/null >/dev/null 2>&1 & sleep 1

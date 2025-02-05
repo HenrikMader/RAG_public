@@ -1,0 +1,7 @@
+chromadb
+gradio==3.50.2
+langchain
+llama-cpp-python
+psutil
+sentence_transformers
+transformers

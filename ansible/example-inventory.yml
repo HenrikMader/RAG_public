@@ -8,3 +8,5 @@ techzone:
     micromamba_location: "/usr/local/bin/micromamba" # should be in $PATH, otherwise manual intervention required.
     working_directory: "/home/{{ ansible_user }}/rag_demo"
     conda_dir: "/home/{{ ansible_user }}/micromamba" # conda root prefix
+    model_repository: "bartowski/granite-3.1-8b-instruct-GGUF" # huggingface model repository
+    model_name: "granite-3.1-8b-instruct-Q4_K_M.gguf" # gguf file of the model in the repo.

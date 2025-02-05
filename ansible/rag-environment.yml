@@ -5,13 +5,10 @@ channels:
 dependencies:
   - python=%{ python_version }%
   - pip
-  # from chroma requirements.txt:
-  - numpy>=1.22.5
+  - httptools
   - onnxruntime>=1.14.1
-  - fastapi>=0.95.2
-  - tqdm>=4.65.0
-  - tokenizers>=0.13.2
-  - pytorch
-  - transformers
-  - langchain-text-splitters
-  - uvloop
+  - pandas<1.6.0
+  - pytorch-cpu
+  - pyyaml
+  - scikit-learn
+  - tokenizers

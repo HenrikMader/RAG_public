@@ -11,7 +11,7 @@ import time
 chroma_client = chromadb.PersistentClient(path="./db")
 
 # Initialize LLaMA model with llama-cpp-python (local model)
-llama_model_path = "model:path"  # Path to your LLaMA model
+llama_model_path = os.getenv("RAG_MODEL_PATH") or "model:path"  # Path to your LLaMA model
 llama = Llama(model_path=llama_model_path, n_ctx=0)
 
 #model = SentenceTransformer('all-mpnet-base-v2')
