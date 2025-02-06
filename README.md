@@ -56,11 +56,13 @@ Execute the pipeline by running:
 python run_model.py
 ```
 
-## Alternative: Ansible Playbooks
+This will start serving the gradio UI over HTTP port `8082` 
 
-Alternatively this demo can be installed on a remote or local ppc64le RHEL host using the ansible playbook in the `ansible` directory. The demo will then run on the same port as the manual installation: `8082`
+## Alternative Installation: Ansible Playbooks
 
-For possible configuration see the [example Inventory File](ansible/example-inventory.yml).
+Alternatively this demo can be installed on a remote or local ppc64le RHEL host using the ansible playbook in the `ansible` directory.
+
+For possible configuration options see the [example inventory file](ansible/example-inventory.yml).
 
 ## Folder Structure
 
