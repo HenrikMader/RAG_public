@@ -102,7 +102,7 @@
 
    - name: Clone Demo Reposotory
      ansible.builtin.git:
-      repo: https://github.com/HenrikMader/RAG_public.git
+      repo: https://github.com/2M1/RAG_public.git
       dest: "{{ working_directory }}/repo"
       clone: true
       update: true
@@ -142,7 +142,21 @@
        - chromaDB_md.py
       chdir: "{{ working_directory }}/repo"
 
+   - name: Copy Run Wrapper
+     when: auto_start
+     ansible.builtin.copy:
+      src: ./env_wrapper.sh
+      dest: "{{ working_directory }}/env_wrapper.sh"
+      mode: u+rx,a+x
+
+   - name: Insert Root Prefix into env Wrapper
+     when: auto_start
+     ansible.builtin.replace:
+      path: "{{ working_directory }}/env_wrapper.sh"
+      regexp: "%{ conda_dir }%"
+      replace: "{{ conda_dir }}"
+
    - name: Run Model
      when: auto_start
-     ansible.builtin.raw: |
-      RAG_MODEL_PATH={{ working_directory }}/model/{{ model_name }} nohup micromamba run -n rag-demo --root-prefix {{ conda_dir }} python {{ working_directory }}/repo/run_model.py </dev/null >/dev/null 2>&1 & sleep 1
+     ansible.builtin.shell: |
+      RAG_MODEL_PATH={{ working_directory }}/model/{{ model_name }} nohup {{ working_directory }}/env_wrapper.sh python {{ working_directory }}/repo/run_model.py </dev/null >/dev/null 2>&1 & sleep 1
