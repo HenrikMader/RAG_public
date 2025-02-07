@@ -7,9 +7,6 @@ import chromadb
 from chromadb.utils import embedding_functions
 from chromadb import Collection
 from transformers import AutoTokenizer, AutoModel
-import torch
-import psutil
-import time
 import os
 import re
 from langchain.text_splitter import MarkdownHeaderTextSplitter

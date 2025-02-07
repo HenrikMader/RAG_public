@@ -19,7 +19,7 @@ pip install -U --extra-index-url https://repo.fury.io/mgiessing --prefer-binary 
 
 
 
-## Installation
+## Manual Installation
 
 Install the other libraries with pip for x86 and with conda (rocketce or defaults as the channel)
 
@@ -55,6 +55,14 @@ Execute the pipeline by running:
 ```bash
 python run_model.py
 ```
+
+This will start serving the gradio UI over HTTP port `8082` 
+
+## Alternative Installation: Ansible Playbooks
+
+Alternatively this demo can be installed on a remote or local ppc64le RHEL host using the ansible playbook in the `ansible` directory.
+
+For possible configuration options see the [example inventory file](ansible/example-inventory.yml).
 
 ## Folder Structure
 
