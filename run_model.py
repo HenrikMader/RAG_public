@@ -11,7 +11,7 @@ import time
 chroma_client = chromadb.PersistentClient(path="./db")
 
 # Initialize LLaMA model with llama-cpp-python (local model)
-llama_model_path = os.getenv("RAG_MODEL_PATH") or "model:path"  # Path to your LLaMA model
+llama_model_path = os.getenv("RAG_MODEL_PATH") or "model:path"
 llama = Llama(model_path=llama_model_path, n_ctx=0)
 
 #model = SentenceTransformer('all-mpnet-base-v2')
@@ -47,8 +47,13 @@ def generate_response(query, collection_name, chat_history):
     else:
         collection_name = "POWER10"
 
-    # You might decide whether to use context (RAG) based on a checkbox or some external setting:
+
+
+    # Use context if needed
     use_context = True
+
+    print("Chat history")
+    print(chat_history)
 
     if use_context:
         documents = retrieve_documents(query, collection_name)
@@ -56,14 +61,11 @@ def generate_response(query, collection_name, chat_history):
         flat_documents = [item for sublist in documents for item in sublist]
         context = "\n".join(flat_documents)
 
-        # -- Optionally, incorporate chat_history so far into the prompt:
-        # For a multi-turn conversation, you might do something like:
-        # conversation_str = ""
-        # for (old_user, old_bot) in chat_history:
-        #     conversation_str += f"User: {old_user}\nAssistant: {old_bot}\n"
-
-        # Here, we’ll just demonstrate merging the new context + query:
         input_text = f"""
+
+Chat History:
+{chat_history}        
+
 Query:
 {context}
 
@@ -75,30 +77,30 @@ Compose a comprehensive reply to the query using the search results given.
 Only answer what is asked. If you do not find the answer in the context then state that you do not know.
 Answer:
 """
+        print("input text")
+        print(input_text)
+        
     else:
-        # If not using context, just pass the user query
         input_text = f"Query: {query}\nAnswer: "
 
     # Prepare a string to accumulate the model’s streamed tokens
     cmData = ""
 
-    # Stream tokens from llama(...)
     for output in llama(input_text, max_tokens=4096, stream=True):
         token_text = output['choices'][0]['text']
-
-        # You might skip certain tokens like pure newlines
-
         cmData += token_text
 
-        # Each time we get new tokens, we yield an updated chat history:
-        #   The user’s question is `query`
-        #   The partial answer so far is `cmData`
+        # Each time we get new tokens, we yield an updated chat history
         partial_history = chat_history + [(query, cmData)]
+        
+        # Print history for debugging
+        print("Updated Chat History:", partial_history)
 
-        # By yielding `("", partial_history)`, 
-        # - the Textbox input is cleared (set to ""), 
-        # - the Chatbot is updated with the new partial history.
-        yield "", partial_history
+        # Yield both the updated input and chat history
+        yield "", partial_history, partial_history  # Return chat history twice (for chatbot & state)
+
+    # **Ensure final chat history is properly returned**
+    return "", chat_history + [(query, cmData)], chat_history + [(query, cmData)]
 
 # Create Gradio UI
 def main():
@@ -164,7 +166,7 @@ def main():
         submit_button.click(
             fn=generate_response,
             inputs=[query_input, file_selector, chat_history],
-            outputs=[query_input, chatbot]  # chatbot auto-displays chat_history
+            outputs=[query_input, chatbot, chat_history]  # chatbot auto-displays chat_history
         )
 
     # Launch the Gradio app
