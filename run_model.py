@@ -6,19 +6,21 @@ from chromadb.utils import embedding_functions
 from transformers import AutoTokenizer, AutoModel
 from sentence_transformers import SentenceTransformer
 import time
+import re
+from theme import IBMTheme
 
 # Initialize ChromaDB client and collection
 chroma_client = chromadb.PersistentClient(path="./db")
 
 # Initialize LLaMA model with llama-cpp-python (local model)
-llama_model_path = os.getenv("RAG_MODEL_PATH") or "model:path"
+llama_model_path = os.getenv("RAG_MODEL_PATH") or "/data/LLMs/gguf/granite-3.1-8b-instruct-Q8_0.gguf"
 llama = Llama(model_path=llama_model_path, n_ctx=0)
 
 #model = SentenceTransformer('all-mpnet-base-v2')
 sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-mpnet-base-v2")
 
 # Function to retrieve relevant documents from ChromaDB
-def retrieve_documents(query, collection_name, top_k=2):
+def retrieve_documents(query, collection_name, top_k=1):
  
     collection = chroma_client.get_collection(name=collection_name, embedding_function=sentence_transformer_ef)
     
@@ -61,22 +63,31 @@ def generate_response(query, collection_name, chat_history):
         flat_documents = [item for sublist in documents for item in sublist]
         context = "\n".join(flat_documents)
 
-        input_text = f"""
+        input_text = input_text = f"""
+You are a helpful and knowledgeable AI assistant specialized in answering queries based on the given context and prior conversation. 
 
-Chat History:
-{chat_history}        
-
-Query:
+### Context:
+Below is relevant information retrieved from a knowledge base that may help answer the user’s query:
 {context}
 
-Question:
+### Chat History:
+This is the ongoing conversation between you and the user. Use it to maintain context and provide coherent responses:
+{chat_history}
+
+### User Query:
 {query}
 
-Instructions:
-Compose a comprehensive reply to the query using the search results given.
-Only answer what is asked. If you do not find the answer in the context then state that you do not know.
-Answer:
+### Instructions:
+1. **Use the provided context first** when answering. If the information is directly relevant, craft a response based on it.
+2. If the context **does not contain the answer**, state explicitly: "I could not find relevant information in the provided documents, but here’s what I know..."
+3. Maintain a professional and helpful tone. Keep responses **concise, accurate, and to the point**.
+4. If previous chat history is relevant to the query, **use it to maintain conversation flow**.
+5. **Do NOT make up information**. Only rely on the context or general knowledge.
+6. Format the answer in **clear, readable paragraphs**.
+
+### Answer:
 """
+
         print("input text")
         print(input_text)
         
@@ -89,16 +100,35 @@ Answer:
     for output in llama(input_text, max_tokens=4096, stream=True):
         token_text = output['choices'][0]['text']
         cmData += token_text
-
-        # Each time we get new tokens, we yield an updated chat history
-        partial_history = chat_history + [(query, cmData)]
         
-        # Print history for debugging
-        print("Updated Chat History:", partial_history)
+        # Each time we get new tokens, we yield an updated chat history
+        partial_history = [(query, cmData)]
+        
+        #partial_history[0] = "User Question:" + partial_history[0] 
+        
+        #print("partial_history")
+        #print(partial_history)
+        
+        #print("partial history here")
+        #print(partial_history[0][0])
+        
+        if (len(chat_history) >= 3):
+            chat_history.pop(0)
+
+        helper = chat_history + [(("User Input: " + partial_history[0][0]), ("Answer from Chatbot: " + partial_history[0][1]))]
+        
+        
+
+        #print("helper")
+        #print(helper)
+        
+        print(partial_history)
 
         # Yield both the updated input and chat history
-        yield "", partial_history, partial_history  # Return chat history twice (for chatbot & state)
-
+        yield "", partial_history, helper  # Return chat history twice (for chatbot & state)
+    
+    print("final answer")
+    print(chat_history + [(query, cmData)])
     # **Ensure final chat history is properly returned**
     return "", chat_history + [(query, cmData)], chat_history + [(query, cmData)]
 
@@ -128,7 +158,7 @@ def main():
     }
     """
 
-    with gr.Blocks(css=custom_css) as demo:
+    with gr.Blocks(theme=IBMTheme()) as demo:
         gr.Markdown("# Chatbot about IBM RedBooks running on IBM POWER10")
 
         # A hidden state to store the chat history (list of (user, bot) tuples).
@@ -170,7 +200,7 @@ def main():
         )
 
     # Launch the Gradio app
-    demo.launch(server_name="0.0.0.0", server_port = 8082, enable_queue=True)
+    demo.launch(server_name="0.0.0.0", server_port = 7860, enable_queue=True)
 
 if __name__ == "__main__":
     main()
