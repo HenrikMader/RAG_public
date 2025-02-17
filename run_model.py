@@ -13,7 +13,7 @@ from theme import IBMTheme
 chroma_client = chromadb.PersistentClient(path="./db")
 
 # Initialize LLaMA model with llama-cpp-python (local model)
-llama_model_path = os.getenv("RAG_MODEL_PATH") or "/data/LLMs/gguf/granite-3.1-8b-instruct-Q8_0.gguf"
+llama_model_path = os.getenv("RAG_MODEL_PATH") or "/data/LLMs/gguf/DeepSeek-R1-Distill-Qwen-14B-Q4_K_M.gguf"
 llama = Llama(model_path=llama_model_path, n_ctx=0)
 
 #model = SentenceTransformer('all-mpnet-base-v2')
@@ -77,14 +77,6 @@ This is the ongoing conversation between you and the user. Use it to maintain co
 ### User Query:
 {query}
 
-### Instructions:
-1. **Use the provided context first** when answering. If the information is directly relevant, craft a response based on it.
-2. If the context **does not contain the answer**, state explicitly: "I could not find relevant information in the provided documents, but here’s what I know..."
-3. Maintain a professional and helpful tone. Keep responses **concise, accurate, and to the point**.
-4. If previous chat history is relevant to the query, **use it to maintain conversation flow**.
-5. **Do NOT make up information**. Only rely on the context or general knowledge.
-6. Format the answer in **clear, readable paragraphs**.
-
 ### Answer:
 """
 
@@ -96,13 +88,20 @@ This is the ongoing conversation between you and the user. Use it to maintain co
 
     # Prepare a string to accumulate the model’s streamed tokens
     cmData = ""
-
+    
+    stopThinking = False
     for output in llama(input_text, max_tokens=4096, stream=True):
         token_text = output['choices'][0]['text']
-        cmData += token_text
-        
+        print(token_text)
+        if (token_text == "</think>"):
+            stopThinking = True
+            print("stop thinking true")
+
+        if (stopThinking == True and token_text != "</think>"):
+            cmData += token_text
+            
         # Each time we get new tokens, we yield an updated chat history
-        partial_history = [(query, cmData)]
+            partial_history = [(query, cmData)]
         
         #partial_history[0] = "User Question:" + partial_history[0] 
         
@@ -112,20 +111,20 @@ This is the ongoing conversation between you and the user. Use it to maintain co
         #print("partial history here")
         #print(partial_history[0][0])
         
-        if (len(chat_history) >= 3):
-            chat_history.pop(0)
+            if (len(chat_history) >= 3):
+                chat_history.pop(0)
 
-        helper = chat_history + [(("User Input: " + partial_history[0][0]), ("Answer from Chatbot: " + partial_history[0][1]))]
+            helper = chat_history + [(("User Input: " + partial_history[0][0]), ("Answer from Chatbot: " + partial_history[0][1]))]
         
         
 
         #print("helper")
         #print(helper)
         
-        print(partial_history)
+            #print(partial_history)
 
         # Yield both the updated input and chat history
-        yield "", partial_history, helper  # Return chat history twice (for chatbot & state)
+            yield "", partial_history, helper, gr.Textbox.update(value=context, visible=True)  # Return chat history twice (for chatbot & state)
     
     print("final answer")
     print(chat_history + [(query, cmData)])
@@ -161,7 +160,7 @@ def main():
     with gr.Blocks(theme=IBMTheme()) as demo:
         gr.Markdown("# Chatbot about IBM RedBooks running on IBM POWER10")
 
-        # A hidden state to store the chat history (list of (user, bot) tuples).
+        # A hidden state to store the chat hi:wq story (list of (user, bot) tuples).
         chat_history = gr.State([])
 
         with gr.Row():
@@ -171,6 +170,13 @@ def main():
                 elem_id="chatbot",
                 height=400
             ).style(container=True)
+        with gr.Row():
+            retreival_vector_db = gr.Textbox(
+                lines = 8,
+                interactive=False,
+                visible=False,
+                label="Source from Documents in Vector DB"
+            )
 
         with gr.Row():
             # User input
@@ -196,7 +202,7 @@ def main():
         submit_button.click(
             fn=generate_response,
             inputs=[query_input, file_selector, chat_history],
-            outputs=[query_input, chatbot, chat_history]  # chatbot auto-displays chat_history
+            outputs=[query_input, chatbot, chat_history, retreival_vector_db]  # chatbot auto-displays chat_history
         )
 
     # Launch the Gradio app

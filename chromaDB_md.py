@@ -9,7 +9,7 @@ from chromadb import Collection
 from transformers import AutoTokenizer, AutoModel
 import os
 import re
-from langchain.text_splitter import MarkdownHeaderTextSplitter
+from langchain.text_splitter import MarkdownHeaderTextSplitter, RecursiveCharacterTextSplitter
 
 sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-mpnet-base-v2")
 
@@ -20,6 +20,8 @@ headers_to_split_on = [
 ]
 
 splitter = MarkdownHeaderTextSplitter(headers_to_split_on, strip_headers=False)
+recursive_splitter = RecursiveCharacterTextSplitter(chunk_size=500)
+
 
 class CollectionStatus(Enum):
     COLLECTION_CREATED = auto()
@@ -85,11 +87,14 @@ def insert_document(document_path: Path, collection: Collection) -> None:
 
     #print("Whole text")
     #print(text)
-    for chunk_index, (chunk) in enumerate(text):
-    
-        # Append results
-        document_ids.append(f"{document_name}_chunk{chunk_index}")
-        document_chunks.append(chunk.page_content)
+    for chunk_index, chunk in enumerate(text):
+        
+        sub_chunks = recursive_splitter.split_text(chunk.page_content)
+
+        for sub_index, sub_chunk in enumerate(sub_chunks):
+            document_ids.append(f"{document_name}_chunk{chunk_index}_{sub_index}")
+            document_chunks.append(sub_chunk)
+
     
     collection.add(
                 documents=document_chunks,
