@@ -92,16 +92,16 @@ This is the ongoing conversation between you and the user. Use it to maintain co
     stopThinking = False
     for output in llama(input_text, max_tokens=4096, stream=True):
         token_text = output['choices'][0]['text']
-        print(token_text)
-        if (token_text == "</think>"):
-            stopThinking = True
-            print("stop thinking true")
+        #print(token_text)
+        #if (token_text == "</think>"):
+            #stopThinking = True
+            #print("stop thinking true")
 
-        if (stopThinking == True and token_text != "</think>"):
-            cmData += token_text
+        #if (stopThinking == True and token_text != "</think>"):
+        cmData += token_text
             
         # Each time we get new tokens, we yield an updated chat history
-            partial_history = [(query, cmData)]
+        partial_history = [(query, cmData)]
         
         #partial_history[0] = "User Question:" + partial_history[0] 
         
@@ -111,10 +111,10 @@ This is the ongoing conversation between you and the user. Use it to maintain co
         #print("partial history here")
         #print(partial_history[0][0])
         
-            if (len(chat_history) >= 3):
-                chat_history.pop(0)
+        if (len(chat_history) >= 3):
+            chat_history.pop(0)
 
-            helper = chat_history + [(("User Input: " + partial_history[0][0]), ("Answer from Chatbot: " + partial_history[0][1]))]
+        helper = chat_history + [(("User Input: " + partial_history[0][0]), ("Answer from Chatbot: " + partial_history[0][1]))]
         
         
 
@@ -124,7 +124,7 @@ This is the ongoing conversation between you and the user. Use it to maintain co
             #print(partial_history)
 
         # Yield both the updated input and chat history
-            yield "", partial_history, helper, gr.Textbox.update(value=context, visible=True)  # Return chat history twice (for chatbot & state)
+        yield "", partial_history, helper, gr.Textbox.update(value=context, visible=True)  # Return chat history twice (for chatbot & state)
     
     print("final answer")
     print(chat_history + [(query, cmData)])
