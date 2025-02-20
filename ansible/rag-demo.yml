@@ -142,25 +142,6 @@
        - chromaDB_md.py
       chdir: "{{ working_directory }}/repo"
 
-   - name: Copy Run Wrapper
-     when: auto_start
-     ansible.builtin.copy:
-      src: ./env_wrapper.sh
-      dest: "{{ working_directory }}/env_wrapper.sh"
-      mode: u+rx,a+x
-
-   - name: Insert Root Prefix into env Wrapper
-     when: auto_start
-     ansible.builtin.replace:
-      path: "{{ working_directory }}/env_wrapper.sh"
-      regexp: "%{ conda_dir }%"
-      replace: "{{ conda_dir }}"
-
-   - name: Run Model
-     when: auto_start
-     ansible.builtin.shell: |
-      RAG_MODEL_PATH={{ working_directory }}/model/{{ model_name }} nohup {{ working_directory }}/env_wrapper.sh python {{ working_directory }}/repo/run_model.py 2>&1 >nohup.out & sleep 1
-
    - name: Insert local path into systemd service
      ansible.builtin.replace:
       regexp: "%{ working_dir }%"
@@ -188,7 +169,7 @@
    - name: Make Systemd script executable
      ansible.builtin.file:
       path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
-      mode: u+x,g+x
+      mode: u+x,g+x,a+x
 
    - name: Install Systemd Service
      when: auto_start

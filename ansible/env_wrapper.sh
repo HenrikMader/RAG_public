@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# this wrapper is required to wrap micromamba calls in a nphup context.
+# this wrapper is required to wrap micromamba calls in a nohup context.
 # I'm not exactly sure why but this works and without it the commands passed to micromamba do
 # not seem to even start running when executed through nohup.
 
