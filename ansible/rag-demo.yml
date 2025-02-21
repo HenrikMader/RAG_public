@@ -107,7 +107,7 @@
       clone: true
       update: true
       force: true
- 
+
 - name: Fill Database and start Server
   hosts: techzone
   tasks:
@@ -142,21 +142,45 @@
        - chromaDB_md.py
       chdir: "{{ working_directory }}/repo"
 
-   - name: Copy Run Wrapper
-     when: auto_start
-     ansible.builtin.copy:
-      src: ./env_wrapper.sh
-      dest: "{{ working_directory }}/env_wrapper.sh"
-      mode: u+rx,a+x
-
-   - name: Insert Root Prefix into env Wrapper
-     when: auto_start
+   - name: Insert local path into systemd service
      ansible.builtin.replace:
-      path: "{{ working_directory }}/env_wrapper.sh"
+      regexp: "%{ working_dir }%"
+      replace: "{{ working_directory }}/repo/systemd"
+      path: "{{ working_directory }}/repo/systemd/rag-demo.service"
+
+   - name: Insert local path into systemd script
+     ansible.builtin.replace:
+      regexp: "%{ working_directory }%"
+      replace: "{{ working_directory }}"
+      path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
+
+   - name: Insert conda path into systemd script
+     ansible.builtin.replace:
       regexp: "%{ conda_dir }%"
       replace: "{{ conda_dir }}"
+      path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
 
-   - name: Run Model
+   - name: Insert model path into systemd script
+     ansible.builtin.replace:
+      regexp: "%{ model_name }%"
+      replace: "{{ model_name }}"
+      path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
+
+   - name: Make Systemd script executable
+     ansible.builtin.file:
+      path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
+      mode: u+x,g+x,a+x
+
+   - name: Install Systemd Service
      when: auto_start
-     ansible.builtin.shell: |
-      RAG_MODEL_PATH={{ working_directory }}/model/{{ model_name }} nohup {{ working_directory }}/env_wrapper.sh python {{ working_directory }}/repo/run_model.py </dev/null >/dev/null 2>&1 & sleep 1
+     become: true
+     become_user: root
+     ansible.builtin.shell:
+      cmd: ln -s {{ working_directory }}/repo/systemd/rag-demo.service /etc/systemd/system/rag-demo.service
+
+   - name: Start Systemd Service
+     when: auto_start
+     become: true
+     become_user: root
+     ansible.builtin.shell:
+      systemctl enable --now rag-demo.service
