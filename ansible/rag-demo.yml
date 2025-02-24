@@ -176,7 +176,14 @@
      become: true
      become_user: root
      ansible.builtin.shell:
-      cmd: ln -s {{ working_directory }}/repo/systemd/rag-demo.service /etc/systemd/system/rag-demo.service
+      cmd: ln -s {{ working_directory }}/repo/systemd/rag-demo.service /etc/systemd/system/rag-demo.service -f
+ 
+   - name: Make micromamba gloablly available
+     when: auto_start and micromamba_location != "/usr/local/bin/micromamba"
+     become: true
+     become_user: root
+     ansible.builtin.shell:
+      cmd: ln -s {{ micromamba_location }} /usr/local/bin/micromamba -f
 
    - name: Start Systemd Service
      when: auto_start
