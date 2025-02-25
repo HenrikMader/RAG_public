@@ -141,8 +141,8 @@
        - --root-prefix
        - "{{ conda_dir }}"
        - python
-       - repo/chromaDB_md.py
-      chdir: "{{ working_directory }}"
+       - chromaDB_md.py
+      chdir: "{{ working_directory }}/repo"
 
    - name: Insert executing user into systemd service
      ansible.builtin.replace:
