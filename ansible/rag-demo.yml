@@ -20,6 +20,8 @@
      ansible.builtin.ping:
 
    - name: Create Working directory
+     become: true
+     become_user: root
      ansible.builtin.file:
       path: "{{ working_directory }}"
       state: directory
@@ -102,7 +104,7 @@
 
    - name: Clone Demo Reposotory
      ansible.builtin.git:
-      repo: https://github.com/HenrikMader/RAG_public.git
+      repo: https://github.com/2M1/RAG_public.git
       dest: "{{ working_directory }}/repo"
       clone: true
       update: true
@@ -139,8 +141,14 @@
        - --root-prefix
        - "{{ conda_dir }}"
        - python
-       - chromaDB_md.py
-      chdir: "{{ working_directory }}/repo"
+       - repo/chromaDB_md.py
+      chdir: "{{ working_directory }}"
+
+   - name: Insert executing user into systemd service
+     ansible.builtin.replace:
+      regexp: "%{ user }%"
+      replace: "{{ ansible_user }}"
+      path: "{{ working_directory }}/repo/systemd/rag-demo.service"
 
    - name: Insert local path into systemd service
      ansible.builtin.replace:
@@ -160,6 +168,12 @@
       replace: "{{ conda_dir }}"
       path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
 
+   - name: Insert micromamba path into systemd script
+     ansible.builtin.replace:
+      regexp: "%{ micromamba_location }%"
+      replace: "{{ micromamba_location }}"
+      path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
+
    - name: Insert model path into systemd script
      ansible.builtin.replace:
       regexp: "%{ model_name }%"
@@ -177,7 +191,7 @@
      become_user: root
      ansible.builtin.shell:
       cmd: ln -s {{ working_directory }}/repo/systemd/rag-demo.service /etc/systemd/system/rag-demo.service -f
- 
+
    - name: Make micromamba gloablly available
      when: auto_start and micromamba_location != "/usr/local/bin/micromamba"
      become: true
