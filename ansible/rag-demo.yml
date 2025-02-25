@@ -104,7 +104,7 @@
 
    - name: Clone Demo Reposotory
      ansible.builtin.git:
-      repo: https://github.com/2M1/RAG_public.git
+      repo: https://github.com/HenrikMader/RAG_public.git
       dest: "{{ working_directory }}/repo"
       clone: true
       update: true
