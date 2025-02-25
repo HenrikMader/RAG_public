@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 set -eou pipefail
 
-RAG_MODEL_PATH=%{ working_directory }%/model/%{ model_name }% micromamba run -n rag-demo -r %{ conda_dir }% python %{ working_directory }%/repo/run_model.py
+cd %{ working_directory }%
+RAG_MODEL_PATH=model/%{ model_name }% micromamba run -n rag-demo -r %{ conda_dir }% python repo/run_model.py
