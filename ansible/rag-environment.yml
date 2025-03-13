@@ -1,0 +1,14 @@
+name: rag-demo
+channels:
+  - rocketce
+  - defaults
+dependencies:
+  - python=%{ python_version }%
+  - pip
+  - httptools
+  - onnxruntime>=1.14.1
+  - pandas<1.6.0
+  - pytorch-cpu
+  - pyyaml
+  - scikit-learn
+  - tokenizers

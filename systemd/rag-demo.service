@@ -1,0 +1,16 @@
+[Unit]
+Description=RAG Demo Server as found in https://github.com/HenrikMader/RAG_public. Listening on Port 7860
+After=network-online.target
+Wants=network-online.target systemd-networkd-wait-online.service
+
+
+[Service]
+Restart=always
+RestartSec=5s
+User=%{ user }%
+ExecStart=%{ working_dir }%/run_rag_demo.sh
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

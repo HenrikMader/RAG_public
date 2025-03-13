@@ -1,0 +1,207 @@
+# Ansible Playbook to set up all that is required to run this rag demo with chromadb.
+#
+# Creates a new micromamba environmend called "rag-demo" with all required dependencies.
+# Also loads all availible Markdown files into a chromDB vector database stored locally at rag-demo.db (workingdir)
+#
+# Parameters:
+#   - ansible_user (string):      ssh-login user
+#   - auto_start (bool):          whether the rag-demo should immediately start serving
+#   - python_version (string):    use 3.11 for compatability
+#   - micromamba_location (path): executable location for micromamba, should be in $PATH
+#   - working_directory (path):   directory to put all related files.
+#   - conda_dir (path):           conda root prefix
+#   - model_repository (string):  The huggingface Reposotory to pull the model from
+#   - model_name (string):        The name of the actual model/file (gguf) of the model in the model_repository.
+#
+- name: Micromamba Setup
+  hosts: techzone
+  tasks:
+   - name: Ping hosts
+     ansible.builtin.ping:
+
+   - name: Create Working directory
+     become: true
+     become_user: root
+     ansible.builtin.file:
+      path: "{{ working_directory }}"
+      state: directory
+      owner: "{{ ansible_user }}"
+      mode: u=rwx,g=rwx,o=rx
+      recurse: true
+
+   - name: "Check if micromamba already exists in {{ micromamba_location }}"
+     ansible.builtin.stat:
+      path: "{{ micromamba_location }}"
+     register: dest_stat
+
+   - name: Install required unzip tools
+     become: true
+     become_user: root
+     ansible.builtin.dnf:
+      name:
+       - bzip2
+       - git
+
+   - name: Install micromamba
+     ansible.builtin.import_tasks: download-and-extract-micromamba.yml
+     when: not dest_stat.stat.exists
+
+  vars: # required & referenced by `download-and-extract-micromamba.yml`
+   arch: linux-ppc64le
+   version: latest
+
+
+- name: Mamba Environment
+  hosts: techzone
+  tasks:
+
+   - name: Copying Environment file
+     ansible.builtin.copy:
+      src: rag-environment.yml
+      dest: "{{ working_directory }}/rag-environment.yml"
+      mode: a=r
+
+   - name: Insert Python version into Environment file
+     ansible.builtin.replace:
+      path: "{{ working_directory }}/rag-environment.yml"
+      regexp: "%{ python_version }%"
+      replace: "{{ python_version }}"
+
+   - name: Creating Environment
+     ansible.builtin.command:
+      argv:
+       - micromamba
+       - create
+       - --root-prefix
+       - "{{ conda_dir }}"
+       - --yes
+       - -f
+       - "{{ working_directory }}/rag-environment.yml"
+
+   - name: Copying requirements file
+     ansible.builtin.copy:
+      src: requirements.txt
+      dest: "{{ working_directory }}/requirements.txt"
+      mode: a=r
+
+   - name: Install Pip requirements
+     ansible.builtin.command:
+      argv:
+       - micromamba
+       - run
+       - --root-prefix
+       - "{{ conda_dir }}"
+       - -n
+       - rag-demo
+       - pip
+       - install
+       - -U
+       - --extra-index-url
+       - https://repo.fury.io/mgiessing
+       - --prefer-binary
+       - -r
+       - "{{ working_directory }}/requirements.txt"
+
+   - name: Clone Demo Reposotory
+     ansible.builtin.git:
+      repo: https://github.com/HenrikMader/RAG_public.git
+      dest: "{{ working_directory }}/repo"
+      clone: true
+      update: true
+      force: true
+
+- name: Fill Database and start Server
+  hosts: techzone
+  tasks:
+   - name: Download Model from huggingface
+     ansible.builtin.command:
+      argv:
+       - micromamba
+       - run
+       - -n
+       - rag-demo
+       - --root-prefix
+       - "{{ conda_dir }}"
+       - huggingface-cli
+       - download
+       - "{{ model_repository }}"
+       - "{{ model_name }}"
+       - --local-dir
+       - "{{ working_directory }}/model"
+       - --local-dir-use-symlinks
+       - "False"
+
+   - name: Fill ChromaDB
+     ansible.builtin.command:
+      argv:
+       - micromamba
+       - run
+       - -n
+       - rag-demo
+       - --root-prefix
+       - "{{ conda_dir }}"
+       - python
+       - chromaDB_md.py
+      chdir: "{{ working_directory }}/repo"
+
+   - name: Insert executing user into systemd service
+     ansible.builtin.replace:
+      regexp: "%{ user }%"
+      replace: "{{ ansible_user }}"
+      path: "{{ working_directory }}/repo/systemd/rag-demo.service"
+
+   - name: Insert local path into systemd service
+     ansible.builtin.replace:
+      regexp: "%{ working_dir }%"
+      replace: "{{ working_directory }}/repo/systemd"
+      path: "{{ working_directory }}/repo/systemd/rag-demo.service"
+
+   - name: Insert local path into systemd script
+     ansible.builtin.replace:
+      regexp: "%{ working_directory }%"
+      replace: "{{ working_directory }}"
+      path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
+
+   - name: Insert conda path into systemd script
+     ansible.builtin.replace:
+      regexp: "%{ conda_dir }%"
+      replace: "{{ conda_dir }}"
+      path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
+
+   - name: Insert micromamba path into systemd script
+     ansible.builtin.replace:
+      regexp: "%{ micromamba_location }%"
+      replace: "{{ micromamba_location }}"
+      path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
+
+   - name: Insert model path into systemd script
+     ansible.builtin.replace:
+      regexp: "%{ model_name }%"
+      replace: "{{ model_name }}"
+      path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
+
+   - name: Make Systemd script executable
+     ansible.builtin.file:
+      path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
+      mode: u+x,g+x,a+x
+
+   - name: Install Systemd Service
+     when: auto_start
+     become: true
+     become_user: root
+     ansible.builtin.shell:
+      cmd: ln -s {{ working_directory }}/repo/systemd/rag-demo.service /etc/systemd/system/rag-demo.service -f
+
+   - name: Make micromamba gloablly available
+     when: auto_start and micromamba_location != "/usr/local/bin/micromamba"
+     become: true
+     become_user: root
+     ansible.builtin.shell:
+      cmd: ln -s {{ micromamba_location }} /usr/local/bin/micromamba -f
+
+   - name: Start Systemd Service
+     when: auto_start
+     become: true
+     become_user: root
+     ansible.builtin.shell:
+      systemctl enable --now rag-demo.service
