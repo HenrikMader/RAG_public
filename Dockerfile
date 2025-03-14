@@ -1,4 +1,5 @@
-FROM python:3.11
+FROM quay.io/fedora/python-39
+
 
 RUN pip3 install --prefer-binary --extra-index-url https://repo.fury.io/mgiessing chromadb transformers psutil langchain sentence_transformers gradio==3.50.2 llama-cpp-python
 
