@@ -180,6 +180,12 @@
       replace: "{{ model_name }}"
       path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
 
+   - name: Insert port into script
+     ansible.builtin.replace:
+      regexp: "%{ demo_port }%"
+      replace: "{{ demo_port }}"
+      path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
+
    - name: Make Systemd script executable
      ansible.builtin.file:
       path: "{{ working_directory }}/repo/systemd/run_rag_demo.sh"
