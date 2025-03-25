@@ -15,7 +15,7 @@ from theme import IBMTheme
 chroma_client = chromadb.PersistentClient(path="./db")
 
 # Initialize LLaMA model with llama-cpp-python (local model)
-llama_model_path = os.getenv("RAG_MODEL_PATH") or "granite-3.1-8b-instruct-Q4_K_M.gguf"
+llama_model_path = os.getenv("RAG_MODEL_PATH") or "ibm-granite_granite-3.2-8b-instruct-Q4_K_M.gguf"
 llama = Llama(model_path=llama_model_path, n_ctx=0)
 
 #model = SentenceTransformer('all-mpnet-base-v2')
