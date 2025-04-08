@@ -1,8 +1,8 @@
 ansible
-chromadb
-gradio==3.50.2
-langchain
-llama-cpp-python
-psutil
-sentence_transformers
-transformers
+chromadb~=0.6.3
+gradio~=3.50.2
+langchain~=0.3.23
+llama-cpp-python~=0.3.4
+psutil~=7.0.0
+sentence_transformers~=4.0.2
+transformers~=4.50.3
