@@ -10,6 +10,7 @@ from transformers import AutoTokenizer, AutoModel
 import os
 import re
 from langchain.text_splitter import MarkdownHeaderTextSplitter, RecursiveCharacterTextSplitter
+import time
 
 sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-mpnet-base-v2")
 
@@ -89,11 +90,11 @@ def insert_document(document_path: Path, collection: Collection) -> None:
     #print(text)
     for chunk_index, chunk in enumerate(text):
         
-        sub_chunks = recursive_splitter.split_text(chunk.page_content)
+        #sub_chunks = recursive_splitter.split_text(chunk.page_content)
 
-        for sub_index, sub_chunk in enumerate(sub_chunks):
-            document_ids.append(f"{document_name}_chunk{chunk_index}_{sub_index}")
-            document_chunks.append(sub_chunk)
+        #for sub_index, sub_chunk in enumerate(sub_chunks):
+        document_ids.append(f"{document_name}_chunk{chunk_index}")
+        document_chunks.append(chunk.page_content)
 
     
     collection.add(
@@ -175,39 +176,15 @@ def main() -> None:
 
     #load_files_into_chroma("./db_config", chroma_client, "e_config_files")
 
-
-
-    # Define the groups of files (based on your example)
-    file_groups = [
-        "E1080.md",  # First collection should come from E1080_md
-        "E1050.md",  # Second collection should come from E1050_md
-        "S1012.md",  # Third collection should come from S1020_md
-        "ScaleOut.md",  # Fourth collection should come from E1010_md
-        "Openshift.md",
-        "Ansible.md" # Fifth collection should come from Openshift_md
-    ]
-    #file_groups = [
-    #    ["Openshift.md"],  # First collection should come from E1080_md
-    #]
-
-    # Iterate over the file groups and create a collection for each
-    for i, file_name in enumerate(file_groups):
-        print("Adding collection group", i + 1)
-        print(file_groups)
+    file = open("database_setup.txt")
+    for i in file:
         print(i)
-        print("filename")
+        x = i.split(":", 1)
+        collection_name = str(x[0]).strip()
+        file_name = str(x[1]).strip()
+        print("Adding")
         print(file_name)
-
-
-        if (file_name == "E1080.md" or file_name == "E1050.md" or file_name == "S1012.md" or file_name == "ScaleOut.md"):
-            print("Adding")
-            print(file_name)
-            print("to")
-            print("POWER10")
-            collection_name = "POWER10"
-        # Remove the last three characters for the collection name
-        else:
-            collection_name = file_name[:-3]
+        print("to")
         print(collection_name)
 
         # Ensure the collection exists or create it
@@ -219,7 +196,9 @@ def main() -> None:
             print(f"Creating collection '{collection_name}' and inserting documents.")
             
             # Process the file
+            #document_path = Path(".") / files_directory / Path(file_name)
             document_path = files_directory / file_name
+            print(document_path)
             if document_path.exists():
                 insert_document(document_path, collection)
                 print(f"Inserted {file_name} into {collection_name}")

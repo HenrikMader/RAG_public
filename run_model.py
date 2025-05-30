@@ -15,7 +15,7 @@ from theme import IBMTheme
 chroma_client = chromadb.PersistentClient(path="./db")
 
 # Initialize LLaMA model with llama-cpp-python (local model)
-llama_model_path = os.getenv("RAG_MODEL_PATH") or "ibm-granite_granite-3.2-8b-instruct-Q4_K_M.gguf"
+llama_model_path = os.getenv("RAG_MODEL_PATH") or "/data/LLMs/gguf/ibm-granite_granite-3.2-8b-instruct-Q4_K_M.gguf"
 llama = Llama(model_path=llama_model_path, n_ctx=0)
 
 #model = SentenceTransformer('all-mpnet-base-v2')
@@ -116,7 +116,7 @@ If the DOCUMENT doesn’t contain the facts to answer the QUERY, then state "I d
         #print("partial history here")
         #print(partial_history[0][0])
         
-        if (len(chat_history) >= 3):
+        if (len(chat_history) >= 1):
             chat_history.pop(0)
 
         helper = chat_history + [(("User Input: " + partial_history[0][0]), ("Answer from Chatbot: " + partial_history[0][1]))]
@@ -167,6 +167,16 @@ def main():
 
         # A hidden state to store the chat hi:wq story (list of (user, bot) tuples).
         chat_history = gr.State([])
+        choices = set()
+
+        with open("database_setup.txt", "r") as f:
+            for line in f:
+                line = line.strip()
+                if ":" in line:
+                    prefix = line.split(":")[0]  # Normalize case
+                    choices.add(prefix)
+        
+        print(list(choices))
 
         with gr.Row():
             # Our Chatbot display
@@ -193,7 +203,7 @@ def main():
 
             file_selector = gr.Dropdown(
                 label="Which POWER Topic?",
-                choices=["POWER10 Generation", "Openshift/AI on POWER", "Ansible"]
+                choices=choices
             )
 
             # Submit button
@@ -209,7 +219,7 @@ def main():
             inputs=[query_input, file_selector, chat_history],
             outputs=[query_input, chatbot, chat_history, retreival_vector_db]  # chatbot auto-displays chat_history
         )
-    server_port = int(os.getenv("RAG_PORT", "7680"))
+    server_port = int(os.getenv("RAG_PORT", "7860"))
     if not (1 <= server_port <= MAX_PORT_NUMBER):
         raise ValueError(
         f"PORT {server_port} outside of valid port Range 1-{MAX_PORT_NUMBER}!"

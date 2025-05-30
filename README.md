@@ -10,11 +10,11 @@ Before using this project, ensure you have the following dependencies installed:
 - **[llama-cpp-python](https://github.com/abetlen/llama-cpp-python):** Python bindings for running LLaMA-based models locally.
 
 For ppc64le you can use these commands to get chroma, llama.cpp.python and other libraries:
-micromamba create -n env python=3.10
+micromamba create -n env python=3.11 (Note: If you do not have micromamba, then download it with "curl -Ls https://micro.mamba.pm/api/micromamba/linux-ppc64le/latest | tar -xvj bin/micromamba" into your home directory)
 
-micromamba install -c rocketce -c defaults pytorch-cpu scikit-learn pyyaml httptools onnxruntime "pandas<1.6.0" tokenizers
+micromamba install -c rocketce -c defaults pytorch-cpu pyyaml httptools onnxruntime "pandas<1.6.0" tokenizers
 
-pip install -U --extra-index-url https://repo.fury.io/mgiessing --prefer-binary chromadb transformers psutil langchain sentence_transformers gradio==3.50.2 llama-cpp-python
+pip install -U --extra-index-url https://repo.fury.io/mgiessing --prefer-binary chromadb transformers psutil langchain sentence_transformers gradio==3.50.2 llama-cpp-python scikit-learn
 
 
 
@@ -40,6 +40,8 @@ To generate the vector database from your markdown files:
    ```bash
    python chromaDB_md.py
    ```
+
+   Note: If you do have other .md files in the markdown folder, then you need to specify this in the database_setup.txt file. Here you need to first give it the name of the collection that you want to add the file to and afterwards the name.
 2. This will create a vector database in the `/db` directory. The database includes **5 collections**, each corresponding to a markdown file.
 
 ### 3. Configure the LLM
@@ -56,7 +58,7 @@ Execute the pipeline by running:
 python run_model.py
 ```
 
-This will start serving the gradio UI over HTTP port `8082` 
+This will start serving the gradio UI over HTTP port `e.g. 7680` 
 
 ## Alternative Installation: Ansible Playbooks
 

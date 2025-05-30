@@ -1,0 +1,6 @@
+POWER10:E1050.md
+POWER10:E1080.md
+POWER10:S1012.md
+POWER10:ScaleOut.md
+OPENSHIFT:Openshift.md
+ANSIBLE:Ansible.md
