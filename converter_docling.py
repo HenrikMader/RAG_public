@@ -2,7 +2,7 @@ import os
 from docling.document_converter import DocumentConverter
 
 # Specify the source directory containing the PDF files
-source_directory = "./pdf_files_pdf"
+source_directory = "./db_files_pdf"
 output_directory = "./db_files_md"
 
 # Ensure the output directory exists
