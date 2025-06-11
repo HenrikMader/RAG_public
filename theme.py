@@ -1,5 +1,6 @@
 from gradio.themes.base import Base
 from gradio.themes.utils import colors, fonts, sizes
+from typing import Union
 
 
 def create_color(name: str, value: str) -> colors.Color:
@@ -25,23 +26,19 @@ class IBMTheme(Base):
     def __init__(
         self,
         *,
-        primary_hue: colors.Color | str = ibm_blue,
-        secondary_hue: colors.Color | str = colors.emerald,
-        neutral_hue: colors.Color | str = colors.gray,
-        spacing_size: sizes.Size | str = sizes.spacing_md,
-        radius_size: sizes.Size | str = sizes.radius_md,
-        text_size: sizes.Size | str = sizes.text_lg,
-        font: fonts.Font
-        | str
-        | list[fonts.Font | str] = (
+        primary_hue: Union[colors.Color, str] = ibm_blue,
+        secondary_hue: Union[colors.Color, str] = colors.emerald,
+        neutral_hue: Union[colors.Color, str] = colors.gray,
+        spacing_size: Union[sizes.Size, str] = sizes.spacing_md,
+        radius_size: Union[sizes.Size, str] = sizes.radius_md,
+        text_size: Union[sizes.Size, str] = sizes.text_lg,
+        font: Union[fonts.Font, str, list[Union[fonts.Font, str]]] = (
             "IBM Plex Serif",
             fonts.GoogleFont("IBM Plex Serif"),
             "ui-sans-serif",
             "sans-serif",
         ),
-        font_mono: fonts.Font
-        | str
-        | list[fonts.Font | str] = (
+        font_mono: Union[fonts.Font, str, list[Union[fonts.Font, str]]] = (
             "IBM Plex Mono",
             fonts.GoogleFont("IBM Plex Mono"),
             "ui-monospace",

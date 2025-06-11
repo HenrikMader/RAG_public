@@ -14,7 +14,7 @@ micromamba create -n env python=3.11 (Note: If you do not have micromamba, then 
 
 micromamba install -c rocketce -c defaults pytorch-cpu pyyaml httptools onnxruntime "pandas<1.6.0" tokenizers
 
-pip install -U --extra-index-url https://repo.fury.io/mgiessing --prefer-binary chromadb transformers psutil langchain sentence_transformers gradio==3.50.2 llama-cpp-python scikit-learn
+pip install -U --extra-index-url https://repo.fury.io/mgiessing --prefer-binary chromadb transformers psutil langchain sentence_transformers gradio==3.50.2 llama-cpp-python scikit-learn docling
 
 
 
@@ -24,6 +24,8 @@ pip install -U --extra-index-url https://repo.fury.io/mgiessing --prefer-binary 
 Install the other libraries with pip for x86 and with conda (rocketce or defaults as the channel)
 
 ## Usage
+
+Note that every step has been done beforehand, so you do not need to build up the VectorDB or convert the pdfs into markdown. Just run python run_model.py and the Gradio frontend should come up. If you do want to go through the steps manually, then follow along. Also note, that you can enrich this application with your own RedBooks. This is also described in the following. Look at the architecture.png file to get an overall feel for this application.
 
 ### 1. Convert the pdf files into a markdown file
 

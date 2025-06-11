@@ -15,7 +15,7 @@ from theme import IBMTheme
 chroma_client = chromadb.PersistentClient(path="./db")
 
 # Initialize LLaMA model with llama-cpp-python (local model)
-llama_model_path = os.getenv("RAG_MODEL_PATH") or "/data/LLMs/gguf/ibm-granite_granite-3.2-8b-instruct-Q4_K_M.gguf"
+llama_model_path = os.getenv("RAG_MODEL_PATH") or "granite-3.3-2b-instruct-Q4_K_M.gguf"
 llama = Llama(model_path=llama_model_path, n_ctx=0)
 
 #model = SentenceTransformer('all-mpnet-base-v2')
@@ -43,17 +43,6 @@ def generate_response(query, collection_name, chat_history):
     Generates a response from the LLaMA model, using streaming, 
     and updates the chat_history with partial bot outputs.
     """
-    
-    print("collection")
-    print(collection_name)
-    if (collection_name == "Openshift/AI on POWER"):
-        collection_name = "Openshift"
-    elif (collection_name == "Ansible"):
-        collection_name = "Ansible"
-    else:
-        collection_name = "POWER10"
-
-
 
     # Use context if needed
     use_context = True
