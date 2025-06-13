@@ -186,9 +186,10 @@ def main() -> None:
         print(file_name)
         print("to")
         print(collection_name)
-
+        
+        print(type(collection_name))
         # Ensure the collection exists or create it
-        collection_status, collection = ensure_collection(chroma_client, collection_name)
+        collection_status, collection = ensure_collection(chroma_client, str(collection_name))
 
         if collection_status == CollectionStatus.COLLECTION_EXISTS:
             print(f"Collection '{collection_name}' already exists. Skipping file insertion.")
@@ -203,7 +204,28 @@ def main() -> None:
                 insert_document(document_path, collection)
                 print(f"Inserted {file_name} into {collection_name}")
             else:
-                print(f"File {file_name} not found!")
+        from docling.datamodel.base_models import InputFormat
+from docling.document_converter import DocumentConverter, PdfFormatOption
+from docling.pipeline.vlm_pipeline import VlmPipeline
+from docling.datamodel.pipeline_options import (
+    VlmPipelineOptions,
+)
+from docling.datamodel import vlm_model_specs
+
+pipeline_options = VlmPipelineOptions(
+    vlm_options=vlm_model_specs.SMOLDOCLING_MLX,  # <-- change the model here
+)
+
+converter = DocumentConverter(
+    format_options={
+        InputFormat.PDF: PdfFormatOption(
+            pipeline_cls=VlmPipeline,
+            pipeline_options=pipeline_options,
+        ),
+    }
+)
+
+doc = converter.convert(source="FILE").document        print(f"File {file_name} not found!")
             
             # Delay between operations
 

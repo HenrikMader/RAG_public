@@ -1,5 +1,10 @@
 import os
-from docling.document_converter import DocumentConverter
+from docling_core.types.doc import ImageRefMode
+from docling.datamodel.base_models import InputFormat
+from docling.datamodel.pipeline_options import PdfPipelineOptions
+from docling.document_converter import DocumentConverter, PdfFormatOption
+
+
 
 # Specify the source directory containing the PDF files
 source_directory = "./db_files_pdf"
@@ -8,8 +13,20 @@ output_directory = "./db_files_md"
 # Ensure the output directory exists
 os.makedirs(output_directory, exist_ok=True)
 
+
+IMAGE_RESOLUTION_SCALE = 2.0
+
+pipeline_options = PdfPipelineOptions()
+pipeline_options.images_scale = IMAGE_RESOLUTION_SCALE
+pipeline_options.generate_picture_images = True
+
 # Initialize the DocumentConverter
-converter = DocumentConverter()
+converter = DocumentConverter(
+    format_options={
+        InputFormat.PDF: PdfFormatOption(pipeline_options=pipeline_options),
+    },
+)
+
 
 # Loop through all files in the source directory
 for file_name in os.listdir(source_directory):
@@ -27,10 +44,12 @@ for file_name in os.listdir(source_directory):
             # Define the output file path with .md extension
             output_file_name = os.path.splitext(file_name)[0] + ".md"
             output_file_path = os.path.join(output_directory, output_file_name)
+                
+            doc.save_as_markdown(filename=output_file_path, image_mode=ImageRefMode.EMBEDDED)
 
             # Save the Markdown content to the output file
-            with open(output_file_path, 'w', encoding='utf-8') as f:
-                f.write(markdown_content)
+            #with open(output_file_path, 'w', encoding='utf-8') as f:
+            #    f.write(markdown_content)
 
             print(f"Saved Markdown file: {output_file_path}")
         except Exception as e:
