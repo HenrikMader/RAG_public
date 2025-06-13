@@ -39,13 +39,13 @@ for file_name in os.listdir(source_directory):
             result = converter.convert(source_path)
 
             # Export the document to Markdown
-            markdown_content = result.document.export_to_markdown()
+            #markdown_content = result.document.export_to_markdown()
 
             # Define the output file path with .md extension
             output_file_name = os.path.splitext(file_name)[0] + ".md"
             output_file_path = os.path.join(output_directory, output_file_name)
                 
-            doc.save_as_markdown(filename=output_file_path, image_mode=ImageRefMode.EMBEDDED)
+            result.save_as_markdown(filename=output_file_path, image_mode=ImageRefMode.EMBEDDED)
 
             # Save the Markdown content to the output file
             #with open(output_file_path, 'w', encoding='utf-8') as f:
