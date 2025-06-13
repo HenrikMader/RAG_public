@@ -36,7 +36,7 @@ for file_name in os.listdir(source_directory):
 
         try:
             # Convert the PDF to a document
-            result = converter.convert(source_path)
+            result = converter.convert(source_path, page_range=(1, 3)).document
 
             # Export the document to Markdown
             #markdown_content = result.document.export_to_markdown()
