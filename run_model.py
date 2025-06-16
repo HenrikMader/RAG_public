@@ -208,7 +208,7 @@ def main():
             inputs=[query_input, file_selector, chat_history],
             outputs=[query_input, chatbot, chat_history, retreival_vector_db]  # chatbot auto-displays chat_history
         )
-    server_port = int(os.getenv("RAG_PORT", "7860"))
+    server_port = int(os.getenv("RAG_PORT", "7680"))
     if not (1 <= server_port <= MAX_PORT_NUMBER):
         raise ValueError(
         f"PORT {server_port} outside of valid port Range 1-{MAX_PORT_NUMBER}!"

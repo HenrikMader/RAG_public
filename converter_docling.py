@@ -3,8 +3,8 @@ from docling_core.types.doc import ImageRefMode
 from docling.datamodel.base_models import InputFormat
 from docling.datamodel.pipeline_options import PdfPipelineOptions
 from docling.document_converter import DocumentConverter, PdfFormatOption
-
-
+from docling.datamodel.pipeline_options import granite_picture_description
+from docling.datamodel.accelerator_options import AcceleratorDevice, AcceleratorOptions
 
 # Specify the source directory containing the PDF files
 source_directory = "./db_files_pdf"
@@ -16,9 +16,29 @@ os.makedirs(output_directory, exist_ok=True)
 
 IMAGE_RESOLUTION_SCALE = 2.0
 
+
+
 pipeline_options = PdfPipelineOptions()
-pipeline_options.images_scale = IMAGE_RESOLUTION_SCALE
-pipeline_options.generate_picture_images = True
+#pipeline_options.do_picture_description = True
+#pipeline_options.picture_description_options = (
+#    granite_picture_description  # <-- the model choice
+#)
+#pipeline_options.picture_description_options.prompt = (
+#    "Describe the image in three sentences. Be consise and accurate."
+#)
+#pipeline_options.images_scale = 2.0
+#pipeline_options.generate_picture_images = True
+
+
+
+pipeline_options.do_ocr = False
+pipeline_options.do_table_structure = True
+pipeline_options.table_structure_options.do_cell_matching = True
+pipeline_options.accelerator_options = AcceleratorOptions(
+    num_threads=4, device=AcceleratorDevice.AUTO
+)
+
+
 
 # Initialize the DocumentConverter
 converter = DocumentConverter(
@@ -36,7 +56,7 @@ for file_name in os.listdir(source_directory):
 
         try:
             # Convert the PDF to a document
-            result = converter.convert(source_path, page_range=(1, 3)).document
+            result = converter.convert(source_path).document
 
             # Export the document to Markdown
             #markdown_content = result.document.export_to_markdown()
@@ -45,7 +65,7 @@ for file_name in os.listdir(source_directory):
             output_file_name = os.path.splitext(file_name)[0] + ".md"
             output_file_path = os.path.join(output_directory, output_file_name)
                 
-            result.save_as_markdown(filename=output_file_path, image_mode=ImageRefMode.EMBEDDED)
+            result.save_as_markdown(filename=output_file_path)
 
             # Save the Markdown content to the output file
             #with open(output_file_path, 'w', encoding='utf-8') as f:

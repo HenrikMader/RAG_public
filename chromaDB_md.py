@@ -11,6 +11,12 @@ import os
 import re
 from langchain.text_splitter import MarkdownHeaderTextSplitter, RecursiveCharacterTextSplitter
 import time
+from docling.document_converter import DocumentConverter
+from docling.chunking import HybridChunker
+
+
+
+#doc = DocumentConverter().convert(source=DOC_SOURCE).document
 
 sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-mpnet-base-v2")
 
@@ -71,63 +77,43 @@ def insert_document(document_path: Path, collection: Collection) -> None:
     Reads a markdown file, splits it into chunks, generates embeddings,
     and inserts the chunks into a ChromaDB collection.
     """
-    # Read the markdown file content
-    with open(document_path, 'r') as file:
-        markdown_content = file.read()
+    doc = DocumentConverter().convert(source=str(document_path)).document
+    chunker = HybridChunker()
+    chunk_iter = chunker.chunk(dl_doc=doc)
     
-    #markdown_content = clean_text(markdown_content)
-
-    text = splitter.split_text(markdown_content)    
-    
-    document_name = document_path.stem.replace(" ", "-").replace("_", "-")
-
-    # Get chunks of text from the markdown content
-    #chunks = get_chunks(markdown_content)
     document_chunks = []
     document_ids = []
 
-    #print("Whole text")
-    #print(text)
-    for chunk_index, chunk in enumerate(text):
-        
-        #sub_chunks = recursive_splitter.split_text(chunk.page_content)
+    print("document path")
 
-        #for sub_index, sub_chunk in enumerate(sub_chunks):
-        document_ids.append(f"{document_name}_chunk{chunk_index}")
-        document_chunks.append(chunk.page_content)
+    print(document_path)
+
+    document_name = document_path.stem.replace(" ", "-").replace("_", "-")
+
+    for i, chunk in enumerate(chunk_iter):
+        document_ids.append(f"{document_name}_chunk{i}")
+
+        enriched_text = chunker.contextualize(chunk=chunk)
+        print("chunk")
+        print(type(chunk))
+        print(chunk)
+
+        final_chunk = ""
+        final_chunk += "Heading: "
+        final_chunk += chunk.meta.headings[0]
+        final_chunk += " Content: "
+        final_chunk += chunk.text
+
+        print(final_chunk)
+        document_chunks.append(final_chunk)
+
+        #print(f"chunker.contextualize(chunk):\n{f'{enriched_text[:300]}…'!r}")
 
     
     collection.add(
                 documents=document_chunks,
                 ids=document_ids
             )
-    
-
-    '''
-    print("Adding chunks to collection:")
-    #print(document_chunks)
-
-    # Add documents with embeddings to the ChromaDB collection
-    batch_size = len(document_chunks) // 100  # Calculate 10% of chunks
-    if batch_size == 0:  # Handle small input where 10% is less than 1
-        batch_size = 1
-
-    # Iterate through document_chunks in batches
-    for i in range(0, len(document_chunks), batch_size):
-        batch_chunks = document_chunks[i:i + batch_size]
-        batch_ids = document_ids[i:i + batch_size]
-        print(batch_ids)
-
-        print(f"Before batch {i}, Memory Usage: {psutil.virtual_memory().percent}%")
-        try:
-            collection.add(
-                documents=batch_chunks,
-                ids=batch_ids
-            )
-        except Exception as e:
-            print(f"Error occurred: {e}")
-        print(f"After batch {i}, Memory Usage: {psutil.virtual_memory().percent}%")
-'''
 
 
 ## Folder_path = path to e config files
