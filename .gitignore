@@ -1,13 +1,18 @@
 # Ignore the folder db_files_txt
 /.cache/
 /db_files_ocp/
-/__pycache__/
-/.venv/
+__pycache__/
 
 # Ignore the folder myenv (which is likely your virtual environment)
 myenv/
+/.venv/
+.python-version
+
+# packaging:
+**/*.egg-info
 
 # Ignore specific files (exact filenames)
+*.gguf
 Meta-Llama-3-8B.Q8_0.gguf
 Meta-Llama-3-8B.Q8-Instruct-Q5_K_M.gguf
 llama-2-7b-chat.Q8_0.gguf
@@ -16,3 +21,12 @@ mistral-7b-v0.1.Q4_K_M.gguf
 llama-3.2-3b-instruct-q8_0.gguf
 DeepSeek-R1-Distill-Qwen-14B-Q8_0.gguf
 granite-3.3-2b-instruct-Q4_K_M.gguf
+
+# Tool output:
+.ansible/
+.vscode/
+
+
+# Secret files:
+*.env
+!*.example.env
