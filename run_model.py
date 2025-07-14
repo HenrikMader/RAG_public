@@ -8,8 +8,12 @@ from sentence_transformers import SentenceTransformer
 import time
 import re
 from theme import IBMTheme
+from sentence_transformers import CrossEncoder
 
 
+
+sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-mpnet-base-v2")
+reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 
 # Initialize ChromaDB client and collection
 chroma_client = chromadb.PersistentClient(path="./db")
@@ -24,7 +28,7 @@ sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFuncti
 MAX_PORT_NUMBER = 65_535
 
 # Function to retrieve relevant documents from ChromaDB
-def retrieve_documents(query, collection_name, top_k=1):
+def retrieve_documents(query, collection_name, top_k=20):
  
     collection = chroma_client.get_collection(name=collection_name, embedding_function=sentence_transformer_ef)
     
@@ -34,8 +38,20 @@ def retrieve_documents(query, collection_name, top_k=1):
     results = collection.query(query_texts=[query], n_results=top_k)
     
     # Extract the documents
-    retrieved_documents = results["documents"]
+    retrieved_documents = results["documents"] [0]
+
     return retrieved_documents
+
+
+def rerank_documents(query, documents, top_k=5):
+    pairs = [(query, doc) for doc in documents]
+    scores = reranker.predict(pairs)
+    scored_docs = list(zip(documents, scores))
+    ranked = sorted(scored_docs, key=lambda x: x[1], reverse=True)
+    top_documents = [doc for doc, score in ranked[:top_k]]
+    return top_documents
+
+
 
 # Function to generate response with LLaMA model using llama-cpp-python
 def generate_response(query, collection_name, chat_history):
@@ -44,41 +60,45 @@ def generate_response(query, collection_name, chat_history):
     and updates the chat_history with partial bot outputs.
     """
 
-    # Use context if needed
-    use_context = True
-
     print("Chat history")
     print(chat_history)
 
-    if use_context:
-        documents = retrieve_documents(query, collection_name)
-        print(documents)
-        flat_documents = [item for sublist in documents for item in sublist]
-        context = "\n".join(flat_documents)
+    documents = retrieve_documents(query, collection_name)
+    print(f"\nRetrieved {len(documents)} documents (pre-reranking):")
+    for doc in documents:
+        print(f"- {doc[:100]}...")
 
-        input_text = input_text = f"""
-### CONTEXT:
-{context}
+    # Rerank and select top 5
+    top_documents = rerank_documents(query, documents, top_k=5)
+    context = "\n".join(top_documents)
 
-### CHAT HISTORY:
-{chat_history}
+    print("\nTop 5 documents after reranking:")
+    for i, doc in enumerate(top_documents):
+        print(f"\n[{i+1}] {doc[:300]}...\n")
 
-### QUERY:
-{query}
-
-
-Answer the users QUERY using the DOCUMENT or CHAT HISTORY text above.
-Keep your answer ground in the facts of the DOCUMENT.
-If the DOCUMENT doesn’t contain the facts to answer the QUERY, then state "I do not know".
-
-### Answer:
-"""
-
-        print("input text")
-        print(input_text)
         
-    else:
-        input_text = f"Query: {query}\nAnswer: "
+
+    input_text = input_text = f"""
+    ### CONTEXT:
+    {context}
+
+    ### CHAT HISTORY:
+    {chat_history}
+
+    ### QUERY:
+    {query}
+
+
+    Answer the users QUERY using the DOCUMENT or CHAT HISTORY text above.
+    Keep your answer ground in the facts of the DOCUMENT.
+    If the DOCUMENT doesn’t contain the facts to answer the QUERY, then state "I do not know".
+
+    ### Answer:
+    """
+
+    print("input text")
+    print(input_text)
+        
 
     # Prepare a string to accumulate the model’s streamed tokens
     cmData = ""
