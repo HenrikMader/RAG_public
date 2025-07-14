@@ -27,7 +27,6 @@ headers_to_split_on = [
 ]
 
 splitter = MarkdownHeaderTextSplitter(headers_to_split_on, strip_headers=False)
-recursive_splitter = RecursiveCharacterTextSplitter(chunk_size=500)
 
 
 class CollectionStatus(Enum):
@@ -57,18 +56,6 @@ def clean_text(raw_text: str) -> str:
     cleaned_text = raw_text.replace("\n", " ")
     cleaned_text = re.sub(r"\s+", " ", raw_text)
     return cleaned_text
-
-## This is Character Splitting. Not optimal
-#def get_chunks(text: str, max_words: int = 150) -> list[tuple[str, int]]:
-#    words = clean_text(text).split(" ")
-#    chunks = []
-    # Split the text into chunks of max_words length
-#    for i in range(0, len(words), max_words):
-#        chunk = words[i:i + max_words]
-#        chunk_text = " ".join(chunk).strip()
-#        chunks.append((chunk_text, i // max_words))
-#    return chunks
-
 
 
 
