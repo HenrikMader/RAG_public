@@ -43,6 +43,43 @@ def retrieve_documents(query, collection_name, top_k=20):
     return retrieved_documents
 
 
+def rewrite_query(query, n_variants=3):
+    """
+    Rewrites the user query into more detailed or paraphrased forms to help with retrieval.
+
+    Args:
+        query (str): The original user question.
+        n_variants (int): Number of rewrites to generate.
+
+    Returns:
+        List[str]: A list of rewritten query variants.
+    """
+    prompt = f"""You are a helpful AI assistant for IT-Operations specialized in improving information retrieval queries.
+
+    Rewrite the following query into {n_variants} semantically varied, specific, and detailed forms.
+    Avoid repeating the exact phrasing. Ensure each version is useful for searching documents.
+
+    Original query:
+    "{query}"
+
+    Rewritten queries:"""
+
+    # Call the model
+    response = llama(prompt)
+
+    # Basic post-processing to extract clean rewrites
+    rewrites = []
+    for line in response.split("\n"):
+        line = line.strip("-•1234567890. ").strip()
+        if line and line.lower() != query.lower():
+            rewrites.append(line)
+
+    print("-------------------- rewrites --------------------")
+    print(rewrites)
+    
+    return rewrites
+
+
 def rerank_documents(query, documents, top_k=5):
     pairs = [(query, doc) for doc in documents]
     scores = reranker.predict(pairs)
@@ -76,7 +113,8 @@ def generate_response(query, collection_name, chat_history):
     for i, doc in enumerate(top_documents):
         print(f"\n[{i+1}] {doc[:300]}...\n")
 
-        
+    print("Now rewriting the query")
+    rewrite_query(query=query, n_variants=3)
 
     input_text = input_text = f"""
     ### CONTEXT:
