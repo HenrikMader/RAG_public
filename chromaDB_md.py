@@ -13,6 +13,7 @@ from langchain.text_splitter import MarkdownHeaderTextSplitter, RecursiveCharact
 import time
 from docling.document_converter import DocumentConverter
 from docling.chunking import HybridChunker
+from docling_core.transforms.chunker.tokenizer.huggingface import HuggingFaceTokenizer
 
 
 
@@ -20,13 +21,16 @@ from docling.chunking import HybridChunker
 
 sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-mpnet-base-v2")
 
-headers_to_split_on = [
-    ("#", "Header 1"),
-    ("##", "Header 2"),
-    ("###", "Header 3"),
-]
 
-splitter = MarkdownHeaderTextSplitter(headers_to_split_on, strip_headers=False)
+#### Not quite sure yet
+EMBED_MODEL_ID = "sentence-transformers/all-mpnet-base-v2"
+MAX_TOKENS = 512  # set to a small number for illustrative purposes
+
+tokenizer = HuggingFaceTokenizer(
+    tokenizer=AutoTokenizer.from_pretrained(EMBED_MODEL_ID),
+    max_tokens=MAX_TOKENS, 
+)
+
 
 
 class CollectionStatus(Enum):
@@ -65,15 +69,13 @@ def insert_document(document_path: Path, collection: Collection) -> None:
     and inserts the chunks into a ChromaDB collection.
     """
     doc = DocumentConverter().convert(source=str(document_path)).document
-    chunker = HybridChunker()
+    chunker = HybridChunker(
+        tokenizer=tokenizer
+    )
     chunk_iter = chunker.chunk(dl_doc=doc)
     
     document_chunks = []
     document_ids = []
-
-    print("document path")
-
-    print(document_path)
 
     document_name = document_path.stem.replace(" ", "-").replace("_", "-")
 
@@ -81,9 +83,6 @@ def insert_document(document_path: Path, collection: Collection) -> None:
         document_ids.append(f"{document_name}_chunk{i}")
 
         enriched_text = chunker.contextualize(chunk=chunk)
-        print("chunk")
-        print(type(chunk))
-        print(chunk)
 
         final_chunk = ""
         final_chunk += "Heading: "
@@ -93,9 +92,6 @@ def insert_document(document_path: Path, collection: Collection) -> None:
 
         print(final_chunk)
         document_chunks.append(final_chunk)
-
-        #print(f"chunker.contextualize(chunk):\n{f'{enriched_text[:300]}…'!r}")
-
     
     collection.add(
                 documents=document_chunks,
@@ -109,7 +105,6 @@ def load_files_into_chroma(folder_path, client: chromadb.ClientAPI, collection_n
 
     collection_status, collection = ensure_collection(client, collection_name)
 
-
     for filename in os.listdir(folder_path):
         file_path = os.path.join(folder_path, filename)
         
@@ -119,8 +114,6 @@ def load_files_into_chroma(folder_path, client: chromadb.ClientAPI, collection_n
             with open(file_path, 'r', encoding='utf-8') as f:
                 file_content = f.read()
             
-
-
             # Add the file content to the Chroma collection as a new chunk
             collection.add(
                 documents=[file_content],
@@ -145,9 +138,6 @@ def main() -> None:
 
     chroma_client = chromadb.PersistentClient(path=str(db_directory))
 
-    ## Inserting e config files firt
-
-    #load_files_into_chroma("./db_config", chroma_client, "e_config_files")
 
     file = open("database_setup.txt")
     for i in file:
@@ -179,21 +169,6 @@ def main() -> None:
             else:
                 print(f"File {file_name} not found!")
             
-            # Delay between operations
-
-    # Final collection with all the markdown files in the directory
-    #final_collection_name = "final_collection_all_files"
-    #collection_status, collection = ensure_collection(chroma_client, final_collection_name)
-
-    #if collection_status == CollectionStatus.COLLECTION_EXISTS:
-    #    print(f"Collection '{final_collection_name}' already exists. Skipping file insertion.")
-    #else:
-    #    print(f"Creating collection '{final_collection_name}' and inserting all documents.")
-    #    for document_path in files_directory.glob("*.md"):  # Insert all .md files
-    #        insert_document(document_path, collection)
-    #        print(f"Inserted {document_path.name} into {final_collection_name}")
-    #        time.sleep(5)
-
     print("Setup completed.")
 
     # Example query for testing

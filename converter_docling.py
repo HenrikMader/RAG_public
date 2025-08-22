@@ -5,6 +5,13 @@ from docling.datamodel.pipeline_options import PdfPipelineOptions
 from docling.document_converter import DocumentConverter, PdfFormatOption
 from docling.datamodel.pipeline_options import granite_picture_description
 from docling.datamodel.accelerator_options import AcceleratorDevice, AcceleratorOptions
+from docling.datamodel.pipeline_options import granite_picture_description
+
+
+
+
+
+
 
 # Specify the source directory containing the PDF files
 source_directory = "./db_files_pdf"
@@ -31,12 +38,10 @@ pipeline_options = PdfPipelineOptions()
 
 
 
-pipeline_options.do_ocr = False
+
 pipeline_options.do_table_structure = True
-pipeline_options.table_structure_options.do_cell_matching = True
-pipeline_options.accelerator_options = AcceleratorOptions(
-    num_threads=4, device=AcceleratorDevice.AUTO
-)
+pipeline_options.do_code_enrichment = True
+pipeline_options.do_formula_enrichment = True
 
 
 
