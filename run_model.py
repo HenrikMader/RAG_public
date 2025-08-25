@@ -7,19 +7,19 @@ from transformers import AutoTokenizer, AutoModel
 from sentence_transformers import SentenceTransformer
 import time
 import re
-from theme import IBMTheme
 from sentence_transformers import CrossEncoder
 
 
 
+
 sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-mpnet-base-v2")
-reranker = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+reranker = CrossEncoder("jinaai/jina-reranker-v2-base-multilingual", trust_remote_code=True)
 
 # Initialize ChromaDB client and collection
 chroma_client = chromadb.PersistentClient(path="./db")
 
 # Initialize LLaMA model with llama-cpp-python (local model)
-llama_model_path = os.getenv("RAG_MODEL_PATH") or "/data/LLMs/gguf/Llama-3.2-3B-Instruct-Q4_K_M.gguf"
+llama_model_path = os.getenv("RAG_MODEL_PATH") or "./Llama-3.2-3B-Instruct-Q4_K_M.gguf"
 llama = Llama(model_path=llama_model_path, n_ctx=0)
 
 #model = SentenceTransformer('all-mpnet-base-v2')
@@ -106,30 +106,29 @@ def generate_response(query, collection_name, chat_history):
         print(f"- {doc[:100]}...")
 
     # Rerank and select top 5
-    top_documents = rerank_documents(query, documents, top_k=5)
-    context = "\n".join(top_documents)
+    top_documents = rerank_documents(query, documents, top_k=3)
+    context = "\n".join(
+        f"--------- Chunk {i+1}:\n{doc}\n"
+        for i, doc in enumerate(top_documents)
+    )
 
-    print("\nTop 5 documents after reranking:")
+    print("\nTop 3 documents after reranking:")
     for i, doc in enumerate(top_documents):
         print(f"\n[{i+1}] {doc[:300]}...\n")
 
-    print("Now rewriting the query")
-    rewrite_query(query=query, n_variants=3)
+    #print("Now rewriting the query")
+    #rewrite_query(query=query, n_variants=3)
 
     input_text = input_text = f"""
     ### CONTEXT:
     {context}
 
-    ### CHAT HISTORY:
-    {chat_history}
-
     ### QUERY:
     {query}
 
 
-    Answer the users QUERY using the DOCUMENT or CHAT HISTORY text above.
-    Keep your answer ground in the facts of the DOCUMENT.
-    If the DOCUMENT doesn’t contain the facts to answer the QUERY, then state "I do not know".
+    Answer the users QUERY using the CONTEXT above.
+    If you can not find the Answer in the Context, then use your internal knowledge.
 
     ### Answer:
     """
@@ -155,25 +154,11 @@ def generate_response(query, collection_name, chat_history):
         # Each time we get new tokens, we yield an updated chat history
         partial_history = [(query, cmData)]
         
-        #partial_history[0] = "User Question:" + partial_history[0] 
-        
-        #print("partial_history")
-        #print(partial_history)
-        
-        #print("partial history here")
-        #print(partial_history[0][0])
-        
         if (len(chat_history) >= 1):
             chat_history.pop(0)
 
         helper = chat_history + [(("User Input: " + partial_history[0][0]), ("Answer from Chatbot: " + partial_history[0][1]))]
         
-        
-
-        #print("helper")
-        #print(helper)
-        
-            #print(partial_history)
 
         # Yield both the updated input and chat history
         yield "", partial_history, helper, gr.Textbox.update(value=context, visible=True)  # Return chat history twice (for chatbot & state)
@@ -209,7 +194,7 @@ def main():
     }
     """
 
-    with gr.Blocks(theme=IBMTheme()) as demo:
+    with gr.Blocks() as demo:
         gr.Markdown("# Chatbot about IBM RedBooks running on IBM POWER10")
 
         # A hidden state to store the chat hi:wq story (list of (user, bot) tuples).
