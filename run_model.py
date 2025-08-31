@@ -19,7 +19,7 @@ reranker = CrossEncoder("jinaai/jina-reranker-v2-base-multilingual", trust_remot
 chroma_client = chromadb.PersistentClient(path="./db")
 
 # Initialize LLaMA model with llama-cpp-python (local model)
-llama_model_path = os.getenv("RAG_MODEL_PATH") or "./Llama-3.2-3B-Instruct-Q4_K_M.gguf"
+llama_model_path = os.getenv("RAG_MODEL_PATH") or "./openai_gpt-oss-20b-MXFP4.gguf"
 llama = Llama(model_path=llama_model_path, n_ctx=0)
 
 #model = SentenceTransformer('all-mpnet-base-v2')
@@ -120,15 +120,16 @@ def generate_response(query, collection_name, chat_history):
     #rewrite_query(query=query, n_variants=3)
 
     input_text = input_text = f"""
-    ### CONTEXT:
+    ### DOCUMENTS:
     {context}
 
     ### QUERY:
     {query}
 
 
-    Answer the users QUERY using the CONTEXT above.
-    If you can not find the Answer in the Context, then use your internal knowledge.
+    You are a Retrieval Augmented Generation Chatbot (RAG).
+    Answer the users QUERY using the DOCUMENTS above.
+    If you can not find an Answer to the QUERY in the DOCUMENTS, then use your internal knowledge.
 
     ### Answer:
     """

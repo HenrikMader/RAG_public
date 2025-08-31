@@ -4,28 +4,44 @@ This repository provides a Retrieval-Augmented Generation (RAG) pipeline for pro
 
 ## Prerequisites
 
-Before using this project, ensure you have the following dependencies installed:
-
-- **[ChromaDB](https://github.com/chroma-core/chroma):** A vector database for storing embeddings.
-- **[llama-cpp-python](https://github.com/abetlen/llama-cpp-python):** Python bindings for running LLaMA-based models locally.
-
-For ppc64le you can use these commands to get chroma, llama.cpp.python and other libraries:
-micromamba create -n env python=3.11 (Note: If you do not have micromamba, then download it with "curl -Ls https://micro.mamba.pm/api/micromamba/linux-ppc64le/latest | tar -xvj bin/micromamba" into your home directory)
-
-micromamba install -c rocketce -c defaults pytorch-cpu pyyaml httptools onnxruntime "pandas<1.6.0" tokenizers
-
-pip install -U --extra-index-url https://repo.fury.io/mgiessing --prefer-binary chromadb transformers psutil langchain sentence_transformers gradio==3.50.2 llama-cpp-python scikit-learn docling
+Before using this project, you need to install several python libraries. Run these commands in order to install micromamba (package manger):
 
 
+$ curl -Ls https://micro.mamba.pm/api/micromamba/linux-ppc64le/latest | tar -xvj bin/micromamba
+
+$ eval “$(micromamba shell hook –shell bash)”
+
+$ micromamba –version
+
+This should display your current version of micromamba on your terminal. Now we need to create our virtual
+environment and install Python packages in it.
+
+$ micromamba create -n rag_env python=3.11
+
+$ micromamba activate rag_env
+
+Now you should see rag_env in the bottom left corner of your terminal. Now we are ready to install python packages into this environment:
+
+$ micromamba install -c rocketce -c defaults pytorch-cpu pyyaml httptools onnxruntime "pandas<1.6.0"
+tokenizers
+
+$ pip install -U --extra-index-url https://repo.fury.io/mgiessing --prefer-binary chromadb transformers
+psutil langchain sentence_transformers gradio==3.50.2 llama-cpp-python scikit-learn docling
 
 
-## Manual Installation
-
-Install the other libraries with pip for x86 and with conda (rocketce or defaults as the channel)
 
 ## Usage
 
-Note that every step has been done beforehand, so you do not need to build up the VectorDB or convert the pdfs into markdown. Just run python run_model.py and the Gradio frontend should come up. If you do want to go through the steps manually, then follow along. Also note, that you can enrich this application with your own RedBooks. This is also described in the following. Look at the architecture.png file to get an overall feel for this application.
+Note that every step has been done beforehand, so you do not need to build up the VectorDB or convert the pdfs into markdown.  You need to do 2 steps:
+
+1. Update the `model:path` in the run_model.py variable to point to your **GGUF model**.
+
+2. $ python run_model.py 
+
+and the Gradio frontend should be accesible on IP_your_machine:7680 in a webbrowser. 
+
+
+If you do want to go through the steps manually, then follow along. Also note, that you can enrich this application with your own files / RedBooks. This is also described in the following. Look at the architecture.png file to get an overall feel for this application.
 
 ### 1. Convert the pdf files into a markdown file
 
@@ -33,6 +49,8 @@ Note that every step has been done beforehand, so you do not need to build up th
    ```bash
    python converter_docling.py
    ```
+
+This will take for each RedBook file around 15 min.
 
 ### 2. Generate the Vector Database
 
@@ -44,7 +62,23 @@ To generate the vector database from your markdown files:
    ```
 
    Note: If you do have other .md files in the markdown folder, then you need to specify this in the database_setup.txt file. Here you need to first give it the name of the collection that you want to add the file to and afterwards the name.
-2. This will create a vector database in the `/db` directory. The database includes **5 collections**, each corresponding to a markdown file.
+
+Meaning, that this setup:
+
+POWER10:E1050.md
+POWER10:E1080.md
+POWER10:S1012.md
+POWER10:ScaleOut.md
+POWER11:E1180.md
+POWER11:E1150.md
+POWER11:P11_Scaleout.md
+OPENSHIFT:Openshift.md
+ANSIBLE:Ansible.md
+
+
+Creates 4 collections, which can be selected in the frontend, and querries are only going into the files in those collections. You can also do 1 large collections for all of your files.
+
+2. This will create a vector database in the `/db` directory.
 
 ### 3. Configure the LLM
 
