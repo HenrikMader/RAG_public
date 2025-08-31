@@ -2,8 +2,6 @@
 /.cache/
 /db_files_ocp/
 __pycache__/
-/db_files_md/
-/db_files_pdf/
 
 # Ignore the folder myenv (which is likely your virtual environment)
 myenv/
