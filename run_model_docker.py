@@ -10,6 +10,11 @@ import re
 from sentence_transformers import CrossEncoder
 from openai import OpenAI
 
+client = OpenAI(base_url="http://9.8.70.150:30000/v1", api_key="not-needed")
+
+
+
+
 
 
 sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-mpnet-base-v2")
@@ -170,6 +175,57 @@ def generate_response(query, collection_name, chat_history):
     return "", chat_history + [(query, cmData)], chat_history + [(query, cmData)]
 
 
+
+def generate_response_two(query, collection_name, chat_history):
+    documents = retrieve_documents(query, collection_name)
+    top_documents = rerank_documents(query, documents, top_k=3)
+
+    context = "\n".join(
+        f"--------- Chunk {i+1}:\n{doc}\n"
+        for i, doc in enumerate(top_documents)
+    )
+
+    prompt = f"""
+    ### DOCUMENTS:
+    {context}
+
+    ### QUERY:
+    {query}
+
+    You are a Retrieval Augmented Generation Chatbot (RAG).
+    Answer the users QUERY using the DOCUMENTS above.
+    If you can not find an Answer to the QUERY in the DOCUMENTS, then use your internal knowledge.
+
+    ### Answer:
+    """
+
+    # Make sure the model name is correct
+    response = client.chat.completions.create(
+        model="ibm-granite/granite-3.3-2b-instruct",
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=1024,
+        temperature=0.7,
+        stream=True,  # keep streaming
+    )
+
+    cmData = ""
+    for chunk in response:  # streamed chunks
+        if len(chunk.choices) > 0:
+            delta = chunk.choices[0].delta
+            if hasattr(delta, "content") and delta.content:
+                cmData += delta.content
+
+                # Yield updated chat history for Gradio streaming
+                partial_history = [(query, cmData)]
+                helper = chat_history + [(query, cmData)]
+                yield "", partial_history, helper, gr.Textbox.update(value=context, visible=True)
+
+    # Return final chat history
+    final_history = chat_history + [(query, cmData)]
+    return "", final_history, final_history
+
+
+
 # Create Gradio UI
 def main():
     # Custom CSS to approximate a ChatGPT look-and-feel
@@ -249,7 +305,7 @@ def main():
         # - Inputs: query_input, file_selector, use_context_toggle, and chat_history
         # - Outputs: (1) cleared query_input, (2) updated chat_history -> displayed by chatbot
         submit_button.click(
-            fn=generate_response,
+            fn=generate_response_two,
             inputs=[query_input, file_selector, chat_history],
             outputs=[query_input, chatbot, chat_history, retreival_vector_db]  # chatbot auto-displays chat_history
         )
