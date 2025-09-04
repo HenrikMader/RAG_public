@@ -32,4 +32,3 @@ for threads in thread_counts:
         f.write(result.stderr + "\n")
     
     print(f"Logged output to {output_file}\n")
-

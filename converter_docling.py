@@ -21,7 +21,7 @@ output_directory = "./db_files_md"
 os.makedirs(output_directory, exist_ok=True)
 
 
-IMAGE_RESOLUTION_SCALE = 2.0
+#IMAGE_RESOLUTION_SCALE = 2.0
 
 
 
@@ -39,9 +39,9 @@ pipeline_options = PdfPipelineOptions()
 
 
 
-pipeline_options.do_table_structure = True
-pipeline_options.do_code_enrichment = True
-pipeline_options.do_formula_enrichment = True
+#pipeline_options.do_table_structure = True
+#pipeline_options.do_code_enrichment = True
+#pipeline_options.do_formula_enrichment = True
 
 
 
