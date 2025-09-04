@@ -19,7 +19,7 @@ reranker = CrossEncoder("jinaai/jina-reranker-v2-base-multilingual", trust_remot
 chroma_client = chromadb.PersistentClient(path="./db")
 
 # Initialize LLaMA model with llama-cpp-python (local model)
-llama_model_path = os.getenv("RAG_MODEL_PATH") or "Llama-3.2-3B-Instruct-Q4_K_M.gguf"
+llama_model_path = os.getenv("RAG_MODEL_PATH") or "/data/LLMs/gguf/Llama-3.2-3B-Instruct-Q4_K_M.gguf"
 llama = Llama(model_path=llama_model_path, n_ctx=0)
 
 #model = SentenceTransformer('all-mpnet-base-v2')

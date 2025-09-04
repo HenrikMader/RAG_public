@@ -80,6 +80,8 @@ def insert_document(document_path: Path, collection: Collection) -> None:
     document_name = document_path.stem.replace(" ", "-").replace("_", "-")
 
     for i, chunk in enumerate(chunk_iter):
+        print(chunk)
+
         document_ids.append(f"{document_name}_chunk{i}")
 
         enriched_text = chunker.contextualize(chunk=chunk)

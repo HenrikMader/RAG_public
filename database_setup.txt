@@ -1,9 +1,3 @@
-POWER10:E1050.md
-POWER10:E1080.md
-POWER10:S1012.md
-POWER10:ScaleOut.md
-POWER11:E1180.md
-POWER11:E1150.md
-POWER11:P11_Scaleout.md
-OPENSHIFT:Openshift.md
-ANSIBLE:Ansible.md
+POWER10:IBM P10 Scale Out Servers Technical Overview - redp5675.md
+POWER10:IBM Power E1050 Technical Overview and Introduction - redp5684.md
+POWER10:IBM Power E1080 Technical Overview and Introduction - redp5649.md

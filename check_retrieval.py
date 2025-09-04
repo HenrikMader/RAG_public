@@ -36,7 +36,7 @@ def retrieve_documents(query, collection_name, top_k=20):
 
 
 query = "How many cores does the Power11 system has?"
-collection_name = "POWER11"
+collection_name = "AIX_COMMANDS"
 documents = retrieve_documents(query, collection_name)
 print(documents)
 print("After reranking")
