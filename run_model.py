@@ -19,7 +19,7 @@ reranker = CrossEncoder("jinaai/jina-reranker-v2-base-multilingual", trust_remot
 chroma_client = chromadb.PersistentClient(path="./db")
 
 # Initialize LLaMA model with llama-cpp-python (local model)
-llama_model_path = os.getenv("RAG_MODEL_PATH") or "/data/LLMs/gguf/Llama-3.2-3B-Instruct-Q4_K_M.gguf"
+llama_model_path = os.getenv("RAG_MODEL_PATH") or "/data/LLMs/gguf/Llama-3.2-3B-Instruct-Q8_0.gguf"
 llama = Llama(model_path=llama_model_path, n_ctx=0)
 
 #model = SentenceTransformer('all-mpnet-base-v2')
@@ -259,7 +259,8 @@ def main():
         f"PORT {server_port} outside of valid port Range 1-{MAX_PORT_NUMBER}!"
     )
     # Launch the Gradio app
-    demo.launch(server_name="0.0.0.0", server_port = server_port, enable_queue=True)
+    demo.queue(default_concurrency_limit=5)
+    demo.launch(server_name="0.0.0.0", server_port = server_port)
 
 if __name__ == "__main__":
     main()
