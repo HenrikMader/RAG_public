@@ -4,6 +4,12 @@ Front cover
 
 ## IBM Power E1050 Technical Overview and Introduction
 
+Tim Simon
+
+Dean Mussari
+
+Tsvetomir Spasov
+
 <!-- image -->
 
 <!-- image -->
@@ -14,19 +20,17 @@ Front cover
 
 IBM Redbooks
 
-IBM Power E1050 Technical Overview and Introduction
+## IBM Power E1050 Technical Overview and Introduction
 
 November 2024
 
-## © Copyright International Business Machines Corporation 2022, 2024. All rights reserved.
-
-Note  to  U.S.  Government  Users  Restricted  Rights  --  Use,  duplication  or  disclosure  restricted  by  GSA  ADP  Schedule Contract with IBM Corp.
+Note: Before using this information and the product it supports, read the information in 'Notices' on page vii.
 
 ## Second Edition (November 2024)
 
 This edition applies to the IBM Power E1050 (9043-MRX) server and the Hardware Management Console (HMC) Version 10 Release 1.
 
-Note: Before using this information and the product it supports, read the information in 'Notices' on page vii.
+Note  to  U.S.  Government  Users  Restricted  Rights  --  Use,  duplication  or  disclosure  restricted  by  GSA  ADP  Schedule Contract with IBM Corp.
 
 ## Contents
 
@@ -35,156 +39,158 @@ Note: Before using this information and the product it supports, read the inform
 | Trademarks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                            | . viii    |
 | Preface . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                         | . . ix    |
 | Authors. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                        | . . .x    |
-| Now you can become a published author, too! . . . . . . . . . . . . . .                                                                                 | . . .x    |
-| Comments welcome. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                   | . . xi    |
-| Stay connected to IBM Redbooks . . . . . . . . . . . . . . . . . . . . . . . .                                                                          | . . xi    |
+| Now you can become a published author, too! . . . . . . . . . . . . . .                                                                                 | . .x      |
+| Comments welcome. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                   | . xi      |
+| Stay connected to IBM Redbooks . . . . . . . . . . . . . . . . . . . . . . . .                                                                          | . xi      |
 | Summary of changes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                    | . xiii    |
-| November 2024, Second Edition . . . . . . . . . . . . . . . . . . . . . . . . .                                                                         | . xiii    |
-| Chapter 1. IBM Power E1050 overview . . . . . . . . . . . . . . . . . .                                                                                 | . . 1     |
-| 1.1 System overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                 | . . 2     |
-| 1.2 Operating environment . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                     | . . 6     |
-| 1.3 Physical package . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                  | . . 8     |
+| November 2024, Second Edition . . . . . . . . . . . . . . . . . . . . . . . . .                                                                         | xiii      |
+| Chapter 1. IBM Power E1050 overview . . . . . . . . . . . . . . . . . .                                                                                 | . 1       |
+| 1.1 System overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                 | . 2       |
+| 1.2 Operating environment . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                     | . 6       |
+| 1.3 Physical package . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                  | . 8       |
 | 1.4 System features . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                 | . . 9     |
-| 1.4.1 Power E1050 server features . . . . . . . . . . . . . . . . . . . .                                                                               | . . 9     |
-| 1.5 Minimum configuration . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                     | . 11      |
+| 1.4.1 Power E1050 server features . . . . . . . . . . . . . . . . . . . .                                                                               | . 9       |
+| 1.5 Minimum configuration . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                     | 11        |
 | 1.6 PCIe adapter slots. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                 | . 13      |
-| 1.7 Operating system support . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                      | . 15      |
-| 1.7.1 AIX operating system . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                          | . 15      |
-| 1.7.2 Linux operating system distributions. . . . . . . . . . . . . . .                                                                                 | . 17      |
-| 1.7.3 Red Hat OpenShift Container Platform. . . . . . . . . . . . .                                                                                     | . 18      |
-| 1.7.4 Virtual I/O Server . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                      | . 19      |
-| 1.7.5 Entitled Systems Support . . . . . . . . . . . . . . . . . . . . . . .                                                                            | . 19      |
-| 1.7.6 Update Access Keys. . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                           | . 20      |
-| 1.8 Hardware Management Console overview . . . . . . . . . . . . . .                                                                                    | . 21      |
-| 1.8.1 HMC 7063-CR2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                          | . 22      |
-| 1.8.2 Virtual HMC. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                    | . 22      |
+| 1.7 Operating system support . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                      | 15        |
+| 1.7.1 AIX operating system . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                          | 15        |
+| 1.7.2 Linux operating system distributions. . . . . . . . . . . . . . .                                                                                 | 17        |
+| 1.7.3 Red Hat OpenShift Container Platform. . . . . . . . . . . . .                                                                                     | 18        |
+| 1.7.4 Virtual I/O Server . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                      | 19        |
+| 1.7.5 Entitled Systems Support . . . . . . . . . . . . . . . . . . . . . . .                                                                            | 19        |
+| 1.7.6 Update Access Keys. . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                           | 20        |
+| 1.8 Hardware Management Console overview . . . . . . . . . . . . . .                                                                                    | 21        |
+| 1.8.1 HMC 7063-CR2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                          | 22        |
+| 1.8.2 Virtual HMC. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                    | 22        |
 | 1.8.3 BMC network connectivity rules for the 7063-CR2 . . . .                                                                                           | . 23      |
-| 1.8.4 High availability HMC configuration . . . . . . . . . . . . . . .                                                                                 | . 24      |
-| 1.8.5 HMC code level requirements for Power E1050. . . . . .                                                                                            | . 25      |
+| 1.8.4 High availability HMC configuration . . . . . . . . . . . . . . .                                                                                 | 24        |
+| 1.8.5 HMC code level requirements for Power E1050. . . . . .                                                                                            | 25        |
 | 1.8.6 Configuring the VMI . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                         | . 26      |
-| 1.8.7 HMC currency . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                      | . 28      |
-| 1.9 IBM Power solutions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                   | . 29      |
-| 1.9.1 IBM Power Private Cloud Solution with Dynamic Capacity.                                                                                           | . 29      |
-| 1.9.2 IBM Private Cloud Edition 1.8 . . . . . . . . . . . . . . . . . . . .                                                                             | . 30      |
-| 1.10 IBM Power platform modernization . . . . . . . . . . . . . . . . . . .                                                                             | . 33      |
-| 1.10.1 IBM Power Virtual Servers . . . . . . . . . . . . . . . . . . . . .                                                                              | . 33      |
-| 1.10.2 Red Hat OpenShift Container Platform for Power. . . . . . . . . . . .                                                                            | . 33      |
-| 1.10.3 Hybrid Cloud Management Edition . . . . . . .                                                                                                    | . 34      |
-| Chapter 2. Architecture and technical overview . . . . . . . . . .                                                                                      | . 35      |
-| 2.1 IBM Power E1050 architecture overview . . . . . . . . . . . . . . .                                                                                 | . 36      |
-| 2.2 The IBM Power10 processor. . . . . . . . . . . . . . . . . . . . . . . . . 2.2.1 Power10 processor overview . . . . . . . . . . . . . . . . . . . . | . 36 . 37 |
-| 2.2.2 Dual-chip modules for Power E1050 server . . . . . . . . . . . .                                                                                  | . 39      |
-| 2.2.3 core                                                                                                                                              |           |
-| Power10 processor . . . . . . . . . . . . . . . . . . . . .                                                                                             | . 40      |
+| 1.8.7 HMC currency . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                      | 28        |
+| 1.9 IBM Power solutions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                   | 29        |
+| 1.9.1 IBM Power Private Cloud Solution with Dynamic Capacity.                                                                                           | 29        |
+| 1.9.2 IBM Private Cloud Edition 1.8 . . . . . . . . . . . . . . . . . . . .                                                                             | 30        |
+| 1.10 IBM Power platform modernization . . . . . . . . . . . . . . . . . . .                                                                             | 33        |
+| 1.10.1 IBM Power Virtual Servers . . . . . . . . . . . . . . . . . . . . .                                                                              | 33        |
+| 1.10.2 Red Hat OpenShift Container Platform for Power. . . .                                                                                            | 33        |
+| 1.10.3 Hybrid Cloud Management Edition . . . . . . . . . . . . . . .                                                                                    | 34        |
+| Chapter 2. Architecture and technical overview . . . . . . . . . .                                                                                      | 35        |
+| 2.1 IBM Power E1050 architecture overview . . . . . . . . . . . . . . .                                                                                 | 36        |
+| 2.2 The IBM Power10 processor. . . . . . . . . . . . . . . . . . . . . . . . . 2.2.1 Power10 processor overview . . . . . . . . . . . . . . . . . . . . | 36 37     |
+| 2.2.2 Dual-chip modules for Power E1050 server . . . . . . . . . . . . .                                                                                | 39        |
+| 2.2.3 core . . . . . . . . . . . . . . . . . . . .                                                                                                      |           |
+| Power10 processor                                                                                                                                       | . 40      |
 
-| 2.2.4                                                                        | Simultaneous multithreading. . . . . . . . . . . . . . . . . . . .                                                                            | . 42      |
-|------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|-----------|
-| 2.2.5                                                                        | Matrix Math Acceleration AI workload acceleration . .                                                                                         | . 43      |
-| 2.2.6                                                                        | Power10 compatibility modes . . . . . . . . . . . . . . . . . . .                                                                             | . 44      |
-| 2.2.7                                                                        | Processor module options . . . . . . . . . . . . . . . . . . . . .                                                                            | . 44      |
-| 2.2.8 .                                                                      | Processor activations . . . . . . . . . . . . . . . . . . . . . . . .                                                                         | . 45      |
-| 2.2.9                                                                        | On-chip L3 cache and intelligent caching . . . . . . . . . .                                                                                  | . 46      |
-| 2.2.10 . . . .                                                               | Nest accelerator . . . . . . . . . . . . . . . . . . . . . . . .                                                                              | . 47      |
-| 2.2.11                                                                       | SMP interconnect and accelerator interface . . . . . . .                                                                                      | . 48      |
-| 2.2.12                                                                       | Power and performance management . . . . . . . . . . .                                                                                        | . 50      |
-| 2.2.13 Comparing Power10, Power9, and Power8 processors                      |                                                                                                                                               | . 54      |
-| 2.3 Memory subsystem. . . . . . .                                            | . . . . . . . . . . . . . . . . . . . . . . . .                                                                                               | . 55      |
-| 2.3.1                                                                        | Open Memory Interface . . . . . . . . . . . . . . . . . . . . . . .                                                                           | . 56      |
-| 2.3.2                                                                        | Differential Dual Inline Memory Module . . . . . . . . . . .                                                                                  | . 57      |
-| 2.3.3 . . .                                                                  | Memory activations . . . . . . . . . . . . . . . . . . . . . . . .                                                                            | . 60      |
-| 2.3.4                                                                        | Memory placement rules. . . . . . . . . . . . . . . . . . . . . . .                                                                           | . 62      |
-| 2.3.5                                                                        | Pervasive memory encryption. . . . . . . . . . . . . . . . . . .                                                                              | . 63      |
-| 2.3.6                                                                        | Active Memory Mirroring . . . . . . . . . . . . . . . . . . . . . . .                                                                         | . 65      |
-| 2.4 Internal I/O subsystem . . . .                                           | . . . . . . . . . . . . . . . . . . . . . . . .                                                                                               | . 66      |
-| 2.4.1                                                                        | PCIe adapter slot details. . . . . . . . . . . . . . . . . . . . . . .                                                                        | . 68      |
-| 2.4.2                                                                        | I/O blind-swap cassettes. . . . . . . . . . . . . . . . . . . . . . .                                                                         | . 70      |
-| 2.4.3                                                                        | Non-volatile Memory Express bays. . . . . . . . . . . . . . .                                                                                 | . 71      |
-| 2.4.4                                                                        | Attachment of I/O-drawers . . . . . . . . . . . . . . . . . . . . .                                                                           | . 72      |
-| 2.4.5 . . . . . . . .                                                        | System ports . . . . . . . . . . . . . . . . . . . . . . . .                                                                                  | . 72      |
-| 2.5 Component summary per processor socket configuration . . . . . . . . . . | 2.5 Component summary per processor socket configuration . . . . . . . . . .                                                                  | . 73      |
-| 2.6 The                                                                      | enterprise Baseboard Management Controller .                                                                                                  | . 74      |
-| 2.6.1                                                                        | Managing the system by using the ASMI GUI . . . . . .                                                                                         | . 74      |
-| 2.6.2                                                                        | Managing the system by using DMTF Redfish . . . . . .                                                                                         | . 80      |
-| 2.6.3                                                                        | Managing the system by using the IPMI. . . . . . . . . . .                                                                                    | . 83      |
-| Chapter 3. Available features and options . . .                              | . . . . . . . . . . .                                                                                                                         | . 85      |
-| 3.1 .                                                                        | Processor module features . . . . . . . . . . . . . . . . . . . . . . . .                                                                     | . 86      |
-| 3.2 . . . .                                                                  | Memory features . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                       | . 88      |
-| 3.3                                                                          | . Power supply features. . . . . . . . . . .                                                                                                  | . 89      |
-| 3.4                                                                          | . . . . . . . . . . . . . . . . . . Peripheral Component Interconnect adapters . . . . . . . . . .                                            | . 90      |
-| 3.4.1                                                                        | Local area network adapters. . . . . . . . . . . . . . . . . . . .                                                                            | . 90      |
-| 3.4.2                                                                        | Fibre Channel adapters . . . . . . . . . . . . . . . . . . . . . . .                                                                          | . 91      |
-| 3.4.3                                                                        | Serial-attached SCSI adapters . . . . . . . . . . . . . . . . . .                                                                             | . 92      |
-| 3.4.4                                                                        | Universal Serial Bus adapters. . . . . . . . . . . . . . . . . . .                                                                            | . 92      |
-| 3.4.5                                                                        | Cryptographic co-processor adapters. . . . . . . . . . . . .                                                                                  | . 92      |
-| 3.5 Internal                                                                 | storage . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Best practice NVMe plug rules . . . . . . . . . . . . . . . . . . | . 94 . 94 |
-| 3.5.1                                                                        | . . .                                                                                                                                         | 96        |
-| 3.5.2 . . . . . . . . . .                                                    | NVMe options . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                  | . . 96    |
-| 3.5.3 RAID support . 3.6 External SAS ports . . . . . . .                    | . . . . . . . . . . . . . . . . . . . . . . . .                                                                                               | . 96      |
-| 3.7 Media drawers. . . . . . . .                                             | . . . . . . . . . . . . . . . . . . . . . . . .                                                                                               | . 97      |
-| . . . 3.7.1 External DVD drives                                              | . . . . . . . . . . . . . . . . . . . . . . .                                                                                                 | . 98      |
-| . . . drives.                                                                | . . . . . . . . . . . . . . . . . . . .                                                                                                       | . 98      |
-| 3.7.2 RDX removable disk 3.8 Disk and media features . . .                   | . . . . . . . . . . . . . . . . . . . . . . . .                                                                                               | . 98      |
-| 3.9 External IO subsystems . . .                                             | . . . . . . . . . . . . . . . . . . . . . . . .                                                                                               | 101       |
-| 3.9.1                                                                        | PCIe Gen4 I/O expansion drawer. . . . . . . . . . . . . . . .                                                                                 | 102       |
-| 3.9.2 3.9.3 NED24 NVMe Expansion                                             | PCIe Gen3 I/O Expansion Drawer . . . . . . . . . . . . . . . Drawer. . . . . . . . . . . . . . . .                                            | 105 112   |
-| 3.9.4                                                                        | EXP24SX SAS storage enclosure . . . . . . . . . . . . . . .                                                                                   | 118       |
+| 2.2.4                                             | Simultaneous multithreading. . . . . . . . . . . . . . . . . . . . .                    | . 42    |
+|---------------------------------------------------|-----------------------------------------------------------------------------------------|---------|
+| 2.2.5                                             | Matrix Math Acceleration AI workload acceleration . . . . . . . . . . . . . . . . . . . | . 43    |
+| 2.2.6                                             | Power10 compatibility modes . . . .                                                     | . 44    |
+| 2.2.7                                             | Processor module options . . . . . . . . . . . . . . . . . . . . . .                    | . 44    |
+| 2.2.8                                             | Processor activations . . . . . . . . . . . . . . . . . . . . . . . . . .               | . 45    |
+| 2.2.9                                             | On-chip L3 cache and intelligent caching . . . . . . . . . . .                          | . 46    |
+| 2.2.10 .                                          | Nest accelerator . . . . . . . . . . . . . . . . . . . . . . . . . . . .                | . 47    |
+| 2.2.11                                            | SMP interconnect and accelerator interface . . . . . . . .                              | . 48    |
+| 2.2.12                                            | Power and performance management . . . . . . . . . . . .                                | . 50    |
+| 2.2.13 Comparing Power10, Power9,                 | and Power8 processors                                                                   | . 54    |
+| 2.3 Memory subsystem. . . . .                     | . . . . . . . . . . . . . . . . . . . . . . . . . . .                                   | . 55    |
+| 2.3.1                                             | Open Memory Interface . . . . . . . . . . . . . . . . . . . . . . . .                   | . 56    |
+| 2.3.2                                             | Differential Dual Inline Memory Module . . . . . . . . . . . .                          | . 57    |
+| 2.3.3                                             | Memory activations . . . . . . . . . . . . . . . . . . . . . . . . . . . .              | . 60    |
+| 2.3.4                                             | Memory placement rules. . . . . . . . . . . . . . . . . . . . . . . .                   | . 62    |
+| 2.3.5                                             | Pervasive memory encryption. . . . . . . . . . . . . . . . . . . .                      | . 63    |
+| 2.3.6                                             | Active Memory Mirroring . . . . . . . . . . . . . . . . . . . . . . . .                 | . 65    |
+| 2.4 Internal I/O subsystem . .                    | . . . . . . . . . . . . . . . . . . . . . . . . . . .                                   | . 66    |
+| 2.4.1                                             | PCIe adapter slot details. . . . . . . . . . . . . . . . . . . . . . . .                | . 68    |
+| 2.4.2                                             | I/O blind-swap cassettes. . . . . . . . . . . . . . . . . . . . . . . .                 | . 70    |
+| 2.4.3                                             | Non-volatile Memory Express bays. . . . . . . . . . . . . . . .                         | . 71    |
+| 2.4.4                                             | Attachment of I/O-drawers . . . . . . . . . . . . . . . . . . . . . .                   | . 72    |
+| 2.4.5 . . . . .                                   | System ports . . . . . . . . . . . . . . . . . . . . . . . . . . . .                    | . 72    |
+| 2.5                                               | Component summary per processor socket configuration . . . . .                          | . 73    |
+| 2.6 The                                           | enterprise Baseboard Management Controller . . . .                                      | . 74    |
+| 2.6.1                                             | Managing the system by using the ASMI GUI . . . . . . .                                 | . 74    |
+| 2.6.2                                             | Managing the system by using DMTF Redfish . . . . . . .                                 | . 80    |
+| 2.6.3                                             | Managing the system by using the IPMI. . . . . . . . . . . .                            | . 83    |
+| Chapter 3. Available features and options . . . . | . . . . . . . . . . .                                                                   | . 85    |
+| 3.1                                               | Processor module features . . . . . . . . . . . . . . . . . . . . . . . . . .           | . 86    |
+| 3.2 . . .                                         | Memory features . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           | . 88    |
+| 3.3                                               | Power supply features. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        | . 89    |
+| 3.4                                               | Peripheral Component Interconnect adapters . . . . . . . . . . .                        | . 90    |
+| 3.4.1                                             | Local area network adapters. . . . . . . . . . . . . . . . . . . . .                    | . 90    |
+| 3.4.2                                             | Fibre Channel adapters . . . . . . . . . . . . . . . . . . . . . . . .                  | . 91    |
+| 3.4.3                                             | Serial-attached SCSI adapters . . . . . . . . . . . . . . . . . . .                     | . 92    |
+| 3.4.4                                             | Universal Serial Bus adapters. . . . . . . . . . . . . . . . . . . .                    | . 92    |
+| 3.4.5                                             | Cryptographic co-processor adapters. . . . . . . . . . . . . .                          | . 92    |
+| 3.5 Internal . . . . . .                          | storage . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                       | . 94    |
+| 3.5.1                                             | Best practice NVMe plug rules . . . . . . . . . . . . . . . . . . . . . . . . . . .     | . 94    |
+| 3.5.2                                             | NVMe options . . . . . . . . . . . . . . . . . . . . . . . .                            | . 96    |
+| 3.5.3 . . .                                       | RAID support . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                  | . 96    |
+| 3.6 External SAS ports . . . .                    | . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                 | . 96    |
+| 3.7 Media drawers. . . . . . . .                  | . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                 | . 97    |
+| 3.7.1                                             | External DVD drives . . . . . . . . . . . . . . . . . . . . . . . . . . .               | . 98    |
+| 3.7.2 RDX removable disk drives.                  | . . . . . . . . . . . . . . . . . . . . .                                               | . 98    |
+| 3.8 Disk and media features .                     | . . . . . . . . . . . . . . . . . . . . . . . . . . .                                   | . 98    |
+| 3.9 External IO subsystems . .                    | . . . . . . . . . . . . . . . . . . . . . . . . . .                                     | 101     |
+| 3.9.1 PCIe Gen4 I/O expansion drawer.             | . . . . . . . . . . . . . . . .                                                         | 102     |
+| 3.9.2 PCIe Gen3 I/O Expansion Drawer .            | . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                           | 105 112 |
+| 3.9.3 NED24 NVMe Expansion Drawer.                | 3.9.3 NED24 NVMe Expansion Drawer.                                                      |         |
+| 3.9.4 EXP24SX SAS storage enclosure               | . . . . . . . . . . . . . . . .                                                         | 118     |
 
-| 3.9.5 IBM storage. . . .                                                       | . . . . . . . . . . . . . . . . . . . . . . . . .                                                  | 122     |
-|--------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|---------|
-| 3.10 System racks. . . .                                                       | . . . . . . . . . . . . . .                                                                        | 124     |
-| . . . . . . . . . . . . . 3.10.1 New rack considerations. . . .                | . . . . . . . . . . . . . .                                                                        | 124     |
-| 3.10.2 IBM Enterprise 42U Slim Rack 7965-S42. . .                              | . .                                                                                                | 125     |
-| 3.10.3 AC power distribution unit and rack content .                           | . .                                                                                                | 126     |
-| 3.10.4 Rack-mounting rules . . . .                                             | . . . . . . . . . . . . . . . . .                                                                  | 128     |
-| 3.10.5 Useful rack additions.                                                  | . . . . . . . . . . . . . . . . . . . .                                                            | 128     |
-| 3.10.6 Original equipment manufacturer racks                                   | . . . . . .                                                                                        | 131     |
-| Chapter 4. Reliability, availability, and serviceability                       | .                                                                                                  | 133     |
-| 4.1 Designing for reliability                                                  | . . . . . . . . . . . . . . . . . . . . . . . .                                                    | 134     |
-| 4.2 Service processor . . .                                                    | . . . . . . . . . . . . . . . . . . . . . . . . .                                                  | 136     |
-| 4.3 Memory subsystem RAS.                                                      | . . . . . . . . . . . . . . . . . . . . . .                                                        | 137     |
-| 4.3.1 Memory buffer. .                                                         | . . . . . . . . . . . . . . . . . . . . . . . . .                                                  | 138     |
-| 4.3.2 Open Memory Interface                                                    | . . . . . . . . . . . . . . . . . . .                                                              | 138     |
-| 4.3.3                                                                          | Memory ECC . . . . . . . . . . . . . . . . . . . . . . . . . . .                                   | 138     |
-| 4.3.4                                                                          | Dynamic row repair . . . . . . . . . . . . . . . . . . . . . . .                                   | 139     |
-| 4.3.5                                                                          | Spare temperature sensors . . . . . . . . . . . . . . . .                                          | 139     |
-| 4.3.6                                                                          | . . . . . . . . . . . . . . . . . .                                                                | 139     |
-|                                                                                | Spare DRAMs. . . . . . . . . Circuits . .                                                          | 139     |
-| 4.3.7 Spare Power Management Integrated 4.4 Power10 processor RAS. . . . . . . | . . . . . . . . . . . . . . . .                                                                    | 139     |
-| 4.4.1 Cache availability .                                                     | . . . . . . . . . . . . . . . . . .                                                                | 140     |
-| 4.4.2                                                                          | . . . . . Special Uncorrectable Error handling . . . . . . . . .                                   | 140     |
-| 4.4.3 Uncorrectable error recovery . . . . . .                                 | . . . . . . . . .                                                                                  | 140     |
-| 4.5 I/O subsystem RAS. . . . .                                                 | . . . . . . . . . . . . . . . . . . . . . .                                                        | 141     |
-| 4.6 Serviceability . . . . . . . .                                             | . . . . . . . . . . . . . . . . . . . . . . . .                                                    | 141     |
-| 4.6.1                                                                          | Service environment . . . . . . . . . . . . . . . . . . . . . .                                    | 142     |
-| 4.6.2                                                                          | Service interface .                                                                                | 142     |
-| 4.6.3                                                                          | . . . . . . . . . . . . . . . . . . . . . . . . First Failure Data Capture and error data analysis | 143     |
-| 4.6.4                                                                          | Diagnostics . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                              | 143     |
-| 4.6.5                                                                          | Automatic diagnostics . . . . . . . . . . . . . . . . . . . . .                                    | 143     |
-| 4.6.6                                                                          | Stand-alone diagnostics . . . . . . . . . . . . . . . . . . .                                      | 143     |
-| 4.6.7                                                                          | Concurrent maintenance. . . . . . . . . . . . . . . . . . .                                        | 143     |
-| 4.6.8                                                                          | Service labels . . . . . . . . . . . . . . . . . . . . . . . . . . .                               | 144     |
-| 4.6.9 QR labels .                                                              | . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                          | 144     |
-| 4.6.10 Packaging for service                                                   | . . . . . . . . . . . . . . . . . . . .                                                            | 144     |
-| 4.6.11 Error handling and reporting . . . .                                    | . . . . . . . . . . .                                                                              | 145     |
-| 4.6.12 Live Partition Mobility                                                 | . . . . . . . . . . . . . . . . . . . .                                                            | 145     |
-| 4.6.13 Call Home . . .                                                         | . . . . . . . . . . . . . . . . . . . . . . . . . .                                                | 145     |
-| 4.6.14 IBM Electronic Services . . . .                                         | . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                | 146 146 |
-| 4.7 Reliability and availability . .                                           | . . . . . . . . . . . . . . . . . . . . .                                                          | 146     |
-| 4.7.1 Reliability modeling . .                                                 | 4.7.1 Reliability modeling . .                                                                     |         |
-| 4.7.2 Different levels of reliability .                                        | . . . . . . . . . . . . . . . .                                                                    | 146     |
-| 4.7.3 Measuring availability . . .                                             | 4.7.3 Measuring availability . . .                                                                 |         |
-| Chapter 5. Enterprise solutions                                                | . . . . . . . . . . . . . . . . . . .                                                              | 149     |
-|                                                                                | . . . . . . . . . . . . . . . . . . . . .                                                          | 150     |
-| 5.1 PowerVM virtualization . . . 5.1.1 IBM Power Hypervisor                    | pools . . . . . . . . . . . . .                                                                    | 154     |
-| 5.1.2 Multiple shared processor 5.1.3 Virtual I/O Server                       | 5.1.2 Multiple shared processor 5.1.3 Virtual I/O Server                                           | 150     |
-|                                                                                | . . . . . . . . . . . . . . . . . . . . . . . .                                                    | 155     |
-| 5.1.4 Live Partition Mobility                                                  | . . . . . . . . . . . . . . . . . .                                                                | 156     |
-| . . . 5.1.5 Active Memory Mirroring .                                          | . . . . . . . . . . . . . . . . . .                                                                |         |
-| 5.1.6 Remote Restart. . . . . .                                                | . . . . . . . . . . . . . . . . . . . .                                                            | 157 157 |
+| 3.9.5 IBM storage. . .                                                                  | . . . . . . . . . . . . . . . . . . . . . . . . . .                                  | 122   |
+|-----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|-------|
+| 3.10 System racks. . .                                                                  | . . . . . . . . . . . . . . . . . . . . . . . . . . . .                              | 124   |
+| 3.10.1 New rack considerations.                                                         | . . . . . . . . . . . . . . . . .                                                    | 124   |
+| 3.10.2                                                                                  | IBM Enterprise 42U Slim Rack 7965-S42. . . . .                                       | 125   |
+| 3.10.3                                                                                  | AC power distribution unit and rack content . . .                                    | 126   |
+| 3.10.4                                                                                  | Rack-mounting rules . . . . . . . . . . . . . . . . . . . . .                        | 128   |
+| 3.10.5                                                                                  | Useful rack additions. . . . . . . . . . . . . . . . . . . . .                       | 128   |
+| 3.10.6                                                                                  | Original equipment manufacturer racks . . . . . .                                    | 131   |
+| Chapter 4. Reliability, availability, and serviceability .                              | Chapter 4. Reliability, availability, and serviceability .                           | 133   |
+| 4.1 Designing for reliability                                                           | . . . . . . . . . . . . . . . . . . . . . . . .                                      | 134   |
+| 4.2 Service processor . . .                                                             | . . . . . . . . . . . . . . . . . . . . . . . . .                                    | 136   |
+| 4.3 Memory subsystem RAS.                                                               | . . . . . . . . . . . . . . . . . . . . . .                                          | 137   |
+| 4.3.1                                                                                   | Memory buffer. . . . . . . . . . . . . . . . . . . . . . . . . . .                   | 138   |
+| 4.3.2                                                                                   | Open Memory Interface . . . . . . . . . . . . . . . . . . .                          | 138   |
+| 4.3.3                                                                                   | Memory ECC . . . . . . . . . . . . . . . . . . . . . . . . . . .                     | 138   |
+| 4.3.4                                                                                   | Dynamic row repair . . . . . . . . . . . . . . . . . . . . . . .                     | 139   |
+| 4.3.5                                                                                   | Spare temperature sensors . . . . . . . . . . . . . . . .                            | 139   |
+| 4.3.6                                                                                   | Spare DRAMs. . . . . . . . . . . . . . . . . . . . . . . . . . .                     | 139   |
+| 4.3.7                                                                                   | Spare Power Management Integrated Circuits . .                                       | 139   |
+| 4.4 Power10 processor RAS. . . . .                                                      | . . . . . . . . . . . . . . . . . .                                                  | 139   |
+| 4.4.1 Cache availability                                                                | . . . . . . . . . . . . . . . . . . . . . . . .                                      | 140   |
+| 4.4.2                                                                                   | Special Uncorrectable Error handling . . . . . . . . .                               | 140   |
+| 4.4.3                                                                                   | Uncorrectable error recovery . . . . . . . . . . . . . . . . . . . . . . . . . . . . | 140   |
+| 4.5 I/O subsystem RAS. . .                                                              | . . . . . . . . . . .                                                                | 141   |
+| 4.6 Serviceability . . . . .                                                            | . . . . . . . . . . . . . . . . . . . . . . . . . . .                                | 141   |
+| 4.6.1                                                                                   | Service environment . . . . . . . . . . . . . . . . . . . . . .                      | 142   |
+| 4.6.2                                                                                   | Service interface . . . . . . . . . . . . . . . . . . . . . . . . .                  | 142   |
+| 4.6.3                                                                                   | First Failure Data Capture and error data analysis                                   | 143   |
+| 4.6.4                                                                                   | Diagnostics . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                | 143   |
+| 4.6.5                                                                                   | Automatic diagnostics . . . . . . . . . . . . . . . . . . . . .                      | 143   |
+| 4.6.6                                                                                   | Stand-alone diagnostics . . . . . . . . . . . . . . . . . . .                        | 143   |
+| 4.6.7                                                                                   | Concurrent maintenance. . . . . . . . . . . . . . . . . . .                          | 143   |
+| 4.6.8                                                                                   | Service labels . . . . . . . . . . . . . . . . . . . . . . . . . . .                 | 144   |
+| 4.6.9 QR labels . . .                                                                   | . . . . . . . . . . . . . . . . . . . . . . . . . . .                                | 144   |
+| 4.6.10 Packaging for service                                                            | . . . . . . . . . . . . . . . . . . . .                                              | 144   |
+| 4.6.11                                                                                  | Error handling and reporting . . . . . . . . . . . . . . .                           | 145   |
+| 4.6.12                                                                                  | Live Partition Mobility . . . . . . . . . . . . . . . . . . . .                      | 145   |
+| 4.6.13 Call Home . .                                                                    | . . . . . . . . . . . . . . . . . . . . . . . . . . .                                | 145   |
+| 4.6.14 IBM Electronic Services . . . . 4.7 Reliability and availability . . . . . . . . | . . . . . . . . . . . . . .                                                          | 146   |
+| 4.7.1                                                                                   | . . . . . . . . . . . . . . . . . . . . . .                                          | 146   |
+|                                                                                         | Reliability modeling .                                                               |       |
+| 4.7.2                                                                                   | Different levels of reliability . . . . . . . . . . . . . . . . . . .                | 146   |
+| 4.7.3                                                                                   | Measuring availability . . . . . . . . . . . . . . . . . . .                         | 147   |
+| Chapter 5. Enterprise solutions . . . . . .                                             | . . . . . . . . . . . . .                                                            | 149   |
+| 5.1 PowerVM virtualization . . .                                                        | . . . . . . . . . . . . . . . . . . . .                                              | 150   |
+| .                                                                                       | . . . . . . . . . . . . . . . . . . . .                                              | 150   |
+| 5.1.1 5.1.2                                                                             | IBM Power Hypervisor Multiple shared processor pools . . . . . . . . . . . . .       | 154   |
+| 5.1.3                                                                                   | Virtual I/O Server . . . . . . . . . . . . . . . . . . . . . . . .                   | 155   |
+| 5.1.4                                                                                   | Live Partition Mobility . . . . . . . . . . . . . . . . . . . . .                    | 156   |
+| 5.1.5                                                                                   | Active Memory Mirroring . . . . . . . . . . . . . . . . . . . . . . .                | 157   |
+| 5.1.6                                                                                   | Remote Restart. . . . . . . . . . . . . . . . . . . . . .                            | 157   |
 
-| 5.1.7 IBM POWER processor modes. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                      |   157 |
+| 5.1.7 IBM POWER processor modes. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                        |   157 |
 |-------------------------------------------------------------------------------------------------------------------------|-------|
-| 5.1.8 Single-root I/O virtualization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                |   159 |
+| 5.1.8 Single-root I/O virtualization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .              |   159 |
 | 5.1.9 More information about virtualization features . . . . . . . . . . . . . . . . . . . . .                          |   159 |
 | 5.2 IBM PowerVC overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .            |   159 |
 | 5.2.1 IBM PowerVC functions and advantages . . . . . . . . . . . . . . . . . . . . . . . . .                            |   160 |
@@ -241,17 +247,67 @@ IBM, the IBM logo, and ibm.com are trademarks or registered trademarks of Intern
 
 The following terms are trademarks or registered trademarks of International Business Machines Corporation, and might also be trademarks or registered trademarks in other countries.
 
-| AIX®                 | IBM Instana™        | PowerHA®          |
-|----------------------|---------------------|-------------------|
-| DS8000®              | IBM Security®       | PowerPC®          |
-| Easy Tier®           | IBM Spectrum®       | PowerVM®          |
-| HyperSwap®           | IBM Z®              | QRadar®           |
-| IBM®                 | Instana®            | Redbooks®         |
-| IBM Cloud®           | Micro-Partitioning® | Redbooks (logo) ® |
-| IBM Cloud Pak®       | POWER®              | Storwize®         |
-| IBM Elastic Storage® | Power Architecture® | Tivoli®           |
-| IBM FlashCore®       | Power8®             | Turbonomic®       |
-| IBM FlashSystem®     | Power9®             |                   |
+<!-- image -->
+
+AIX®
+
+DS8000®
+
+Easy Tier®
+
+HyperSwap®
+
+IBM®
+
+IBM Cloud®
+
+IBM Cloud Pak®
+
+IBM Elastic Storage®
+
+IBM FlashCore®
+
+IBM FlashSystem®
+
+IBM Instana™
+
+IBM Security®
+
+IBM Spectrum®
+
+IBM Z®
+
+Instana®
+
+Micro-Partitioning®
+
+POWER®
+
+Power Architecture®
+
+Power8®
+
+Power9®
+
+PowerHA®
+
+PowerPC®
+
+PowerVM®
+
+QRadar®
+
+Redbooks®
+
+Redbooks (logo)
+
+®
+
+Storwize®
+
+Tivoli®
+
+Turbonomic®
 
 The following terms are trademarks of other companies:
 
@@ -336,9 +392,7 @@ Your comments are important to us!
 We want our papers to be as helpful as possible. Send us your comments about this paper or other IBM Redbooks publications in one of the following ways:
 
 -  Use the online Contact us review Redbooks form found at:
-
-ibm.com /redbooks
-
+- ibm.com /redbooks
 -  Send your comments in an email to:
 
 redbooks@us.ibm.com
@@ -354,9 +408,7 @@ IBM Corporation, IBM Redbooks Dept. HYTD Mail Station P099 2455 South Road Pough
 http://www.linkedin.com/groups?home=&amp;gid=2130806
 
 -  Explore new Redbooks publications, residencies, and workshops with the IBM Redbooks weekly newsletter:
-
-https://www.redbooks.ibm.com/Redbooks.nsf/subscribe?OpenForm
-
+- https://www.redbooks.ibm.com/Redbooks.nsf/subscribe?OpenForm
 -  Stay current on recent Redbooks publications with RSS Feeds:
 
 http://www.redbooks.ibm.com/rss.html
@@ -365,9 +417,7 @@ http://www.redbooks.ibm.com/rss.html
 
 This section describes the technical changes that were made in this edition of the paper and in previous editions. This edition might also include minor corrections and editorial changes that are not identified.
 
-## Summary of Changes
-
-for IBM Power E1050 Technical Overview and Introduction as created or updated on November 20, 2024.
+Summary of Changes for IBM Power E1050 Technical Overview and Introduction as created or updated on November 20, 2024.
 
 ## November 2024, Second Edition
 
@@ -390,6 +440,8 @@ This revision includes the following new and changed information.
 
 Chapter 1.
 
+1
+
 ## IBM Power E1050 overview
 
 This chapter provides a general description of the new IBM Power E1050 (9043-MRX) server, which is a logical follow-on to the IBM Power E950. The IBM Power E1050 server is an enhanced enterprise class four-socket, 4U server that provides massive scalability and flexibility. These systems are agile and deliver extreme density in an energy-efficient design with best in class reliability and resiliency. They provide enterprise clients with a secure environment that balances mission-critical and modernization applications to deliver a frictionless, hybrid cloud experience.
@@ -406,8 +458,6 @@ The following topics are covered in this chapter:
 -  1.8, 'Hardware Management Console overview' on page 21
 -  1.9, 'IBM Power solutions' on page 29
 -  1.10, 'IBM Power platform modernization' on page 33
-
-## 1
 
 ## 1.1  System overview
 
@@ -529,14 +579,15 @@ Table 1-3 details the operating environment for the Power E1050 server.
 
 Table 1-3 Operating environment for the Power E1050 server
 
-| Power E1050 operating environment   | Power E1050 operating environment                                               | Power E1050 operating environment   |
-|-------------------------------------|---------------------------------------------------------------------------------|-------------------------------------|
-| System                              | Power E1050 server                                                              | Power E1050 server                  |
-| Item                                | Operating                                                                       | Non-operating                       |
-| Temperature                         | Recommended: 18 - 27 °C (64.4 - 80.6 °F) Allowable: 5 - 40 °C (41.0 - 140.0 °F) | 5 - 45 °C (41.0 - 113.0 °F)         |
-| Relative humidity                   | 8 - 80%                                                                         | 5 - 85%                             |
-| Maximum dew point                   | 24 °C (75.2 °F)                                                                 | 27 °C (80.6 °F)                     |
-| Operating voltage                   | 200 - 240 V AC                                                                  | N/A                                 |
+## Power E1050 operating environment
+
+| System            | Power E1050 server                                                              | Power E1050 server          |
+|-------------------|---------------------------------------------------------------------------------|-----------------------------|
+| Item              | Operating                                                                       | Non-operating               |
+| Temperature       | Recommended: 18 - 27 °C (64.4 - 80.6 °F) Allowable: 5 - 40 °C (41.0 - 140.0 °F) | 5 - 45 °C (41.0 - 113.0 °F) |
+| Relative humidity | 8 - 80%                                                                         | 5 - 85%                     |
+| Maximum dew point | 24 °C (75.2 °F)                                                                 | 27 °C (80.6 °F)             |
+| Operating voltage | 200 - 240 V AC                                                                  | N/A                         |
 
 | Power E1050 operating environment   | Power E1050 operating environment                                                                   | Power E1050 operating environment   |
 |-------------------------------------|-----------------------------------------------------------------------------------------------------|-------------------------------------|
@@ -605,9 +656,7 @@ This summary describes the standard features that are available on the Power E10
 - -Up to two PCIe drawers with two processor modules (a maximum of 31 slots on the server).
 - -Up to four PCIe drawers with four processor modules (a maximum of 51 slots on the server).
 -  The IBM Power E1050 can support up to 64 EXP24SX SFF Drawers, providing a total of 1,536 SAS bays for disks or SSDs. Although the EXP24SX is no longer actively marketed, it remains a supported option.
-
-For a more cost-effective and higher-performing solution, consider the NED24 NVMe Expansion Drawer. Each NED24 drawer can accommodate up to 24 NVMe drives, offering up to 154 TB of storage capacity. The Power E1050 can support a maximum of two NED24 drawers. Each drive in the NED24 is individually addressable and can be assigned to an AIX, Linux, or a Virtual I/O Server (VIOS) partition.
-
+- For a more cost-effective and higher-performing solution, consider the NED24 NVMe Expansion Drawer. Each NED24 drawer can accommodate up to 24 NVMe drives, offering up to 154 TB of storage capacity. The Power E1050 can support a maximum of two NED24 drawers. Each drive in the NED24 is individually addressable and can be assigned to an AIX, Linux, or a Virtual I/O Server (VIOS) partition.
 -  System unit I/O (integrated I/O):
 - -USB 3.0 ports: four 3.0 ports, two front and two rear.
 - -USB 2.0 ports: two rear 2.0 ports for limited use.
@@ -910,7 +959,9 @@ UAKs have two types:
 -  System firmware UAK: This UAK is checked when system firmware updates are applied to the system. The UAK includes an expiration date. System firmware updates contain a release date. When attempting to apply a system firmware update, if the release date for the firmware updates has passed the expiration date for the UAK, the updates are not processed. As UAKs expire, they must be replaced by using either the HMC or the Advanced System Management Interface (ASMI) on the service processor.
 -  AIX UAK: This UAK checks for an active Software Maintenance Agreement (SWMA) when updating the AIX OS. The server uses an AIX update that includes the expiration date for the associated SWMA agreement. The server periodically checks and informs the administrator about AIX UAKs that are about to expire, that have expired, or that are missing. The AIX UAK is a CoD code. There is a single AIX UAK per server (not one per LPAR). As the AIX UAK expires, it must be replaced by using either the HMC or ASMI GUI.
 
-By default, newly delivered systems include an UAK that often expires after 3 years. Thereafter, the UAK can be extended every 6 months, but only if an IBM maintenance contract exists. The contract can be verified at the IBM ESS website (see 1.7.5, 'Entitled Systems Support' on page 19).
+By default, newly delivered systems include an UAK that often expires after 3 years.
+
+Thereafter, the UAK can be extended every 6 months, but only if an IBM maintenance contract exists. The contract can be verified at the IBM ESS website (see 1.7.5, 'Entitled Systems Support' on page 19).
 
 Figure 1-7 shows an example of viewing the system firmware UAK in the HMC.
 
@@ -1176,16 +1227,11 @@ The PowerSC 2.1 product contains the following enhancements:
 -  A blacklisting anti-virus feature to allow selective, on-demand hash searches across endpoints that are managed through PowerSC
 -  Linux on Intel support for PowerSC endpoints, including MFA on IBM Power
 -  Single sign-on (SSO) support
-
-Users can log in to PowerSC through SSO with their OpenID Connect (OIDC) Enterprise identity provider and MFA, enabling integration with any application user interface (UI).
-
+- Users can log in to PowerSC through SSO with their OpenID Connect (OIDC) Enterprise identity provider and MFA, enabling integration with any application user interface (UI).
 -  MFA support for Rivest-Shamir-Adleman (RSA) web API
-
-User MFA includes RSA through the web API, and it no longer employs the access control entry (ACE) protocol.
-
+- User MFA includes RSA through the web API, and it no longer employs the access control entry (ACE) protocol.
 -  User-defined alt-disk for TL and SP updates
-
-Users can specify alt-disk through Trusted Network Connect (TNC) for TL and SP updates on AIX endpoints.
+- Users can specify alt-disk through Trusted Network Connect (TNC) for TL and SP updates on AIX endpoints.
 
 For more information, see the PowerSC 2.1 sales manual.
 
@@ -1320,6 +1366,8 @@ The capabilities are:
 
 Chapter 2.
 
+2
+
 ## Architecture and technical overview
 
 This chapter delves into the architectural intricacies of the IBM Power E1050 server. It begins by introducing the IBM Power10 processor and its capabilities. Then, it explores how the Power E1050 uses these capabilities to deliver a highly scalable and reliable computing platform. The chapter provides a detailed breakdown of the architecture by focusing on the integration of processors, memory, and I/O subsystems.
@@ -1332,8 +1380,6 @@ The following topics are covered in this chapter:
 -  2.4, 'Internal I/O subsystem' on page 66
 -  2.5, 'Component summary per processor socket configuration' on page 73
 -  2.6, 'The enterprise Baseboard Management Controller' on page 74
-
-## 2
 
 ## 2.1  IBM Power E1050 architecture overview
 
@@ -1348,9 +1394,7 @@ Figure 2-1   Power E1050 architecture overview
 The IBM Power10 processor was introduced to the public on August 17, 2020 at the 32nd HOT CHIPS 1  semiconductor conference. At that meeting, the new capabilities and features of the latest IBM POWER® processor microarchitecture and the IBM Power instruction set architecture (ISA) v3.1B were revealed and categorized according to the following Power10 processor design priority focus areas:
 
 -  Data plane bandwidth focus area
-
-Terabyte per-second signaling bandwidth on processor functional interfaces, petabyte system memory capacities, 16-socket symmetric multiprocessing (SMP) scalability, and memory clustering and memory inception capability
-
+- Terabyte per-second signaling bandwidth on processor functional interfaces, petabyte system memory capacities, 16-socket symmetric multiprocessing (SMP) scalability, and memory clustering and memory inception capability
 -  Powerful enterprise core focus area
 
 New core micro-architecture, flexibility, larger caches, and reduced latencies
@@ -1358,13 +1402,9 @@ New core micro-architecture, flexibility, larger caches, and reduced latencies
 1 https://hotchips.org/
 
 -  End-to-end security focus area
-
-Hardware-enabled security features that are co-optimized with PowerVM hypervisor support
-
+- Hardware-enabled security features that are co-optimized with PowerVM hypervisor support
 -  Energy-efficiency focus area
-
-Up to threefold energy-efficiency improvement in comparison to Power9 processor technology
-
+- Up to threefold energy-efficiency improvement in comparison to Power9 processor technology
 -  Artificial intelligence (AI)-infused core focus area
 
 A 10 - 20x matrix-math performance improvement per socket compared to the IBM Power9 processor technology capability
@@ -1631,9 +1671,7 @@ Table 2-4   Processor activation Feature Codes
 Two types of Capacity on Demand (CoD) capability are available for processor and memory on the Power E1050 server:
 
 -  Capacity Upgrade on Demand (CUoD) processor activations
-
-If not all cores were activated, it is possible to purchase more core activations through a Miscellaneous Equipment Specification (MES) upgrade order, which results in another key that can be integrated into the system by using the Hardware Management Console (HMC) or the Advanced System Management Interface (ASMI) without requiring a restart of the server or interrupting the business. After entering the code, the additional cores can be used and assigned to LPARs.
-
+- If not all cores were activated, it is possible to purchase more core activations through a Miscellaneous Equipment Specification (MES) upgrade order, which results in another key that can be integrated into the system by using the Hardware Management Console (HMC) or the Advanced System Management Interface (ASMI) without requiring a restart of the server or interrupting the business. After entering the code, the additional cores can be used and assigned to LPARs.
 -  Elastic CoD (Temporary)
 
 With Elastic CoD, you can temporarily activate processors and memory as full-day increments as needed. The processors and memory can be activated and turned off an unlimited number of times whenever you need extra processing resources.
@@ -1802,8 +1840,6 @@ Table 2-5 shows the power-saving mode and the static mode frequencies and the fr
 Note: For all Power10 processor-based scale-out systems, the MPM is enabled by default.
 
 Table 2-5 Characteristic frequencies and frequency ranges for Power E1050 servers
-
-<!-- image -->
 
 | Feature Code   |   Cores per single-chip module |   Power-saving mode frequency (GHz) |   Staticmode frequency (GHz) | Maximumperformancemode frequency range (GHz)   |
 |----------------|--------------------------------|-------------------------------------|------------------------------|------------------------------------------------|
@@ -2064,7 +2100,7 @@ Persistent DIMM technology retains the data that is stored inside the memory DIM
 
 Also, memory cards that leave the data center for repair or replacement can be a potential security breach. Because the attacker might have arbitrary access to the persistent DIMM data, the stronger encryption of the AES XTS mode is required for persistent memory. The AES XTS mode of the Power10 processor is supported for future use if persistent memory solutions become available for IBM Power servers.
 
--  AES CTR mode
+##  AES CTR mode
 
 CTR is the Counter mode of operation, and it designates a low-latency AES bock cipher. Although the level of encryption is not as strong as with the XTS mode, the low-latency characteristics make it the preferred mode for memory encryption of volatile memory. AES CTR makes it more difficult to physically gain access to data through the memory card interfaces. The goal is to protect against physical attacks, which becomes increasingly important in the context of cloud deployments.
 
@@ -2193,11 +2229,9 @@ Table 2-10   PCIe slot locations and capabilities for the Power E1050 servers
 | P0-C10          | PCIe5 x8           | DCM1-P0-E1-PHB3    | Yes        | Yes                         | 8                                                  |
 | P0-C11          | PCIe5x8orPCIe4 x16 | DCM1-P0-E0-PHB0    | Yes        | Yes                         | 4                                                  |
 
-a. Enabling the I/O adapter enlarged capacity option affects only Linux partitions.
-
-b. Only used for an eBMC card.
-
-c. P0-C1 is used for the base Ethernet adapter.
+- a. Enabling the I/O adapter enlarged capacity option affects only Linux partitions.
+- b. Only used for an eBMC card.
+- c. P0-C1 is used for the base Ethernet adapter.
 
 The following characteristics are not part of the table because they apply for all slots:
 
@@ -2376,13 +2410,9 @@ By using the host console, you can watch the boot process of the server. The hos
 Note: The host console can also be accessed by using an SSH client over port 2200 and logging in with the admin user.
 
 -  User management
-
-In the eBMC, it is possible to create you own users. This feature can also be used to create an individual user that can be used for the HMC to access the server. There are two types of privileges for a user: Administrator or ReadOnly. As the name indicates, with the ReadOnly privileges, you cannot modify something (except the password of that user), and a user with that privilege cannot be used for HMC access to the server.
-
+- In the eBMC, it is possible to create you own users. This feature can also be used to create an individual user that can be used for the HMC to access the server. There are two types of privileges for a user: Administrator or ReadOnly. As the name indicates, with the ReadOnly privileges, you cannot modify something (except the password of that user), and a user with that privilege cannot be used for HMC access to the server.
 -  IBM Security® through Access Control Files (ACFs)
-
-In FSP-managed servers, IBM Support generates a password by using the serial number and the date to get 'root access' to the service processor by using the user celogin. In eBMC managed systems, IBM support generates an ACF. This file must be uploaded to the server to get access. This procedure is, for example, needed if you lost the admin password and want to reset it.
-
+- In FSP-managed servers, IBM Support generates a password by using the serial number and the date to get 'root access' to the service processor by using the user celogin. In eBMC managed systems, IBM support generates an ACF. This file must be uploaded to the server to get access. This procedure is, for example, needed if you lost the admin password and want to reset it.
 -  Jumper reset
 
 It is possible to reset everything on the server by using a jumper. This reset is a factory reset that resets everything, like LPARs, eBMC settings, or the NVRAM.
@@ -2486,11 +2516,11 @@ With the token, you can get data from the server. First, request the data of the
 Example 2-2   Getting chassis data from Redfish
 
 ```
-...
+... "@odata.id": "/Redfish/v1/Chassis/chassis/PCIeSlots"
 ```
 
 ```
-"PCIeSlots": { "@odata.id": "/Redfish/v1/Chassis/chassis/PCIeSlots" }, ... "Sensors": { "@odata.id": "/Redfish/v1/Chassis/chassis/Sensors" }, ...
+"PCIeSlots": { }, ... "Sensors": { "@odata.id": "/Redfish/v1/Chassis/chassis/Sensors" }, ...
 ```
 
 Under Chassis (uppercase C), there is another chassis with a lowercase c. Use the tree with both ( /Redfish/c1/Chassis/chassis ) . After running the chassis, you can see in Example 2-2 on page 81 for example, that there are PCIeSlots and Sensors , among other resources of the server.
@@ -2531,9 +2561,9 @@ A list of common IPMI commands can be found at Common IPMI commands.
 
 <!-- image -->
 
-Chapter 3.
+<!-- image -->
 
-## 3
+Chapter 3.
 
 ## Available features and options
 
@@ -2569,7 +2599,7 @@ Table 3-1   Processor card features
 | #EPGW                |                    24 |                     96 | 2.95 - 3.90 GHz           | 2, 3, or 4       |
 | #EHC8 a              |                    24 |                     96 | 2.95 - 3.90 GHz           | 2, 3, or 4       |
 
-a. Healthcare solution Edition (North America (NA) only)
+- a. Healthcare solution Edition (North America (NA) only)
 
 Note: IBM intends to support SAP HANA on the Power E1050 after initial general availability (GA). SAP HANA on Power E1050 will be certified with four sockets (4S), 24 cores, and 16 TB of memory. All processor core options, including 12-core and 18-core, will also be offered after certification.
 
@@ -2631,8 +2661,6 @@ Table 3-3   Base Processor activation conversion options in a PEP2
 | #EPSD          | One core Base Processor Activation (Pools 2.0) for #EPGW (conv. from Static)            |
 | #EPSE          | One core Base Processor Activation (Pools 2.0) for #EPEU (conv. from Static) Linux only |
 | #EPSF          | One core Base Processor Activation (Pools 2.0) for #EPEV (conv. from Static) Linux only |
-
-<!-- image -->
 
 | Feature Code   | Description                                                                          |
 |----------------|--------------------------------------------------------------------------------------|
@@ -2720,11 +2748,21 @@ Note: The maximum number of adapters in each case might require the server to ha
 
 The Order type table column in the following subsections is defined as follows:
 
-| Initial   | Denotes the orderability of a feature only with the purchase of a new system.                                                                                    |
-|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| MES       | Denotes the orderability of a feature only as part of an MES upgrade purchase for an existing system.                                                            |
-| Both      | Denotes the orderability of a feature as part of both new and MES upgrade purchases.                                                                             |
-| Supported | Denotes that a feature is not orderable with a system, but is supported ; that is, the feature can be migrated from existing systems, but cannot be ordered new. |
+Initial
+
+Denotes the orderability of a feature only with the purchase of a new system.
+
+MES
+
+Denotes the orderability of a feature only as part of an MES upgrade purchase for an existing system.
+
+Both
+
+Denotes the orderability of a feature as part of both new and MES upgrade purchases.
+
+Supported
+
+Denotes that a feature is not orderable with a system, but is supported ; that is, the feature can be migrated from existing systems, but cannot be ordered new.
 
 ## 3.4.1  Local area network adapters
 
@@ -2748,7 +2786,7 @@ Table 3-6   LAN adapters for the Power E1050 server
 | #EN26          | PCIe4 4-Port 25/10/1 GbE RoCE SFP28 Adapter        | AIX and Linux  | Both         |
 | EN2W           | PCIe3 4-port 10 GbE BaseT RJ45 Adapter             | AIX and Linux  | Both         |
 
-a. Check for specific AIX or Linux OS requirements in the E1050 Sales Manual.
+- a. Check for specific AIX or Linux OS requirements in the E1050 Sales Manual.
 
 ## 3.4.2  Fibre Channel adapters
 
@@ -2957,7 +2995,7 @@ Table 3-15 RDX removable disk drives
 | #EU15 a        | 1.5 TB Removable Disk Drive Cartridge |
 | #EU2T          | 2 TB Removable Disk Drive Cartridge   |
 
-a. Supported only. The feature can be migrated only from existing systems.
+- a. Supported only. The feature can be migrated only from existing systems.
 
 ## 3.8 Disk and media features
 
@@ -3106,13 +3144,12 @@ Table 3-20   PCIe slot configuration in the PCIe Gen4 I/O expansion drawer
 | Right I/O module Slot 4 | P1-C4           | PCIe x8 adapter a |
 | Right I/O module Slot 5 | P1-C5           | PCIe x8 adapter a |
 
-a. All 6 slots, including the x8 slots, use x16 connectors.
-
--  All slots are PCIe4 slots.
--  All slots support full-length, full-height adapters or short form-factor with a full-height tail stock in single-wide, Generation 3, BSCs.
--  Slots C0 - C3 in each PCIe4 6-slot Fanout Module are PCIe4 x16 buses and slots C4 and C5 are PCIe4 x8 buses.
--  All slots support enhanced error handling (EEH).
--  All PCIe slots can be serviced with the power on.
+- a. All 6 slots, including the x8 slots, use x16 connectors.
+2.  All slots are PCIe4 slots.
+3.  All slots support full-length, full-height adapters or short form-factor with a full-height tail stock in single-wide, Generation 3, BSCs.
+4.  Slots C0 - C3 in each PCIe4 6-slot Fanout Module are PCIe4 x16 buses and slots C4 and C5 are PCIe4 x8 buses.
+5.  All slots support enhanced error handling (EEH).
+6.  All PCIe slots can be serviced with the power on.
 
 -  All six slots in a PCIe4 6-slot Fanout Module support Single Root I/O Virtualization (SR-IOV) shared mode.
 -  Only four Feature Code EC2S, Feature Code EC2U, or Feature Code EC72 adapters can be in SR-IOV mode simultaneously per 6-slot fanout module.
@@ -3749,25 +3786,19 @@ Table 3-34   High-function PDUs that are available with IBM Enterprise Slim Rack
 | Nine C19 receptacles a | #ECJJ                                                      | #ECJL                                                 |
 | Twelve C13 receptacles | #ECJN                                                      | #ECJQ                                                 |
 
-a. The Power E1050 server has an AC power supply with a C19/C20 connector.
+- a. The Power E1050 server has an AC power supply with a C19/C20 connector.
 
 Power sockets: The Power E1050 server takes IEC 60320 C19/C20 mains power and not C13. Help ensure that the correct power cords and PDUs are ordered or available in the rack.
 
 -  High Function 9xC19 PDU plus (#ECJJ)
-
-This intelligent, switched 200 - 240 V AC PDU includes nine C19 receptacles on the front of the PDU. The PDU is mounted on the rear of the rack, which makes the nine C19 receptacles easily accessible. For comparison, this PDU is most like the earlier generation #EPTJ PDU.
-
+- This intelligent, switched 200 - 240 V AC PDU includes nine C19 receptacles on the front of the PDU. The PDU is mounted on the rear of the rack, which makes the nine C19 receptacles easily accessible. For comparison, this PDU is most like the earlier generation #EPTJ PDU.
 -  High Function 9xC19 PDU plus 3-Phase (#ECJL)
-
-This intelligent, switched 208 V 3-phase AC PDU includes nine C19 receptacles on the front of the PDU. The PDU is mounted on the rear of the rack, which makes the nine C19 receptacles easily accessible. For comparison, this PDU is most like the earlier generation #EPTL PDU.
+- This intelligent, switched 208 V 3-phase AC PDU includes nine C19 receptacles on the front of the PDU. The PDU is mounted on the rear of the rack, which makes the nine C19 receptacles easily accessible. For comparison, this PDU is most like the earlier generation #EPTL PDU.
 
 -  High Function 12xC13 PDU plus (#ECJN)
-
-This intelligent, switched 200 - 240 V AC PDU includes 12 C13 receptacles on the front of the PDU. The PDU is mounted on the rear of the rack, which makes the 12 C13 receptacles easily accessible. For comparison, this PDU is most like the earlier generation #EPTN PDU.
-
+- This intelligent, switched 200 - 240 V AC PDU includes 12 C13 receptacles on the front of the PDU. The PDU is mounted on the rear of the rack, which makes the 12 C13 receptacles easily accessible. For comparison, this PDU is most like the earlier generation #EPTN PDU.
 -  High Function 12xC13 PDU plus 3-Phase (#ECJQ)
-
-This intelligent, switched 208 V 3-phase AC PDU includes 12 C13 receptacles on the front of the PDU. The PDU is mounted on the rear of the rack, which makes the 12 C13 receptacles easily accessible. For comparison, this PDU is most like the earlier generation #EPTQ PDU.
+- This intelligent, switched 208 V 3-phase AC PDU includes 12 C13 receptacles on the front of the PDU. The PDU is mounted on the rear of the rack, which makes the 12 C13 receptacles easily accessible. For comparison, this PDU is most like the earlier generation #EPTQ PDU.
 
 The PDU receives power through a UTG0247 power-line connector. Each PDU requires one PDU-to-wall power cord. Various power cord features are available for various countries and applications by varying the PDU-to-wall power cord, which must be ordered separately.
 
@@ -3916,6 +3947,10 @@ The rack or cabinet must be capable of supporting an average load of 20 kg (44 l
 
 Chapter 4.
 
+4
+
+<!-- image -->
+
 ## Reliability, availability, and serviceability
 
 IBM Power servers offer exceptional agility, reliability, and sustainability, making them ideal for demanding workloads. Renowned for their scalability and performance, Power servers provide superior virtualization and management features for flexibility and enhanced security.
@@ -3931,8 +3966,6 @@ The following topics are covered in this chapter:
 -  4.5, 'I/O subsystem RAS' on page 141
 -  4.6, 'Serviceability' on page 141
 -  4.7, 'Reliability and availability' on page 146
-
-## 4
 
 ## 4.1  Designing for reliability
 
@@ -4254,6 +4287,8 @@ Figure 4-3 on page 147 is misleading in the sense that servers with low reliabil
 
 Chapter 5.
 
+<!-- image -->
+
 ## Enterprise solutions
 
 In this chapter, we describe the major solutions that can help enterprises achieve their business goals and the reasons on why IBM Power10 processor-based mid-range servers provide a significant contribution to that end.
@@ -4264,8 +4299,6 @@ The following topics are covered in this chapter:
 -  5.2, 'IBM PowerVC overview' on page 159
 -  5.3, 'Digital transformation and IT modernization' on page 161
 -  5.4, 'Protecting trust from core to cloud' on page 165
-
-## 5
 
 ## 5.1  PowerVM virtualization
 
@@ -4856,277 +4889,87 @@ Hardware assist is necessary to avoid tampering with the stack. The IBM Power pl
 
 ## Abbreviations and acronyms
 
-4S
-
-4-socket
-
-ACE
-
-access control entry
-
-ACF
-
-Access Control File
-
-AES
-
-Advanced Encryption Standard
-
-AESKW
-
-AES Key Wrap
-
-AI
-
-artificial intelligence
-
-AME
-
-Active Memory Expansion
-
-AMM
-
-Active Memory Mirroring
-
-ANSI
-
-American National Standards
-
-Institute
-
-AOC
-
-Active Optical Cable
-
-API
-
-application programming interface
-
-ARI
-
-analog rack interface
-
-ASMI
-
-Advanced System Management
-
-Interface
-
-BMC
-
-baseboard management controller
-
-BSC
-
-blind-swap cassette
-
-CAC
-
-Common Access Card
-
-CCA
-
-Common Cryptographic
-
-Architecture
-
-CEC
-
-central electronic complex
-
-CLI
-
-command-line interface
-
-CMAC
-
-Cipher-based Message
+| 4S        | 4-socket                                                 | DF       | decimal floating-point                            |
+|-----------|----------------------------------------------------------|----------|---------------------------------------------------|
+| ACE       | access control entry                                     | DLPAR    | dynamic logical partition                         |
+| ACF       | Access Control File                                      | DMA      | direct memory access                              |
+| AES       | Advanced Encryption Standard                             | DME      | dense math engine                                 |
+| AESKW     | AES Key Wrap                                             | DPM      | dynamic performance mode                          |
+| AI        | artificial intelligence                                  | DRAM     | dynamic RAM                                       |
+| AME       | Active Memory Expansion                                  | DRO      | Dynamic Resource Optimizer                        |
+| AMM       | Active Memory Mirroring                                  | DSP      | Data Secure Platform                              |
+| ANSI      | American National Standards Institute                    | EA       | effective address                                 |
+| AOC       | Active Optical Cable                                     | eBMC     | enterpriseBaseboardManagement Controller          |
+| API       | application programming interface                        | ECC      | error correction code                             |
+| ARI       | analog rack interface                                    | ECDSA    | Elliptic Curve Digital Signature Algorithm        |
+| ASMI      | Advanced System Management Interface                     | ED/FI    | Error Detection and Fault Isolation               |
+| BMC       | baseboard management controller                          | EDR      | Endpoint Detection and Response                   |
+| BSC       | blind-swap cassette                                      | EEH      | enhanced error handling                           |
+| CAC       | Common Access Card                                       | EMEA     | Europe, Middle East, and Asia                     |
+| CCA       | Common Cryptographic Architecture                        | ERAT     | effective-to-real address translation             |
+| CEC       | central electronic complex                               | ESA eSCM | Electronic Service Agent entry single-chip module |
+| CLI       | command-line interface                                   | ESM      | Enclosure Services Manager                        |
+| CMAC      | Cipher-based Message Authentication Code                 | FC       | Fibre Channel                                     |
+| CMOS      | complimentary                                            | FFDC     | First Failure Data Capture                        |
+| CoD       | metal-oxide-semiconductor Capacity on Demand             | FHE FIFO | fully homomorphic encryption first in - first out |
+| CRC       | cyclic redundancy check                                  | FIR      | Fault Isolation Register                          |
+| CRU       | customer-replaceable unit                                | FPCM     | Format Preserving Counter Mode                    |
+| CSP       | Client Support Portal                                    | FPE      | format-preserving encryption                      |
+| CSU       | customer setup                                           | FRU      | field-replaceable unit                            |
+|           | Demand                                                   | FSP      | Flexible Service Processor                        |
+| CUoD CVEs | Capacity Upgrade on Common Vulnerabilities and Exposures | GA GCC   | General Availability GNU Compiler Collection      |
+|           | dual-chip module                                         | GTMS     | Global Total Microcode Support                    |
+| DCM DDIMM | Differential Dual Inline Memory                          | GTps     | giga-transfers per second                         |
+| DDR4      | Module Double Data Rate                                  | HA       | high availability or highly available             |
+|           | 4                                                        | HDDW     | Huge Dynamic DMA Window                           |
+| DDW       | Dynamic DMA Window                                       | HLFH     | Half Length Full Height                           |
+| DES       | Data Encryption Standard                                 | HLHH     | Half Length Half Height                           |
+| DEXCR     | Dynamic Execution Control Register                       | HMAC     | Hash-Based Message                                |
 
 Authentication Code
 
-CMOS
-
-complimentary
-
-metal-oxide-semiconductor
-
-CoD
-
-Capacity on Demand
-
-CRC
-
-cyclic redundancy check
-
-CRU
-
-customer-replaceable unit
-
-CSP
-
-Client Support Portal
-
-CSU
-
-customer setup
-
-CUoD
-
-Capacity Upgrade on Demand
-
-CVEs
-
-Common Vulnerabilities and
-
-Exposures
-
-DCM
-
-dual-chip module
-
-DDIMM
-
-Differential Dual Inline Memory
-
-Module
-
-DDR4
-
-Double Data Rate 4
-
-DDW
-
-Dynamic DMA Window
-
-DES
-
-Data Encryption Standard
-
-DEXCR
-
-Dynamic Execution Control
-
-Register
-
-DF
-
-DLPAR
-
-DMA
-
-DME
-
-DPM
-
-DRAM
-
-DRO
-
-DSP
-
-EA
-
-eBMC
-
-ECC
-
-ECDSA
-
-ED/FI
-
-EDR
-
-EEH
-
-EMEA
-
-ERAT
-
-ESA
-
-eSCM
-
-ESM
-
-FC
-
-FFDC
-
-FHE
-
-FIFO
-
-FIR
-
-FPCM
-
-FPE
-
-FRU
-
-FSP
-
-GA
-
-GCC
-
-GTMS
-
-GTps
-
-HA
-
-HDDW
-
-HLFH
-
-HLHH
-
-HMAC
-
-decimal floating-point dynamic logical partition direct memory access dense math engine dynamic performance mode dynamic RAM Dynamic Resource Optimizer Data Secure Platform effective address enterprise Baseboard Management Controller error correction code Elliptic Curve Digital Signature Algorithm Error Detection and Fault Isolation Endpoint Detection and Response enhanced error handling Europe, Middle East, and Asia effective-to-real address translation Electronic Service Agent entry single-chip module Enclosure Services Manager Fibre Channel First Failure Data Capture fully homomorphic encryption first in - first out Fault Isolation Register Format Preserving Counter Mode format-preserving encryption field-replaceable unit Flexible Service Processor General Availability GNU Compiler Collection Global Total Microcode Support giga-transfers per second high availability or highly available Huge Dynamic DMA Window Half Length Full Height Half Length Half Height Hash-Based Message Authentication Code
-
-| HMC      | Hardware Management Console                 | NX        | nest accelerator                                         |
-|----------|---------------------------------------------|-----------|----------------------------------------------------------|
-| HNV      | Hybrid Network Virtualization               | OIDC      | OpenID Connect                                           |
-| HPT      | hardware page table                         | OMI       | Open Memory Interface                                    |
-| IaaS     | infrastructure as a service                 | OS        | operating system                                         |
-| IBM      | International Business Machines Corporation | OSHA      | Occupational Safety and Health Administration            |
-| IBM CMC  | IBM Cloud Management Console                | P2PE      | point-to-point encryption                                |
-| IBM ESS  | IBM Entitled Systems Support                | PCIe      | PeripheralComponentInterconnect Express                  |
-| IBM SSR  | IBM System Services Representative          | PCR       | Processor Compatibility Register                         |
-| IDP      | Intrusion Detection and Prevention          | PDU       | power distribution unit                                  |
-| iPDU     | intelligent power distribution unit         | PEC       | PCI Express controller                                   |
-| IPL      | initial program load                        | PEP2      | Power Enterprise Pools 2.0                               |
-| IPMI     | Intelligent Platform Management             | PFW       | partition firmware                                       |
-|          | Interface                                   | PHB       | PCI host bridge                                          |
-| IPS      | idle power saver mode                       | PIN       | personal identification number                           |
-| ISA      | instruction set architecture                | PIR       | Processor Instruction Retry                              |
-| ISV      | independent software vendor                 | PIV       | Personal Identification Verification                     |
-| KVM      | keyboard/video/mouse                        | PKI       | public key infrastructure                                |
-| LA       | Latin America                               | PMIC      | Power Management Integrated                              |
-| LaMa LAN | Landscape Management local area network     | PowerAXON | Circuit Power/A-bus/X-bus/OpenCAPI/Net                   |
-| LDAP     | lightweight directory access protocol       |           | working power supply unit                                |
-|          | Little                                      | PSU       |                                                          |
-| LE       | Endian                                      | QP        | quad-precision floating-point                            |
-| LMB      | local memory bus                            | RAS       | reliability, availability, and serviceability            |
-| LPAR LPM | logical partition Live Partition Mobility   | RDHX      | Rear Door Heat Exchanger                                 |
-| MCU      | memory controller unit                      | REST      | Representational State Transfer Red Hat Enterprise Linux |
-| MES      | Miscellaneous Equipment                     | RHEL      |                                                          |
-|          | Specification                               | RISC      | reduced-instruction-set-computer                         |
-| MFA      | Multi-Factor Authentication                 | ROP       | return-oriented programming                              |
-| MMA      | Matrix Math Accelerator                     | RSA       | Rivest-Shamir-Adleman                                    |
-| MPM      | maximum performance mode                    | rsh       | Remote Shell                                             |
-| MSP      | Mover Server Partition                      | SAN       | storage area network                                     |
-| MTBF     | mean time between failures                  | SCM       | single-chip module                                       |
-| MTFR     | MPM typical frequency range                 | SCSI      | Small Computer System Interface                          |
-| MTM      | Machine Type And Model                      | SDS       | software-defined storage                                 |
-| NA       | North America                               | SEA       | Shared Ethernet Adapter                                  |
-| NCSI     | Network Connectivity Status Indicator       | SEL       | system event log                                         |
-| NPIV     | N_Port ID Virtualization                    |           | Secure Hash Algorithm                                    |
-| NTP      | Network Time Protocol                       | SHA       | single instructions multiple                             |
-| NUCA     | non-uniform cache access                    | SIMD      | data SMP interconnect unit                               |
-| NVMe     | Non-Volatile Memory Express                 | SIU       |                                                          |
+| HMC      | Hardware Management Console                     | NX        | nest accelerator                                             |
+|----------|-------------------------------------------------|-----------|--------------------------------------------------------------|
+| HNV      | Hybrid Network Virtualization                   | OIDC      | OpenID Connect                                               |
+| HPT      | hardware page table                             | OMI       | Open Memory Interface                                        |
+| IaaS     | infrastructure as a service                     | OS        | operating system                                             |
+| IBM      | International Business Machines Corporation     | OSHA      | Occupational Safety and Health Administration                |
+| IBM CMC  | IBM Cloud Management Console                    | P2PE      | point-to-point encryption                                    |
+| IBM ESS  | IBM Entitled Systems Support                    | PCIe      | PeripheralComponentInterconnect Express                      |
+| IBM SSR  | IBM System Services Representative              | PCR       | Processor Compatibility Register                             |
+| IDP      | Intrusion Detection and Prevention              | PDU       | power distribution unit                                      |
+| iPDU     | intelligent power distribution unit             | PEC       | PCI Express controller                                       |
+| IPL      | initial program load                            | PEP2      | Power Enterprise Pools 2.0                                   |
+| IPMI     | Intelligent Platform Management                 | PFW       | partition firmware                                           |
+|          | Interface                                       | PHB       | PCI host bridge                                              |
+| IPS      | idle power saver mode                           | PIN       | personal identification number                               |
+| ISA      | instruction set architecture                    | PIR       | Processor Instruction Retry                                  |
+| ISV      | independent software vendor                     | PIV       | Personal Identification Verification                         |
+| KVM      | keyboard/video/mouse                            | PKI       | public key infrastructure                                    |
+| LA       | Latin America                                   | PMIC      | Power Management Integrated                                  |
+| LaMa LAN | Landscape Management local area network         | PowerAXON | Circuit Power/A-bus/X-bus/OpenCAPI/Net                       |
+| LDAP     | lightweight directory access protocol           |           | working power supply unit                                    |
+| LE       | Little Endian                                   | PSU       |                                                              |
+|          |                                                 | QP RAS    | quad-precision floating-point reliability, availability, and |
+| LMB LPAR | local memory bus logical partition              |           | serviceability                                               |
+| LPM      | Live Partition Mobility                         | RDHX REST | Rear Door Heat Exchanger Representational State Transfer     |
+|          |                                                 | RHEL      | Red Hat Enterprise Linux                                     |
+| MES      | Miscellaneous Equipment                         |           |                                                              |
+| MFA      | Specification Multi-Factor Authentication       | RISC      | reduced-instruction-set-computer return-oriented programming |
+|          |                                                 | ROP       | Rivest-Shamir-Adleman                                        |
+| MMA      | Matrix Math Accelerator                         | RSA       |                                                              |
+| MPM      | maximum performance mode Mover Server Partition | rsh       | Remote Shell                                                 |
+| MSP      |                                                 | SAN       | storage area network                                         |
+| MSPP     | multiple shared processor pools                 | SAS       | serial-attached SCSI                                         |
+| MTBF     | mean time between failures                      | SCM       | single-chip module                                           |
+| MTFR     | MPM typical frequency range                     | SCSI      | Small Computer System Interface                              |
+| MTM      | Machine Type And Model                          | SDS       | software-defined storage                                     |
+| NA       | North America                                   | SEA       | Shared Ethernet Adapter system event log                     |
+| NCSI     | Network Connectivity Status Indicator           | SEL SFP   | Service Focal Point                                          |
+| NPIV     | N_Port ID                                       |           |                                                              |
+|          | Virtualization                                  | SHA       | Secure Hash Algorithm                                        |
+| NTP NUCA | Network Time Protocol non-uniform cache access  | SIMD      | single instructions multiple data SMP interconnect unit      |
+| NVMe     | Non-Volatile Memory Express                     | SIU       |                                                              |
 
 | SLA    | service-level agreement                  |
 |--------|------------------------------------------|
@@ -5248,11 +5091,13 @@ https://www.ibm.com/mysupport/s/?language=en\_US
 
 ## Help from IBM
 
-IBM Support and downloads ibm.com /support
+IBM Support and downloads
 
-IBM Global Services ibm.com /services
+ibm.com /support
 
-<!-- image -->
+IBM Global Services
+
+ibm.com /services
 
 <!-- image -->
 
@@ -5261,7 +5106,5 @@ Back cover
 <!-- image -->
 
 ISBN 0738461911 REDP-5684-01
-
-Printed in U.S.A.
 
 <!-- image -->

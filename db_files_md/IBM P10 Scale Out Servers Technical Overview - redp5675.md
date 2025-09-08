@@ -4,6 +4,14 @@ October
 
 ## IBM Power10 Scale Out Servers Technical Overview S1012, S1014, S1022s, S1022 and S1024
 
+Tim Simon
+
+Henry Vo
+
+Dean Mussari
+
+Tsvetomir Spasov
+
 <!-- image -->
 
 <!-- image -->
@@ -14,7 +22,7 @@ October
 
 IBM Redbooks
 
-IBM Power10 Scale Out Servers Technical Overview
+## IBM Power10 Scale Out Servers Technical Overview
 
 October 2024
 
@@ -80,103 +88,102 @@ Note  to  U.S.  Government Users  Restricted  Rights  --  Use,  duplication  or 
 | HMC currency . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                                             | 40      |
 | 1.9.6                                                                                                                                                                                            |         |
 
-| 1.10 IBM Power solutions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                       | . 41      |
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
-| 1.10.1 IBM PowerSC . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                           | . 41      |
-| 1.10.2 IBM PowerSC Multi-Factor Authentication . . . . . . . . . .                                                                                           | . 43      |
-| 1.10.3 IBM Cloud PowerVC for Private Cloud . . . . . . . . . . . . .                                                                                         | . 43      |
-| 1.10.4 IBM VM Recovery Manager Disaster Recovery . . . . . .                                                                                                 | . 44      |
-| 1.10.5 IBM Cloud Management Console . . . . . . . . . . . . . . . . .                                                                                        | . 45      |
-| 1.11 IBM Power platform modernization . . . . . . . . . . . . . . . . . . . .                                                                                | . 45      |
-| 1.11.1 IBM Power Virtual Server . . . . . . . . . . . . . . . . . . . . . . .                                                                                | . 45      |
-| 1.11.2 Red Hat OpenShift Container Platform for Power. . . . .                                                                                               | . 46      |
-| 1.11.3 Hybrid Cloud Management Edition . . . . . . . . . . . . . . . .                                                                                       | . 46      |
-| Chapter 2. Architecture and technical overview . . . . . . . . . . .                                                                                         | . 49      |
-| 2.1 Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                               | . 50      |
-| 2.2 IBM Power10 processor . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                          | . 50      |
-| 2.2.1 Power10 processor overview . . . . . . . . . . . . . . . . . . . . .                                                                                   | . 51      |
-| 2.2.2 Processor modules for Power 10 Scale Out Servers . . .                                                                                                 | . 57      |
-| 2.2.3 On-chip L3 cache and intelligent caching . . . . . . . . . . . .                                                                                       | . 69      |
-| 2.2.4 Open memory interface . . . . . . . . . . . . . . . . . . . . . . . . .                                                                                | . 69      |
-| 2.2.5 Pervasive memory encryption. . . . . . . . . . . . . . . . . . . . .                                                                                   | . 72      |
-| 2.2.6 Nest accelerator . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                         | . 73      |
-| 2.2.7 SMP interconnect and accelerator interface . . . . . . . . . .                                                                                         | . 75      |
-| 2.2.8 Power and performance management . . . . . . . . . . . . . .                                                                                           | . 79      |
-| 2.2.9 Comparing Power10, Power9, and Power8 processors .                                                                                                     | . 83      |
-| 2.3 Memory subsystem. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.3.1 Memory feature and placement rules . . . . . . . . . . . . . . . | . 84 . 89 |
-| 2.3.2 Memory bandwidth . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                             | . 99      |
-| . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                                                  | 103       |
-| 2.4 Internal I/O subsystem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                       | 105       |
-| 2.4.1 Slot configuration .                                                                                                                                   |           |
-| 2.4.2 System port. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                         | 113       |
-| 2.5 Enterprise Baseboard Management Controller. . . . . . . . . . . .                                                                                        | 113       |
-| 2.5.1 Managing the system by using the ASMI GUI . . . . . . . .                                                                                              | 113       |
-| 2.5.2 Managing the system by using DMTF Redfish . . . . . . . . Platform Management                                                                          | 119 122   |
-| 2.5.3 Managing the system by using the Intelligent . . . . . . . . . . . . . . . .                                                                           | 123       |
-| Chapter 3. Available features and options 3.1 Processor module features . . . . . . . . . . . . . . . . . . . . . . . . . . .                                | 124       |
-| 3.1.1 Power S1012 processor Feature Codes. . . . . . . . . . . . .                                                                                           | 124       |
-| 3.1.2 Power S1014 processor Feature Codes. . . . . . . . . . . . .                                                                                           | 124       |
-| 3.1.3 Power S1022s processor Feature Codes. . . . . . . . . . . .                                                                                            | 125       |
-| 3.1.4 Power S1022 processor Feature Codes. . . . . . . . . . . . . 3.2 Memory features . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | 126       |
-| 3.3 Power supply features. . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                             | 130       |
-| . . .                                                                                                                                                        | 132       |
-| 3.4 Peripheral Component Interconnect adapters . . . . . . . . . .                                                                                           | 133       |
-| . . 3.4.1 Power S1012 adapters . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                           | 133       |
-| 3.4.2 Power S1014, S1022s, S1022, and S1024 adapters . . . . . . . . . . . . . . . . . . . . .                                                               | 134       |
-| 3.5 Internal storage . . . . . . . . . . . . . . . . . . 3.5.1 Power S1012 Internal Storage . .                                                              | 141 141   |
-| . . . . . . . . . . . . . . . . . . 3.5.2 Power S1014, S1022s, S1022, and S1012 internal storage.                                                            |           |
-| 3.5.3 RAID support . . . . . . . . . . . . . . . . . .                                                                                                       | 142       |
-| . . . . . . . . . . . . . . . . . . . . . . . 3.6 Media drawers. . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                     | 147 147   |
-| 3.6.1 External DVD . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                                   | 148       |
-| drives                                                                                                                                                       |           |
-| 3.6.2 RDX removable disk drives. . . . . . . . . . . . . . . . . . . . . . . 3.7 . .                                                                         | 148       |
-| Disk and media features . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                                | 149       |
+| 1.10 IBM Power solutions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                     | . 41 .    |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
+| 1.10.1 IBM PowerSC . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                         | 41        |
+| 1.10.2 IBM PowerSC Multi-Factor Authentication . . . . . . . . .                                                                                         | . 43      |
+| 1.10.3 IBM Cloud PowerVC for Private Cloud . . . . . . . . . . . .                                                                                       | . 43      |
+| 1.10.4 IBM VM Recovery Manager Disaster Recovery . . . . .                                                                                               | . 44      |
+| 1.10.5 IBM Cloud Management Console . . . . . . . . . . . . . . . .                                                                                      | . 45      |
+| 1.11 IBM Power platform modernization . . . . . . . . . . . . . . . . . . .                                                                              | . 45      |
+| 1.11.1 IBM Power Virtual Server . . . . . . . . . . . . . . . . . . . . . .                                                                              | . 45      |
+| 1.11.2 Red Hat OpenShift Container Platform for Power. . . .                                                                                             | . 46      |
+| 1.11.3 Hybrid Cloud Management Edition . . . . . . . . . . . . . . .                                                                                     | . 46      |
+| Chapter 2. Architecture and technical overview . . . . . . . . . .                                                                                       | . 49      |
+| 2.1 Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                             | . 50      |
+| 2.2 IBM Power10 processor . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                        | . 50      |
+| 2.2.1 Power10 processor overview . . . . . . . . . . . . . . . . . . . .                                                                                 | . 51      |
+| 2.2.2 Processor modules for Power 10 Scale Out Servers . .                                                                                               | . 57      |
+| 2.2.3 On-chip L3 cache and intelligent caching . . . . . . . . . . .                                                                                     | . 69      |
+| 2.2.4 Open memory interface . . . . . . . . . . . . . . . . . . . . . . . .                                                                              | . 69      |
+| 2.2.5 Pervasive memory encryption. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                   | . 72      |
+| 2.2.6 Nest accelerator . . . . . . . . . . . . . . .                                                                                                     | . 73      |
+| 2.2.7 SMP interconnect and accelerator interface . . . . . . . . .                                                                                       | . 75      |
+| 2.2.8 Power and performance management . . . . . . . . . . . . .                                                                                         | . 79      |
+| 2.2.9 Comparing Power10, Power9, and Power8 processors                                                                                                   | . 83      |
+| 2.3 Memory subsystem. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2.3.1 Memory feature and placement rules . . . . . . . . . . . . . . | . 84 . 89 |
+| 2.3.2 Memory bandwidth . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                           | . 99      |
+| 2.4 Internal I/O subsystem . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                     | 103       |
+| 2.4.1 Slot configuration . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                       | 105       |
+| . .                                                                                                                                                      |           |
+| 2.4.2 System port. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                         | 113       |
+| 2.5 Enterprise Baseboard Management Controller. . . . . . . . . . . 2.5.1 Managing the system by using the ASMI GUI . . . . . . .                        | 113 113   |
+| 2.5.2 Managing the system by using DMTF Redfish . . . . . . .                                                                                            | 119       |
+| 2.5.3 Managing the system by using the Intelligent Platform Management                                                                                   | 122       |
+| 3.1 Processor module features . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                        | 124       |
+| 3.1.1 Power S1012 processor Feature Codes. . . . . . . . . . . . 3.1.2 Power S1014 processor Feature Codes. . . . . . . . . . . .                        | 124       |
+| 3.1.3 Power S1022s processor Feature Codes. . . . . . . . . . .                                                                                          | 124       |
+| 3.1.4 Power S1022 processor Feature Codes. . . . . . . . . . . .                                                                                         | 125 126   |
+| 3.2 Memory features . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                  | 130       |
+| 3.3 Power supply features. . . . . . . . . . . . . . . . . . . . .                                                                                       | 132       |
+| . . . . . . . . . 3.4 Peripheral Component Interconnect adapters . . . . . . . . . . .                                                                   | 133       |
+| 3.4.1 Power S1012 adapters . . .                                                                                                                         | 133       |
+| . . . . . . . . . . . . . . . . . . . . . . 3.4.2 Power S1014, S1022s, S1022, and S1024 adapters . . .                                                   | 134       |
+| 3.5 . . .                                                                                                                                                |           |
+| Internal storage . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                           | 141 141   |
+| 3.5.1 Power S1012 Internal Storage . . . . . . . . . . . . . . . . . . . 3.5.2 Power S1014, S1022s, and S1012 internal storage.                          | 142       |
+| S1022, 3.5.3 RAID support . . . . . . . . . .                                                                                                            |           |
+| . . . . . . . . . . . . . . . . . . . . . .                                                                                                              | 147       |
+| 3.6 Media drawers. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                 | 147       |
+| 3.6.1 External DVD drives . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                          | 148       |
+| 3.6.2 RDX removable disk drives. . . . . . . . . . . . . . . . . . . . . .                                                                               | 148       |
+| 3.7 Disk and media features . . . . . . . . . . . . . . . . . . . . . . . . . . . .                                                                      | 149       |
 
-| 3.8 External IO subsystems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          | . 151   |
-|-------------------------------------------------------------------------------------------------------------------|---------|
-| 3.8.1 PCIe Gen4 I/O expansion drawer. . . . . . . . . . . . . . . . . . . . . . . . . . . .                       | . 152   |
-| 3.8.2 PCIe Gen3 I/O expansion drawer. . . . . . . . . . . . . . . . . . . . . . . . . . . .                       | . 155   |
-| 3.8.3 NED24 NVMe Expansion Drawer. . . . . . . . . . . . . . . . . . . . . . . . . . . .                          | . 160   |
-| 3.8.4 EXP24SX SAS Storage Enclosure . . . . . . . . . . . . . . . . . . . . . . . . . . .                         | . 166   |
-| 3.8.5 IBM Storage . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         | . 169   |
-| 3.9 System racks. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   | . 170   |
-| 3.9.1 IBM Enterprise 42U Slim Rack 7965-S42. . . . . . . . . . . . . . . . . . . . . .                            | . 171   |
-| 3.9.2 AC power distribution units . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .               | . 171   |
-| 3.9.3 Rack-mounting rules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .             | . 174   |
-| 3.9.4 Useful rack additions. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .            | . 174   |
-| 3.9.5 Original equipment manufacturer racks . . . . . . . . . . . . . . . . . . . . . . .                         | . 176   |
-| Chapter 4. Enterprise solutions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   | . 179   |
-| 4.1 PowerVM virtualization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                  | . 180   |
-| 4.1.1 IBM Power Hypervisor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                | . 180   |
-| 4.1.2 Multiple shared processor pools . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                   | . 184   |
-| 4.1.3 Virtual I/O Server . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          | . 185   |
-| 4.1.4 Live Partition Mobility . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           | . 186   |
-| 4.1.5 Active Memory Mirroring . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .               | . 187   |
-| 4.1.6 Remote Restart. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           | . 187   |
-| 4.1.7 POWER processor modes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                     | . 187   |
-| 4.1.8 Single Root I/O virtualization. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .               | . 189   |
-| 4.2 IBM PowerVC overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .            | . 190   |
-| 4.2.1 IBM PowerVC functions and advantages . . . . . . . . . . . . . . . . . . . . . .                            | . 191   |
-| 4.3 Digital transformation and IT modernization . . . . . . . . . . . . . . . . . . . . . . . .                   | . 192   |
-| 4.3.1 Application and services modernization . . . . . . . . . . . . . . . . . . . . . . .                        | . 193   |
-| 4.3.2 System automation with Ansible . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                    | . 194   |
-| 4.4 Protect trust from core to cloud . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          | . 197   |
-| 4.4.1 Power10 processor-based, technology-integrated security ecosystem . . . . . .                               | . 198   |
-| 4.4.2 Cryptographic engines and transparent memory encryption .                                                   | . 199   |
-| 4.4.3 Quantum-safe cryptography support. . . . . . . . . . . . . . . . . . . . . . . . . .                        | . 200   |
-| 4.4.4 IBM PCIe3 Crypto Coprocessor BSC-Gen3 4769 . . . . . . . . . . . . . . .                                    | . 200   |
-| 4.4.5 IBM PowerSC support . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                 | . 202   |
-| 4.4.6 Secure and Trusted boot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                 | . 203   |
-| 4.4.7 Enhanced CPU: BMC isolation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                     | . 203   |
-| 4.5 Running AI where operational data is created, processed, and stored. . . .                                    | . 204   |
-| 4.5.1 Train anywhere, deploy on Power10 processor-based server . . . . . .                                        | . 205   |
-| 4.6 Entry database solutions. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         | . 206   |
-| 4.6.1 Oracle Database Standard Edition 2 on Power S1012 and S1014. . .                                            | . 207   |
-| 4.7 Edge computing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      | . 208   |
-| Related publications . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      | . 211   |
-| IBM Redbooks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  | . 211   |
-| Help from IBM . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | 212     |
-|                                                                                                                   | .       |
+| 3.8 External IO subsystems . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         | . 151   |
+|------------------------------------------------------------------------------------------------------------------|---------|
+| 3.8.1 PCIe Gen4 I/O expansion drawer. . . . . . . . . . . . . . . . . . . . . . . . . . . .                      | . 152   |
+| 3.8.2 PCIe Gen3 I/O expansion drawer. . . . . . . . . . . . . . . . . . . . . . . . . . . .                      | . 155   |
+| 3.8.3 NED24 NVMe Expansion Drawer. . . . . . . . . . . . . . . . . . . . . . . . . . . .                         | . 160   |
+| 3.8.4 EXP24SX SAS Storage Enclosure . . . . . . . . . . . . . . . . . . . . . . . . . . .                        | . 166   |
+| 3.8.5 IBM Storage . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        | . 169   |
+| 3.9 System racks. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  | . 170   |
+| 3.9.1 IBM Enterprise 42U Slim Rack 7965-S42. . . . . . . . . . . . . . . . . . . . . .                           | . 171   |
+| 3.9.2 AC power distribution units . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .              | . 171   |
+| 3.9.3 Rack-mounting rules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .            | . 174   |
+| 3.9.4 Useful rack additions. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           | . 174   |
+| 3.9.5 Original equipment manufacturer racks . . . . . . . . . . . . . . . . . . . . . . .                        | . 176   |
+| Chapter 4. Enterprise solutions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  | . 179   |
+| 4.1 PowerVM virtualization . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                 | . 180   |
+| 4.1.1 IBM Power Hypervisor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .               | . 180   |
+| 4.1.2 Multiple shared processor pools . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                  | . 184   |
+| 4.1.3 Virtual I/O Server . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         | . 185   |
+| 4.1.4 Live Partition Mobility . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          | . 186   |
+| 4.1.5 Active Memory Mirroring . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .              | . 187   |
+| 4.1.6 Remote Restart. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          | . 187   |
+| 4.1.7 POWER processor modes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                    | . 187   |
+| 4.1.8 Single Root I/O virtualization. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .              | . 189   |
+| 4.2 IBM PowerVC overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           | . 190   |
+| 4.2.1 IBM PowerVC functions and advantages . . . . . . . . . . . . . . . . . . . . . . .                         | . 191   |
+| 4.3 Digital transformation and IT modernization . . . . . . . . . . . . . . . . . . . . . . .                    | . 192   |
+| 4.3.1 Application and services modernization . . . . . . . . . . . . . . . . . . . . . . .                       | . 193   |
+| 4.3.2 System automation with Ansible . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                   | . 194   |
+| 4.4 Protect trust from core to cloud . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         | . 197   |
+| 4.4.1 Power10 processor-based, technology-integrated security ecosystem                                          | . 198   |
+| 4.4.2 Cryptographic engines and transparent memory encryption . . . . . . .                                      | . 199   |
+| 4.4.3 Quantum-safe cryptography support. . . . . . . . . . . . . . . . . . . . . . . . . .                       | . 200   |
+| 4.4.4 IBM PCIe3 Crypto Coprocessor BSC-Gen3 4769 . . . . . . . . . . . . . . .                                   | . 200   |
+| 4.4.5 IBM PowerSC support . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                | . 202   |
+| 4.4.6 Secure and Trusted boot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                | . 203   |
+| 4.4.7 Enhanced CPU: BMC isolation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .                    | . 203   |
+| 4.5 Running AI where operational data is created, processed, and stored. . . .                                   | . 204   |
+| 4.5.1 Train anywhere, deploy on Power10 processor-based server . . . . . .                                       | . 205   |
+| 4.6.1 Oracle Database Standard Edition 2 on Power S1012 and S1014.                                               |         |
+| . .                                                                                                              | . 207   |
+| 4.7 Edge computing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     | . 208   |
+| Related publications . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     | . 211   |
+| IBM Redbooks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . | . 211   |
+| Help from IBM . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .  | 212     |
+| .                                                                                                                | .       |
 
 ## Notices
 
@@ -214,18 +221,71 @@ IBM, the IBM logo, and ibm.com are trademarks or registered trademarks of Intern
 
 The following terms are trademarks or registered trademarks of International Business Machines Corporation, and might also be trademarks or registered trademarks in other countries.
 
-| AIX®                       | IBM Spectrum®       | PowerPC®          |
-|----------------------------|---------------------|-------------------|
-| Db2®                       | IBM Watson®         | PowerVM®          |
-| DS8000®                    | IBM Z®              | QRadar®           |
-| Enterprise Storage Server® | Instana®            | Redbooks®         |
-| HyperSwap®                 | Maximo®             | Redbooks (logo) ® |
-| IBM®                       | Micro-Partitioning® | Storwize®         |
-| IBM Cloud®                 | POWER®              | System z®         |
-| IBM Cloud Pak®             | Power Architecture® | Tivoli®           |
-| IBM Elastic Storage®       | Power8®             | Turbonomic®       |
-| IBM FlashSystem®           | Power9®             |                   |
-| IBM Security®              | PowerHA®            |                   |
+<!-- image -->
+
+AIX®
+
+Db2®
+
+DS8000®
+
+Enterprise Storage Server®
+
+HyperSwap®
+
+IBM®
+
+IBM Cloud®
+
+IBM Cloud Pak®
+
+IBM Elastic Storage®
+
+IBM FlashSystem®
+
+IBM Security®
+
+IBM Spectrum®
+
+IBM Watson®
+
+IBM Z®
+
+Instana®
+
+Maximo®
+
+Micro-Partitioning®
+
+POWER®
+
+Power Architecture®
+
+Power8®
+
+Power9®
+
+PowerHA®
+
+PowerPC®
+
+PowerVM®
+
+QRadar®
+
+Redbooks®
+
+Redbooks (logo)
+
+®
+
+Storwize®
+
+System z®
+
+Tivoli®
+
+Turbonomic®
 
 The following terms are trademarks of other companies:
 
@@ -347,6 +407,8 @@ This revision includes the following new and changed information.
 
 Chapter 1.
 
+1
+
 ## IBM Power S1012, S1014, S1022s, S1022, and S1024 overview
 
 In this chapter, we introduce the IBM Power S1012 (9028-21B), IBM Power S1014 (9105-41B), IBM Power S1022s (9105-22B), IBM Power S1022 (9105-22A), and IBM Power S1024 (9105-42A) server models. These servers are built upon the Power10 processor architecture to deliver a uniquely designed platform that is designed to help securely and efficiently scale core operational and AI (AI) applications in a hybrid cloud environment.
@@ -364,8 +426,6 @@ This chapter includes the following topics:
 - 1.9, 'Hardware Management Console overview' on page 35
 - 1.10, 'IBM Power solutions' on page 41
 - 1.11, 'IBM Power platform modernization' on page 45
-
-## 1
 
 ## 1.1  Introduction
 
@@ -617,8 +677,6 @@ Figure 1-4   Tower models of the Power S1012 and Power S1014
 While the two images of the systems are relatively correct in size (the S1012 is smaller than th S1014 in all dimensions) they are not shown to scale. Table 1-4 on page 12 lists the physical dimensions of the Power S1012 and Power S1014 tower chassis.
 
 Table 1-4   Physical dimensions of the Power S1012 and Power S1014 tower chassis
-
-<!-- image -->
 
 | Dimension   | Power S1012 server   | Power S1014 server (9105-41B)   |
 |-------------|----------------------|---------------------------------|
@@ -1036,9 +1094,8 @@ Table 1-9   PCIe slot details for Power S1014, S1022s, S1022, and S1024 servers
 | P0-C10         | PCIe4 x16 or PCIe5 x8 slots | 1 or 2              | Yes                |
 | P0-C11         | PCIe5 x8 with x16 connector | 1 or 2              | No                 |
 
-a. Used for eBMC only.
-
-b. Used for devices with OpenCAPI connections only.
+- a. Used for eBMC only.
+- b. Used for devices with OpenCAPI connections only.
 
 The Power S1014 and S1024 servers are 4U (EIA units), and support the installation of full-height PCIe adapters. Figure 1-11 shows the PCIe adapter slot locations for the Power S1014 and S1024 server models.
 
@@ -1123,7 +1180,7 @@ The Power S1014, S1022s, S1022, and S1024 servers support the following minimum 
 - AIX Version 7.2 with Technology Level 7200-05 and Service Pack 7200-05-04-2220
 - AIX Version 7.2 with Technology Level 7200-04 and Service Pack 7200-04-06-2220
 
-Important: Support for AIX 7.1 requires that you have a valid service extension contract in place.
+## Important: Support for AIX 7.1 requires that you have a valid service extension contract in place.
 
 In addition, consider the following requirements:
 
@@ -1218,8 +1275,6 @@ Table 1-11 IBM i software tiers for the Power S1012, S1014, S1022s, S1022, and S
 | S1022s         | 4-core (#EPGR)      | N/A a                 |
 | S1022s         | Dual 4-core (#EPGR) | P10 b                 |
 
-<!-- image -->
-
 | Server model   | Processor        | IBM i software tier   |
 |----------------|------------------|-----------------------|
 | S1022s         | 8-core (#EPGQ)   | P10 c                 |
@@ -1230,11 +1285,9 @@ Table 1-11 IBM i software tiers for the Power S1012, S1014, S1022s, S1022, and S
 | S1024          | 16-core (#EPGC)  | P30                   |
 | S1024          | 24-core (#EPGE)  | P30                   |
 
-a. IBM i does not support a single 4-core processor (#EPGR) in the S1022s server.
-
-b. Native IBM i support with dual 4-core processor only. No partition size limitation.
-
-c. IBM i partitions are limited to four cores on the S1022s and S1022 models.
+- a. IBM i does not support a single 4-core processor (#EPGR) in the S1022s server.
+- b. Native IBM i support with dual 4-core processor only. No partition size limitation.
+- c. IBM i partitions are limited to four cores on the S1022s and S1022 models.
 
 ## Subscription licensing model for IBM i
 
@@ -1470,7 +1523,15 @@ $ lscfg -vpl sysplanar0 |grep -p "System Firmware" System Firmware: ... Microcod
 
 Example 1-2 Output of the command to check UAK expiration date by way of AIX 7.2 and 7.3
 
-Microcode Level.............FW1020.00 FW1020.00 FW1020.00 Microcode Build Date........20220527 20220527 20220527 Update Access Key Exp Date..20220515 Hardware Location Code......U9105.42A.XXXXXXX-Y1 Physical Location: U9105.42A.XXXXXXX-Y1
+Microcode Level.............FW1020.00 FW1020.00 FW1020.00
+
+Microcode Build Date........20220527 20220527 20220527
+
+Update Access Key Exp Date..20220515
+
+Hardware Location Code......U9105.42A.XXXXXXX-Y1
+
+Physical Location: U9105.42A.XXXXXXX-Y1
 
 ## UAK expiration date by using IBM i
 
@@ -1569,8 +1630,6 @@ Each interface maps to a different physical port on the system. Different manage
 The BMC ports are listed in Table 1-12.
 
 Table 1-12   BMC ports
-
-<!-- image -->
 
 | Management tool                            | Logical port   | Shared/Dedicated   | CR2 physical port    |
 |--------------------------------------------|----------------|--------------------|----------------------|
@@ -1709,12 +1768,9 @@ The PowerSC 2.1 product contains the following enhancements:
 Users can log in to PowerSC through SSO with their OpenID Connect (OIDC) Enterprise identity provider and MFA, which enables integration with any application user interface (UI).
 
 - MFA support for RSA web API.
-
-User MFA includes RSA through the web API and no longer uses the access control entry (ACE) protocol.
-
+- User MFA includes RSA through the web API and no longer uses the access control entry (ACE) protocol.
 - User-defined alt-disk for technology level (TL) and service pack (SP) updates.
-
-Users can specify alt-disk through Trusted Network Connect (TNC) for TL and SP updates on AIX endpoints.
+- Users can specify alt-disk through Trusted Network Connect (TNC) for TL and SP updates on AIX endpoints.
 
 PowerSC 2.2.0.1 in January 2024 contains these updates:
 
@@ -1880,6 +1936,8 @@ The following capabilities are available:
 
 Chapter 2.
 
+2
+
 ## Architecture and technical overview
 
 This chapter describes the overall system architecture for the Power10 processor-based scale-out servers IBM Power S1012 (9028-21B), IBM Power S1014 (9105-41B), IBM Power S1022s (9105-22B), IBM Power S1022 (9105-22A), and IBM Power S1024 (9105-42A).
@@ -1891,8 +1949,6 @@ This chapter includes the following topics:
 - 2.3, 'Memory subsystem' on page 84
 - 2.4, 'Internal I/O subsystem' on page 103
 - 2.5, 'Enterprise Baseboard Management Controller' on page 113
-
-## 2
 
 ## 2.1  Overview
 
@@ -1919,12 +1975,25 @@ The Power S1012 planar, while it has many of the features of the other Scale Out
 
 The IBM Power10 processor was introduced to the general public on 17 August 2020 at the 32nd HOT CHIPS semiconductor conference. At that meeting, the new capabilities and features of the latest POWER processor microarchitecture and the Power Instruction Set Architecture (ISA) v3.1B were revealed and categorized according to the following Power10 processor design priority focus areas 1 :
 
-| Data plane bandwidth     | Terabyte per second signaling bandwidth on processor functional interfaces, petabyte system memory capacities, 16-socket symmetric multiprocessing (SMP) scalability, and memory clustering and memory inception capability.   |
-|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Powerful enterprise core | New core micro-architecture, flexibility, larger caches, and reduced latencies.                                                                                                                                                |
-| End-to-end security      | Hardware-enabled security features that are co-optimized with PowerVM hypervisor support.                                                                                                                                      |
-| Energy efficiency        | Up to threefold energy-efficiency improvement in comparison to Power9 processor technology.                                                                                                                                    |
-| Artificial intelligence  | A 10-20x matrix math performance improvement per socket compared to the Power9 processor technology capability.                                                                                                                |
+Data plane bandwidth
+
+Terabyte per second signaling bandwidth on processor functional interfaces, petabyte system memory capacities, 16-socket symmetric multiprocessing (SMP) scalability, and memory clustering and memory inception capability.
+
+Powerful enterprise core
+
+New core micro-architecture, flexibility, larger caches, and reduced latencies.
+
+End-to-end security
+
+Hardware-enabled security features that are co-optimized with PowerVM hypervisor support.
+
+Energy efficiency
+
+Up to threefold energy-efficiency improvement in comparison to Power9 processor technology.
+
+Artificial intelligence
+
+A 10-20x matrix math performance improvement per socket compared to the Power9 processor technology capability.
 
 1   The IBM Power10 Processor session material as presented at the 32nd HOT CHIPS conference is available at this web page.
 
@@ -1989,9 +2058,8 @@ Table 2-1   Summary of the Power10 processor chip and processor core technology
 | Number of transistors                     | 18 billion                                   |
 | Processor compatibility modes             | Support for Power ISA b of Power8 and Power9 |
 
-a. Complimentary metal-oxide-semiconductor (CMOS)
-
-b. Power instruction set architecture (Power ISA)
+- a. Complimentary metal-oxide-semiconductor (CMOS)
+- b. Power instruction set architecture (Power ISA)
 
 ## Power10 processor core
 
@@ -2244,7 +2312,7 @@ Figure 2-8 on page 64 shows logical system diagram of the Power S1022s 2-socket 
 
 Figure 2-6 on page 62 shows the physical diagram of the Power10 entry single chip module. The most important difference in comparison to the physical diagram of the Power10 DCM that is shown in Figure 2-4 on page 60 is that chip-1 has no active cores or memory
 
-interfaces.
+## interfaces.
 
 Also, because the eSCM does not support any OpenCAPI connectivity, the interface port OP3 on chip-0 and OP0 on chip-1 are disabled.
 
@@ -2355,9 +2423,7 @@ Note: In 2-socket Power10 processor-based scale-out servers, the processor modul
 The supported processor activation types and use models vary with the Power10 processor-based scale-out server model type:
 
 - Static processor activations
-
-The Power S1012, Power S1014 and Power S1022s all use the classical static processor activation model. All functional cores of the configured modules are delivered with processor activation features at initial order. This use model provides static and permanent processor activations and is the default for these servers.
-
+- The Power S1012, Power S1014 and Power S1022s all use the classical static processor activation model. All functional cores of the configured modules are delivered with processor activation features at initial order. This use model provides static and permanent processor activations and is the default for these servers.
 - Capacity Upgrade on Demand (CUoD) processor activations
 
 The Power S1022 and Power S1024 servers support the Capacity Upgrade on Demand (CUoD) technology option. For these servers, a minimum of 50% of the configured total processor capacity must be activated through the related CUoD processor activation features at the time of initial order.
@@ -2377,8 +2443,6 @@ Note: The static activation usage model, the CUoD technology usage model, and th
 Table 2-4 lists the processor module options that are available for Power10 processor-based scale-out servers. The list is sorted by increasing order of the processor module capacity.
 
 Table 2-4 Processor module options for Power10 processor-based scale-out servers
-
-<!-- image -->
 
 | Module capacity   | Module type   | CUoD support   | Pools 2.0 option   | Typical frequency range [GHz]   |   Minimum quantity per server | Power S1012   | Power S1014   | Power S1022s   | Power S1022   | Power S1024   |
 |-------------------|---------------|----------------|--------------------|---------------------------------|-------------------------------|---------------|---------------|----------------|---------------|---------------|
@@ -2509,8 +2573,6 @@ Table 2-5   Maximum theoretical memory bandwidth for Power10 processor-based sca
 | Power S1022    | 64, 32, 16           | DDR4             |                    3200 | 512 a                          |                                             818 |
 | Power S1022    | 64, 32, 16           | DDR5             |                    3200 | 512 a                          |                                            1636 |
 
-<!-- image -->
-
 | Server Model   | DDIMM density (GB)   | DDIMM DDR Type   |   DDIMM frequency (MHz) | Maximum memory capacity (GB)   | Maximum theoretical memory bandwidth (GB/sec)   |
 |----------------|----------------------|------------------|-------------------------|--------------------------------|-------------------------------------------------|
 | Power S1024    | 256, 128             |                  |                    2933 | 8192 b                         | 750 b                                           |
@@ -2519,8 +2581,7 @@ Table 2-5   Maximum theoretical memory bandwidth for Power10 processor-based sca
 | Power S1024    | 64, 32, 16           |                  |                    3200 | 2048 a                         | 1636                                            |
 
 - a. Based on 64 GB DDIMMs
-
-b. Based on 256 GB DDIMMs
+- b. Based on 256 GB DDIMMs
 
 ## Power S1012 memory architecture
 
@@ -2558,7 +2619,7 @@ The Power10 processor-based scale-out servers support the AES CTR mode for perva
 
 The MCU crypto engine is transparently integrated into the data path, which ensures that the data fetch and store bandwidth are not compromised by the AES CTR encryption mode. Because the encryption has no noticeable performance effect and because of the obvious security benefit, the pervasive memory encryption is enabled by default and cannot be switched off through any administrative interface.
 
-Consider the following points:
+## Consider the following points:
 
 - The pervasive memory encryption of the Power10 processor does not affect the encryption status of a system memory dump content. All data from the DDIMMs is decrypted by the memory controller unit before it is passed onto the memory dump devices under the control of the memory dump program code. This statement applies to the traditional system dump under the operating system control and the firmware assist dump utility.
 - The PowerVM Live Partition Mobility (LPM) data encryption does not interfere with the pervasive memory encryption. Data transfer that occurs during an LPM operation uses the following general flow:
@@ -2567,8 +2628,7 @@ Consider the following points:
 - c. The MSP transmits the data over the network.
 - d. The data is received by the MSP on the target server and copied in to the related buffer.
 - e. The hypervisor of the target system copies the data from the buffer into the memory space of the target partition.
-
-To facilitate LPM data compression and encryption, the hypervisor on the source system presents the LPM buffer to the on-chip nest accelerator (NX) unit as part of process in Step b. The reverse decryption and decompress operation is applied on the target server as part of process in Step d.
+- To facilitate LPM data compression and encryption, the hypervisor on the source system presents the LPM buffer to the on-chip nest accelerator (NX) unit as part of process in Step b. The reverse decryption and decompress operation is applied on the target server as part of process in Step d.
 
 The pervasive memory encryption logic of the MCU decrypts the memory data before it is compressed and encrypted by the NX unit on the source server. It also encrypts the data before it is written to memory, but after it is decrypted and decompressed by the NX unit of the target server
 
@@ -2747,9 +2807,7 @@ The following Power10 EnergyScale modes are available:
 The frequency is set to the minimum frequency to reduce energy consumption. Enabling this feature reduces power consumption by lowering the processor clock frequency and voltage to fixed values. This configuration reduces power consumption of the system while delivering predictable performance.
 
 - Static mode
-
-The frequency is set to a fixed point that can be maintained with all normal workloads and in all normal environmental conditions. This frequency is also referred to as nominal frequency .
-
+- The frequency is set to a fixed point that can be maintained with all normal workloads and in all normal environmental conditions. This frequency is also referred to as nominal frequency .
 - Maximum performance mode
 
 Workloads run at the highest frequency possible, depending on workload, active core count, and environmental conditions. The frequency does not fall below the static frequency for all normal workloads and in all normal environmental conditions.
@@ -2793,8 +2851,7 @@ Table 2-8   Characteristic frequencies and frequency ranges for Power S1014 serv
 | #EPH8          | 24 b               |                                   2 |                         2.75 | 2.75 - 3.90 (max)                              |
 
 - a. Processor is eSCM based
-
-b. Processor is DCM DCM-DCM-based
+- b. Processor is DCM DCM-DCM-based
 
 Table 2-9 Characteristic frequencies and frequency ranges for Power S1022s servers
 
@@ -2864,8 +2921,6 @@ Table 2-12   Comparison of the Power10 processor technology to prior processor g
 | Maximum hardware threads per core                            | 8                 | 8                  | 8                 | 8                 | 8                 |
 | Maximum static frequency / high-performancefrequency range a | 3.4 - 4.0 GHz     | 3.0 - 3.9 GHz      | 3.6 - 4.15 GHz    | 3.9 - 4.0 GHz     | 4.15 GHz          |
 | L2 Cache per core                                            | 2048 KB           | 2048 KB            | 2048 KB           | 512 KB            | 512 KB            |
-
-<!-- image -->
 
 | Characteristics             | Power10                                                                                                               | Power10                                                                                                               | Power10                                                                                                               | Power9                                                                                                  | Power8                                                                                              |
 |-----------------------------|-----------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
@@ -2986,8 +3041,6 @@ The Power S1012 provides a high-bandwidth buffered memory architecture supportin
 
 Table 2-13   Memory feature codes supported on the Power S1012
 
-<!-- image -->
-
 | Feature Code   | DIMM Size                 | DRAM Speed   | Memory Bandwidth (Per Socket)   |
 |----------------|---------------------------|--------------|---------------------------------|
 | EMBN           | 2x 16 GB 2U DIMM          | 3200 MHz     | 102 GB/s                        |
@@ -2995,13 +3048,11 @@ Table 2-13   Memory feature codes supported on the Power S1012
 | EMBY           | 2x 64 GB 2U DIMM          | 3200 MHz     | 102 GB/s                        |
 | EMBP           | Active Memory Expansion a | n/a          | n/a                             |
 
-a. Add on feature
+- a. Add on feature
 
 DIMMs must be installed in pairs. Each feature code shown in Table 2-13 delivers two DIMMs. You can populate either two slots or four slots. Table 2-14 shows the memory DIMM placement rules.
 
 Table 2-14   DIMM placement diagram
-
-<!-- image -->
 
 | DIMM slot   | P0-C6   | P0-C7   | P0-C9   | P0-C8   |
 |-------------|---------|---------|---------|---------|
@@ -3091,6 +3142,16 @@ Figure 2-24   DDIMM plug sequence for Power S1022s 1-socket servers
 
 <!-- image -->
 
+| Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   |
+|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|
+| OMI0                    | OMI0                    | OMI1                    | OMI1                    | OMI2                    | OMI2                    | OMI3                    | OMI3                    |
+| A                       | B                       | A                       | B                       | A                       | B                       | A                       | B                       |
+| C12                     | C13                     | C27                     | C32                     | C28                     | C29                     | C31                     | C30                     |
+|                         |                         | 1                       | 1                       |                         |                         |                         |                         |
+| 2                       | 2                       |                         |                         |                         |                         |                         |                         |
+|                         |                         |                         |                         | 3                       | 3                       |                         |                         |
+|                         |                         |                         |                         |                         |                         | 4                       | 4                       |
+
 All memory modules are attached to the first chip (chip-0) of the single eSCM (eSCM-0) and are of the same type as highlighted in green in Figure 2-24.
 
 The memory controllers and the related open memory interface (OMI) channels are highlighted  in bright yellow in Figure 2-24 and labeled OMI0, OMI1, OMI2, and OMI3.
@@ -3110,7 +3171,19 @@ Figure 2-25 shows the DDIMM plug sequence for Power S1022s servers in 2-socket c
 
 Figure 2-25   DDIMM plug sequence for Power S1022s 2-socket servers with single memory feature
 
-<!-- image -->
+| Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   |
+|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|
+| OMI0                    | OMI0                    | OMI1                    | OMI1                    | OMI2                    | OMI2                    | OMI3                    | OMI3                    | OMI0                    | OMI0                    | OMI1                    | OMI1                    | OMI2                    | OMI2                    | OMI3                    | OMI3                    |
+| A                       | B                       | A                       | B                       | A                       | B                       | A                       | B                       | A                       | B                       | A                       | B                       | A                       | B                       | A                       | B                       |
+| C12                     | C13                     | C27                     | C32                     | C28                     | C29                     | C31                     | C30                     | C19                     | C20                     | C21                     | C40                     | C38                     | C39                     | C41                     | C42                     |
+|                         |                         | 1                       | 1                       |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |
+|                         |                         |                         |                         |                         |                         |                         |                         |                         |                         | 2                       | 2                       |                         |                         |                         |                         |
+| 3                       | 3                       |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |
+|                         |                         |                         |                         |                         |                         |                         |                         | 4                       | 4                       |                         |                         |                         |                         |                         |                         |
+|                         |                         |                         |                         | 5                       | 5                       |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |
+|                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         | 6                       | 6                       |                         |                         |
+|                         |                         |                         |                         |                         |                         | 7                       | 7                       |                         |                         |                         |                         |                         |                         |                         |                         |
+|                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         | 8                       | 8                       |
 
 The memory modules are attached to the first chip (chip-0) of the first eSCM (eSCM-0) or to the first chip (chip-0) of the second eSCM (eSCM-1) and are of the same type, as highlighted in green in Figure 2-25.
 
@@ -3137,9 +3210,21 @@ Configurations with more than two memory feature types are not supported.
 
 Figure 2-26 shows the DDIMM plug sequence for Power S1022s servers in 2-socket configuration when that two different memory feature code types are used.
 
-Figure 2-26   DDIMM plug sequence for Power S1022s 2-socket servers with two memory feature types
+| Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-0 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   | Power10 eSCM-1 Chip-0   |
+|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|-------------------------|
+| OMI0                    | OMI0                    | OMI1                    | OMI1                    | OMI2                    | OMI2                    | OMI3                    | OMI3                    | OMI0                    | OMI0                    | OMI1                    | OMI1                    | OMI2                    | OMI2                    | OMI3                    | OMI3                    |
+| A                       | B                       | A                       | B                       | A                       | B                       | A                       | B                       | A                       | B                       | A                       | B                       | A                       | B                       | A                       | B                       |
+| C12                     | C13                     | C27                     | C32                     | C28                     | C29                     | C31                     | C30                     | C19                     | C20                     | C21                     | C40                     | C38                     | C39                     | C41                     | C42                     |
+|                         |                         | 1                       | 1                       |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |
+|                         |                         |                         |                         |                         |                         |                         |                         |                         |                         | 1                       | 1                       |                         |                         |                         |                         |
+| 2                       | 2                       |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |
+|                         |                         |                         |                         |                         |                         |                         |                         | 2                       | 2                       |                         |                         |                         |                         |                         |                         |
+|                         |                         |                         |                         | 3                       | 3                       |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |
+|                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         | 3                       | 3                       |                         |                         |
+|                         |                         |                         |                         |                         |                         | 4                       | 4                       |                         |                         |                         |                         |                         |                         |                         |                         |
+|                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         |                         | 4                       | 4                       |
 
-<!-- image -->
+Figure 2-26   DDIMM plug sequence for Power S1022s 2-socket servers with two memory feature types
 
 The memory modules of the first feature type are attached to the first chip (chip-0) of the first eSCM (eSCM-0) and are highlighted in green in Figure 2-26. The memory modules of the second feature type are attached to the first chip (chip-0) of the second eSCM (eSCM-1) and are highlighted in purple.
 
@@ -3231,7 +3316,20 @@ Figure 2-27 shows the DDIMM plug sequence for Power S1022 or Power S1024 servers
 
 Figure 2-27   DDIMM plug sequence for Power S1022 and Power S1024 1-socket servers
 
-<!-- image -->
+| Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   | Power10 DCM-0   |
+|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|-----------------|
+| Chip-0          | Chip-0          | Chip-0          | Chip-0          | Chip-0          | Chip-0          | Chip-0          | Chip-0          | Chip-1          | Chip-1          | Chip-1          | Chip-1          | Chip-1          | Chip-1          | Chip-1          | Chip-1          |
+| OMI0            | OMI0            | OMI1            | OMI1            | OMI2            | OMI2            | OMI3            | OMI3            | OMI4            | OMI4            | OMI5            | OMI5            | OMI6            | OMI6            | OMI7            | OMI7            |
+| A               | B               | A               | B               | A               | B               | A               | B               | A               | B               | A               | B               | A               | B               | A               | B               |
+| C12             | C13             | C27             | C32             | C28             | C29             | C31             | C30             | C18             | C17             | C16             | C35             | C37             | C36             | C34             | C33             |
+|                 |                 | 1               | 1               |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |
+|                 |                 |                 |                 |                 |                 |                 |                 |                 |                 | 2               | 2               |                 |                 |                 |                 |
+| 3               | 3               |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |
+|                 |                 |                 |                 |                 |                 |                 |                 | 4               | 4               |                 |                 |                 |                 |                 |                 |
+|                 |                 |                 |                 | 5               | 5               |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |
+|                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 | 6               | 6               |                 |                 |
+|                 |                 |                 |                 |                 |                 | 7               | 7               |                 |                 |                 |                 |                 |                 |                 |                 |
+|                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 |                 | 8               | 8               |
 
 The memory modules are attached to the first chip (chip-0) or the second chip (chip-1) of the configured DCM (DCM-0). All memory modules are of the same type as highlighted in green in Figure 2-27.
 
@@ -3333,17 +3431,13 @@ Table 2-19   Memory bandwidth of supported DDIMM sizes
 |----------------------------------|---------------------|----------------------------------------------|--------------------------------------------|-------------------------------------------|
 | 16GB b ,32GB c ,64GB DDR5 number | 3200 Mbps 3200 Mbps | 25.6 GBps 51.2 GBps                          | 204.8 GBps 409.6 GBps                      | 409.6 GBps 819.2 GBps                     |
 
-<!-- image -->
-
 | DDIMM capacity             | DRAMdata rate       | Maximum theoretical bandwidth per OMI link   | Maximum theoretical bandwidth per eSCM a   | Maximum theoretical bandwidth per DCM a   |
 |----------------------------|---------------------|----------------------------------------------|--------------------------------------------|-------------------------------------------|
 | 128 GB DDR5 number         | 2666 Mbps 3200 Mbps | 21.3 GBps 51.2 GBps                          | 170.4 GBps 409.6 GBps                      | 340.8 GBps 819.2 GBps                     |
 | 128 GB, 256 GB DDR5 number | 2933 Mbps 3200 Mbps | 23.5 GBps 51.2 GBps                          | 187.7 GBps 409.6 GBps                      | 375.4 GBps 819.2 GBps                     |
 
-a. DDIMM modules that are attached to one DCM or eSCM must be all of the same size.
-
-b. 16 GB DDIMMs are not available in DDR5.
-
+- a. DDIMM modules that are attached to one DCM or eSCM must be all of the same size.
+- b. 16 GB DDIMMs are not available in DDR5.
 - c. 32 GB DDIMM does not have second memory port connection. The maximum theoretical bandwidth is the same as the DDR4 DDIMM.
 
 ## Memory bandwidth considerations
@@ -3355,12 +3449,9 @@ Each DDIMM slot is serviced by one OMI link (memory subchannel). The maximum ban
 To calculate the maximum memory bandwidth of a system, use the following formula:
 
 - 1-socket and 2-socket configurations are based on one memory feature code type:
-
-Maximum Bandwidth = Number of DDIMMs x maximum bandwidth per OMI link as determined by the DRAM data rate
-
+- Maximum Bandwidth = Number of DDIMMs x maximum bandwidth per OMI link as determined by the DRAM data rate
 - 2-socket configurations based on two memory feature code type:
-
-Maximum Bandwidth = Number of DDIMMs of the first memory feature code type x maximum bandwidth per OMI link as determined by the related DRAM data rate + Number of DDIMMs of the second memory feature code type x maximum bandwidth per OMI link as determined by the related DRAM data rate.
+- Maximum Bandwidth = Number of DDIMMs of the first memory feature code type x maximum bandwidth per OMI link as determined by the related DRAM data rate + Number of DDIMMs of the second memory feature code type x maximum bandwidth per OMI link as determined by the related DRAM data rate.
 
 Important: For the best possible performance, it is generally recommended that memory is installed evenly in all memory slots and across all configured processor modules.
 
@@ -3369,8 +3460,6 @@ Balancing memory across the installed system planar cards enables memory access 
 Table 2-20 on page 101 lists the maximum memory bandwidth for the Power S1014 and Power S1022s servers, depending on the number of DDIMMs that are used and the DRAM data rate of the selected DDIMM type. The listing accounts for the minimum memory feature code order granularity. Unsupported configurations are indicated by a '-' hyphen. The top number is the DDR4 throughput and the bottom number is the DDR5 throughput.
 
 Table 2-20   Maximum memory bandwidth for the Power S1014 and Power S1022s servers
-
-<!-- image -->
 
 | DDIMM quantity   | Maximum bandwidth based on 3200 Mbps data rate DDIMMs (GBps) a   | Maximum bandwidth based on 3200 Mbps data rate DDIMMs (GBps) a   | Maximum bandwidth based on 2666 Mbps data rate DDIMMs (GBps) a   | Maximum bandwidth based on 2666 Mbps data rate DDIMMs (GBps) a   |
 |------------------|------------------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------|------------------------------------------------------------------|
@@ -3384,15 +3473,12 @@ Table 2-20   Maximum memory bandwidth for the Power S1014 and Power S1022s serve
 | 14 DDR5 b        | - -                                                              | 358 716                                                          | - -                                                              | 298 716                                                          |
 | 16 DDR5 b        | - -                                                              | 410 820                                                          | - -                                                              | 341 820                                                          |
 
-a. Numbers are rounded to the nearest integer.
-
+- a. Numbers are rounded to the nearest integer.
 - b. These numbers do not pertain to systems with 32 GB DDIMMs. Use 25.6 GBps per DDIMM instead to calculate maximum throughput.
 
 Table 2-21 lists the maximum memory bandwidth for the DCM-based Power S1022 and Power S1024 servers, depending on the number of DDIMMs that are used, the DRAM data rate of the selected DDIMM type, and the number of configured sockets. The listing accounts for the minimum memory feature code order granularity and pertains to configurations that are based on only one single memory feature code type. Unsupported configurations are indicated by a '-' hyphen. The top number in the chart is the DDR4 throughput while the second (red) number is the DDR5 value.
 
 Table 2-21 Maximum memory bandwidth for the Power S1022 and Power S1024 servers
-
-<!-- image -->
 
 | DDIMM quantity   | Power S1022 and Power S1024 maximum bandwidth based on 3200 Mbps data rate DDIMMs (GBs) a   | Power S1022 and Power S1024 maximum bandwidth based on 3200 Mbps data rate DDIMMs (GBs) a   | Power S1024 maximum bandwidth based on 2933 Mbps data rate DDIMMs (GBs) a   | Power S1024 maximum bandwidth based on 2933 Mbps data rate DDIMMs (GBs) a   |
 |------------------|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------|
@@ -3402,7 +3488,21 @@ Table 2-21 Maximum memory bandwidth for the Power S1022 and Power S1024 servers
 | 6 DDR5 b         | 154 308                                                                                     | - -                                                                                         | 141 308                                                                     | - -                                                                         |
 | 8 DDR5 b         | 205 410                                                                                     | 205 410                                                                                     | 188 410                                                                     | 188 410                                                                     |
 
-<!-- image -->
+| DDIMM quantity   | Power S1022 and Power S1024 maximum bandwidth based on 3200 Mbps data rate DDIMMs (GBs) a   | Power S1022 and Power S1024 maximum bandwidth based on 3200 Mbps data rate DDIMMs (GBs) a   | Power S1024 maximum bandwidth based on 2933 Mbps data rate DDIMMs (GBs) a   | Power S1024 maximum bandwidth based on 2933 Mbps data rate DDIMMs (GBs) a   |
+|------------------|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+|                  | 1-socket configuration                                                                      | 2-socket configuration                                                                      | 1-socket configuration                                                      | 2-socket configuration                                                      |
+| 10 DDR5 b        | 256 512                                                                                     | - -                                                                                         | 235 512                                                                     | - -                                                                         |
+| 12 DDR5 b        | 307 614                                                                                     | 307 614                                                                                     | 282 614                                                                     | 282 614                                                                     |
+| 14 DDR5 b        | 358 716                                                                                     | - -                                                                                         | 329 716                                                                     | - -                                                                         |
+| 16 DDR5 b        | 410 820                                                                                     | 410 820                                                                                     | 376 820                                                                     | 376 820                                                                     |
+| 18               | -                                                                                           | -                                                                                           | -                                                                           | -                                                                           |
+| 20 DDR5 b        | - -                                                                                         | 512 1024                                                                                    | - -                                                                         | 470 1024                                                                    |
+| 22               | -                                                                                           | -                                                                                           | -                                                                           | -                                                                           |
+| 24 DDR5 b        | - -                                                                                         | 614 1228                                                                                    | - -                                                                         | 564 1228                                                                    |
+| 26               | -                                                                                           | -                                                                                           | -                                                                           | -                                                                           |
+| 28 DDR5 b        | - -                                                                                         | 717 1434                                                                                    | - -                                                                         | 658 1434                                                                    |
+| 30               | -                                                                                           | -                                                                                           | -                                                                           | -                                                                           |
+| 32 DDR5 b        | - -                                                                                         | 819 1638                                                                                    | - -                                                                         | 752 1638                                                                    |
 
 - a. Numbers are rounded to the nearest integer.
 - b. These numbers do not pertain to systems with 32 GB DDIMMs. Use 25.6 GBps per DDIMM instead to calculate maximum throughput.
@@ -3418,7 +3518,7 @@ Table 2-22   Maximum memory bandwidth for the Power S1012 server
 |               2 |                                                              51 |
 |               4 |                                                             102 |
 
-a. Numbers are rounded to the nearest integer.
+- a. Numbers are rounded to the nearest integer.
 
 ## 2.4  Internal I/O subsystem
 
@@ -3473,7 +3573,9 @@ The server PCIe slots are allocated DMA space that use the following algorithm:
 
 The x16 slots can provide up to twice the bandwidth of x8 slots because they offer twice as many PCIe lanes. PCIe Gen5 slots can support up to twice the bandwidth per lane of a PCIe Gen4 slot, and PCIe Gen4 slots can support up to twice the bandwidth per lane of a PCIe Gen3 slot.
 
-The servers are smart about energy efficiency when cooling the PCIe adapter environment. They sense which IBM PCIe adapters are installed in their PCIe slots and, if an adapter requires higher levels of cooling, they automatically speed up fans to increase airflow across the PCIe adapters. Faster fans increase the sound level of the server. Higher wattage PCIe adapters include the PCIe3 SAS adapters and SSD/flash PCIe adapters (#EJ10, #EJ14, and #EJ0J).
+The servers are smart about energy efficiency when cooling the PCIe adapter environment.
+
+They sense which IBM PCIe adapters are installed in their PCIe slots and, if an adapter requires higher levels of cooling, they automatically speed up fans to increase airflow across the PCIe adapters. Faster fans increase the sound level of the server. Higher wattage PCIe adapters include the PCIe3 SAS adapters and SSD/flash PCIe adapters (#EJ10, #EJ14, and #EJ0J).
 
 ## Power S1012 I/O subsystem
 
@@ -3528,8 +3630,7 @@ Table 2-24   PCIe slot locations and capabilities for the Power S1014 server
 | P0-C10 d        | PCIe4 x16 or PCIe5 x8 slots | DCM0-P0-E1-PH B3   | Yes                | 1                                                  |
 | P0-C11 e        | PCIe5 x8 with x16 connector | DCM0-P0-E0-PH B0   | No                 | 2                                                  |
 
-a. Enabling the I/O adapter enlarged capacity option affects only Linux partitions.
-
+- a. Enabling the I/O adapter enlarged capacity option affects only Linux partitions.
 - b. Only used for eBMC.
 - c. OpenCAPI only.
 - d. The NVMe JBOF adapter that is cabled to drive backplane P1 is supported in slot P0-C8 or P0-C10.
@@ -3542,9 +3643,24 @@ Note: Consider the following points:
 
 Figure 2-32 shows the rear view of the Power S1014 server with the location codes for the PCIe adapter slots.
 
-Figure 2-32 Rear view of a Power S1014 server with PCIe slots location codes
+Restriction: The following adapters are not supported in the Power S1014 when the 24-core processor is installed:
 
-<!-- image -->
+- -#EC2S) -PCIe3 2-Port 10Gb NIC&amp;ROCE SR/Cu Adapter
+- -(#EC2U) -PCIe3 2-Port 25/10Gb NIC&amp;ROCE SR/Cu Adapter
+- -(#EC7B) -PCIe4 1.6TB NVMe Flash Adapter x8 for AIX/Linux
+- -(#EC7D) -PCIe4 3.2TB NVMe Flash Adapter x8 for AIX/Linux
+- -(#EC7F) -PCIe4 6.4TB NVMe Flash Adapter x8 for AIX/Linux
+- -(#EC7K) -PCIe4 1.6TB NVMe Flash Adapter x8 for IBM i
+- -(#EC7M) -PCIe4 3.2TB NVMe Flash Adapter x8 for IBM i
+- -(#EC7P) -PCIe4 6.4TB NVMe Flash Adapter x8 for IBM i
+- -(#EC5B) -PCIe3 x8 1.6 TB NVMe Flash Adapter for AIX/Linux
+- -(#EC5D) -PCIe3 x8 3.2 TB NVMe Flash Adapter for AIX/Linux
+- -(#EC5F) -PCIe3 x8 6.4 TB NVMe Flash Adapter for AIX/Linux
+- -(#EC6V) -PCIe3 x8 1.6 TB NVMe Flash Adapter for IBM i
+- -(#EC6X) -PCIe3 x8 3.2 TB NVMe Flash Adapter for IBM i
+- -(#EC6Z) -PCIe3 x8 6.4 TB NVMe Flash Adapter for IBM i
+
+Figure 2-32 Rear view of a Power S1014 server with PCIe slots location codes
 
 <!-- image -->
 
@@ -3615,7 +3731,7 @@ Table 2-26   PCIe slot locations and capabilities for the Power S1022s and S1022
 - d. The NVMe JBOF adapter that is cabled to drive backplane P1 is supported in slot P0-C8 or P0-C10.
 - e. The NVMe JBOF adapter that is connected to drive backplane P2 is supported in slot P0-C11.
 
-Note: Consider the following points:
+## Note: Consider the following points:
 
 - Slots P0-C1 and P0-C7 are slots with PCIe x8 buses direct from the system processor modules and can be used to install high-performance adapters. The adapter priority for this slot is for the high-performance adapters, followed by any other adapters.
 - Slots P0-C2, P0-C3, and P0-C8 are slots with PCIe x16 buses direct from the system processor modules and can be used to install high-performance adapters. The adapter priority for these slots is for CAPI accelerator adapters, PCI accelerator adapters, high-performance adapters, followed by any other adapters.
@@ -3676,17 +3792,13 @@ Table 2-28   PCIe slot locations and capabilities for the Power S1024 servers
 | P0-C10 d        | PCIe4 x16 or PCIe5 x8 slots | DCM0-P0-E1-PH B3   | Yes                | 1                                                  |
 | P0-C11 e        | PCIe5 x8 with x16 connector | DCM0-P0-E0-PH B0   | No                 | 5                                                  |
 
-a. Enabling the I/O adapter enlarged capacity option affects only Linux partitions.
+- a. Enabling the I/O adapter enlarged capacity option affects only Linux partitions.
+- b. Only used for eBMC.
+- c. OpenCAPI only.
+- d. The NVMe JBOF adapter that is cabled to drive backplane P1 is supported in either slot P0-C8 or P0-C10.
+- e. The NVMe JBOF adapter that is connected to drive backplane P2 is supported in slot P0-C11.
 
-b. Only used for eBMC.
-
-c. OpenCAPI only.
-
-d. The NVMe JBOF adapter that is cabled to drive backplane P1 is supported in either slot P0-C8 or P0-C10.
-
-e. The NVMe JBOF adapter that is connected to drive backplane P2 is supported in slot P0-C11.
-
-Note: Consider the following points:
+## Note: Consider the following points:
 
 - Slots P0-C1 and P0-C7 are slots with PCIe x8 buses direct from the system processor modules and can be used to install high-performance adapters. The adapter priority for this slot is for the high-performance adapters, followed by any other adapters.
 - Slots P0-C2, P0-C3, and P0-C8 are slots with PCIe x16 buses direct from the system processor modules and can be used to install high-performance adapters. The adapter priority for these slots is for CAPI accelerator adapters, PCI accelerator adapters, high-performance adapters, followed by any other adapters.
@@ -3884,9 +3996,13 @@ You can work with Redfish by using several methods, ll of which require an https
 
 Before you can acquire data from the server or run systems management tasks by using Redfish, you must authenticate against the server. In return for supplying a valid username and password, you receive a token that is used to authenticate requests (see Example 2-1).
 
+```
+# export eBMC=<IP> # export USER=admin # export PASSWORD=<PW> # export TOKEN=`curl -k -H "Content-Type: application/json" -X POST https://${eBMC}/login
+```
+
 Example 2-1 Receiving a token from Redfish
 
-<!-- image -->
+-d "{\"username\" : \"${USER}\", \"password\" : \"${PASSWORD}\"}" | grep token | awk '{print $2;}' | tr -d '"'`
 
 With this token, you now can receive data from the server. You start by requesting data of the Redfish root with /Redfish/v1 . You receive data with other branches in the Redfish tree; for example, Chassis .
 
@@ -3904,25 +4020,22 @@ In Example 2-3, you see what is available through the Sensors endpoint. Here, yo
 
 For example, in the output, you find the sensor total\_power . When you ask for more information about that sensor (see Example 2-3), you can see that the server needed 1.426 watts at the time of running the command. Having programmatic access to this type of data allows you to build a view of the electrical power consumption of your Power environment in real time, or to report usage over a period.
 
-## Example 2-3   Sensor data from Redfish
-
 ```
 # curl -k -H "X-Auth-Token: $TOKEN" -X GET https://${eBMC}/Redfish/v1/Chassis/chassis/Sensors { "@odata.id": "/Redfish/v1/Chassis/chassis/Sensors", "@odata.type": "#SensorCollection.SensorCollection", "Description": "Collection of Sensors for this Chassis", "Members": [ { "@odata.id": "/Redfish/v1/Chassis/chassis/Sensors/Altitude" }, { "@odata.id": "/Redfish/v1/Chassis/chassis/Sensors/1V1CS_0167_p1_rail_iout" }, ... { "@odata.id": "/Redfish/v1/Chassis/chassis/Sensors/total_power" }, # curl -k -H "X-Auth-Token: $TOKEN" -X GET \ https://${eBMC}/Redfish/v1/Chassis/chassis/Sensors/total_power { "@odata.id": "/Redfish/v1/Chassis/chassis/Sensors/total_power", "@odata.type": "#Sensor.v1_0_0.Sensor", "Id": "total_power", "Name": "total power", "Reading": 1426.0, "ReadingRangeMax": null, "ReadingRangeMin": null, "ReadingType": "Power", "ReadingUnits": "W", "Status": { "Health": "OK", "State": "Enabled" }
 ```
 
-The following other strings are useful:
-
-- Type/Model of the server:
+Example 2-3   Sensor data from Redfish
 
 ```
-# curl -s -k -H "X-Auth-Token: $TOKEN" -X GET https://${eBMC}/Redfish/v1/Systems/system | grep Model | grep -v SubModel | grep \ -v \"\" "Model": "9043-MRX", Serial number: # curl -s -k -H "X-Auth-Token: $TOKEN" -X GET https://${eBMC}/redfish/v1/Systems/system | grep SerialNumber \ "SerialNumber": "<SN>",
+The following other strings are useful: Type/Model of the server: # curl -s -k -H "X-Auth-Token: $TOKEN" -X GET https://${eBMC}/Redfish/v1/Systems/system | grep Model | grep -v SubModel | grep \ -v \"\" "Model": "9043-MRX", Serial number: # curl -s -k -H "X-Auth-Token: $TOKEN" -X GET https://${eBMC}/redfish/v1/Systems/system | grep SerialNumber \ "SerialNumber": "<SN>",
 ```
 
 - Type/Model/SN:
-
-#curl -s -k -H "X-Auth-Token: $TOKEN" -X GET https://${eBMC}/redfish/v1/Systems/system | grep AssetTag "AssetTag": "Server-9043-MRX-&lt;SN&gt;",
-
 - System indicator LED:
+
+```
+#curl -s -k -H "X-Auth-Token: $TOKEN" -X GET https://${eBMC}/redfish/v1/Systems/system | grep AssetTag "AssetTag": "Server-9043-MRX-<SN>",
+```
 
 #curl -s -k -H "X-Auth-Token: $TOKEN" -X GET https://${eBMC}/redfish/v1/Systems/system | grep IndicatorLED "IndicatorLED": "Off",
 
@@ -3932,17 +4045,16 @@ The following other strings are useful:
 
 - Power State:
 
+```
 # curl -s -k -H "X-Auth-Token: $TOKEN" -X GET https://${eBMC}/redfish/v1/Systems/system | grep PowerState "PowerState": "On",
+```
 
 Operations can also be run on the server by using the POST method to the Redfish API interface. The following curl commands can be used to start or stop the server (these commands work only if you are authenticated as a user with administrator privileges):
 
 - Power on server:
-
-# curl -k -H "X-Auth-Token: $TOKEN" -X POST https://${eBMC}/redfish/v1/Systems/ system/Actions/Reset -d '{"ResetType":"On"}'
-
+- # curl -k -H "X-Auth-Token: $TOKEN" -X POST https://${eBMC}/redfish/v1/Systems/ system/Actions/Reset -d '{"ResetType":"On"}'
 - Power off server:
-
-# curl -k -H "X-Auth-Token: $TOKEN" -X POST https://${eBMC}/redfish/v1/Systems/ system/Actions/Reset -d '{"ResetType":"ForceOff"}'
+- # curl -k -H "X-Auth-Token: $TOKEN" -X POST https://${eBMC}/redfish/v1/Systems/ system/Actions/Reset -d '{"ResetType":"ForceOff"}'
 
 For more information about Redfish, see Managing the system by using DMTF Redfish APIs.
 
@@ -3960,9 +4072,9 @@ For more information about common IPMI commands, see Common IPMI commands.
 
 <!-- image -->
 
-Chapter 3.
+3
 
-## 3
+Chapter 3.
 
 ## Available features and options
 
@@ -4000,11 +4112,9 @@ Table 3-1   Processor options available
 | EPG7           | EPFV                      |                 4 | 3.00 to 3.90 GHz          | P05                   |
 | EPG3 b,c       | EPFW                      |                 1 | 3.00 to 3.90 GHz          | P05                   |
 
-a. One processor entitlement must be ordered for each processor core.
-
-b. Support for IBM i in native mode only.
-
-c. The one core processor option is only available in the tower configuration.
+- a. One processor entitlement must be ordered for each processor core.
+- b. Support for IBM i in native mode only.
+- c. The one core processor option is only available in the tower configuration.
 
 Tip: Although the one core processor option is not available in the rack configuration, it is possible to have a single core server in a rack-mounted form factor by purchasing the four core processor (EPG7) with quantity three of feature code 2319. FC 2319 allows you to permanently deactivate a single core in a server - usually used to reduce software licensing requirements.
 
@@ -4111,7 +4221,7 @@ Table 3-6   Processor feature code specification for the Power 1022 server
 | #EPG8                         | DCM                     |                16 | 2.75 to 4.0                     | #EPF8                                                  | #EUCA                                                       | #EUCG                                                          |
 | #EPGA                         | DCM                     |                20 | 2.45 to 3.9                     | #EPFA                                                  | #EUCC                                                       | #EUCJ                                                          |
 
-a. Capacity Upgrade on Demand
+- a. Capacity Upgrade on Demand
 
 Table 3-7 lists all processor-related feature codes for Power S1022 servers.
 
@@ -4169,13 +4279,13 @@ Table 3-8 lists the processor card feature codes that are available at initial o
 
 Table 3-8   Processor feature code specification for the Power S1024 server
 
+Table 3-9 lists all processor-related feature codes for Power S1024 servers.
+
 | Processor card feature code   | Processor module type   |   Number of cores | Typical frequency range [GHz]   | CUoDstatic processor core activation Feature Code   | Base processor core activation Feature Code for Pools 2.0   | Base core activations converted from CUoD static activations   |
 |-------------------------------|-------------------------|-------------------|---------------------------------|-----------------------------------------------------|-------------------------------------------------------------|----------------------------------------------------------------|
 | #EPGM                         | DCM                     |                12 | 3.40 - 4.0                      | #EPFM                                               | #EUBX                                                       | #EUBZ                                                          |
 | #EPGC                         | DCM                     |                16 | 3.10 - 4.0                      | #EPFC                                               | #EUCK                                                       | #EUCR                                                          |
 | #EPGD                         | DCM                     |                24 | 2.75 - 3.9                      | #EPFD                                               | #EUCS                                                       | #EUCT                                                          |
-
-Table 3-9 lists all processor-related feature codes for Power S1024 servers.
 
 Table 3-9   Processor-related features of the Power S1024 server
 
@@ -4219,8 +4329,6 @@ Note: While Active Memory Mirroring is available in other Power10 Scale Out serv
 The Power S1012 provides a high-bandwidth buffered memory architecture supporting up to 102 GB/s peak memory bandwidth per socket. There are four DIMM slots on the system board, each of which supports a DDR4 memory DIMM. The maximum memory is 256 GB per server. Table 3-10 on page 131 details the memory feature codes available on the Power S1012 system.
 
 Table 3-10   Memory feature codes supported on the Power S1012
-
-<!-- image -->
 
 | Feature Code   | DIMM Size        | DRAM Speed   | Memory Bandwidth (Per Socket)   |
 |----------------|------------------|--------------|---------------------------------|
@@ -4317,7 +4425,7 @@ Table 3-12   Adapters supported at general availability
 | EC2Y                   | 4-port 1GB ENET                             |
 | 5260                   | 4-port x4 1Gb ENET a                        |
 
-a. Migration support only
+- a. Migration support only
 
 The Power S1012 may support a future PCIe adapter that runs hot or has strict temperature limits. In order to adequately cool these adapters, the fan floor could be set at a higher RPM when the adapters are installed in the system. Though temperature monitoring is also supported on some of the adapters, a high fan floor may still be desired to prevent oscillations in fan speeds. Higher fan floors can result in noticeable increases in system noise. Adapter support will likely change after the Power S1012 general availability. As adapters are added or removed from support on Power S1012, the most up-to-date list can be found in IBM Support.
 
@@ -4350,11 +4458,21 @@ The following sections describe the supported adapters and provide tables of ord
 
 The Order type table column in the following subsections is defined as:
 
-| Initial   | Denotes the orderability of a feature only with the purchase of a new system.                                                                                 |
-|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| MES       | Denotes the orderability of a feature only as part of an MES upgrade purchase for an existing system.                                                         |
-| Both      | Denotes the orderability of a feature as part of new and MES upgrade purchases.                                                                               |
-| Supported | Denotes that feature is not orderable with a system, but is supported; that is, the feature can be migrated from existing systems, but cannot be ordered new. |
+Initial
+
+Denotes the orderability of a feature only with the purchase of a new system.
+
+MES
+
+Denotes the orderability of a feature only as part of an MES upgrade purchase for an existing system.
+
+Both
+
+Denotes the orderability of a feature as part of new and MES upgrade purchases.
+
+Supported
+
+Denotes that feature is not orderable with a system, but is supported; that is, the feature can be migrated from existing systems, but cannot be ordered new.
 
 ## Local area network adapters
 
@@ -4445,7 +4563,7 @@ Table 3-16   Low profile FC adapters that are supported in the S1022s and S1022
 | EN2B           | 579D   | PCIe3 LP 16 Gb 2-port Fibre Channel Adapter         | AIX, Linux, IBM i (through VIOS)  | Both         |
 | EN2P           | 2F05   | PCIe4 64Gb 2-port Optical Fibre Channel Adapter     | AIX, Linux, IBM i (through VIOS)i | Both         |
 
-a. IBM i support is limited to IBM i 7.5 or later, or IBM i 7.4 TR6 or later.
+- a. IBM i support is limited to IBM i 7.5 or later, or IBM i 7.4 TR6 or later.
 
 Table 3-17 lists the full-height Fibre Channel adapters that are supported within the Power S1014 and Power S1024 server models, and within the PCIe expansion drawer (EMX0) that is connected to any of the Power10 processor-based scale-out server models.
 
@@ -4454,8 +4572,6 @@ Table 3-17   Full-height FC adapters supported in the S1014, S1024, and PCIe exp
 | Feature code   | CCIN   | Description                                 | Operating system support   | Order type   |
 |----------------|--------|---------------------------------------------|----------------------------|--------------|
 | EN1A           | 578F   | PCIe3 LP 32 Gb 2-port Fibre Channel Adapter | AIX, Linux, IBM i          | Both         |
-
-<!-- image -->
 
 | Feature code   | CCIN   | Description                                         | Operating system support   | Order type   |
 |----------------|--------|-----------------------------------------------------|----------------------------|--------------|
@@ -4493,8 +4609,6 @@ Table 3-19 Full-height SAS adapters supported in the S1014, S1024, and PCIe expa
 | EJ0J           | 57B4   | PCIe3 RAID SAS Adapter Quad-Port 6 Gb x8          | AIX, Linux, IBM i (through VIOS) | Supported    |
 | EJOL           | 57CE   | PCIe3 12 GB Cache SAS RAID quad-port 6 Gb adapter | AIX, Linux, IBM i (through VIOS) | Both         |
 | EJ10           | 57B4   | PCIe3 SAS Tape/DVD Adapter Quad-port 6 Gb x8      | AIX, Linux, IBM i (through VIOS) | Supported    |
-
-<!-- image -->
 
 | Feature code   | CCIN   | Description                                               | Operating system support         | Order type   |
 |----------------|--------|-----------------------------------------------------------|----------------------------------|--------------|
@@ -4620,8 +4734,6 @@ Table 3-23 lists the available internal storage options.
 
 Table 3-23   Internal storage summary
 
-<!-- image -->
-
 |                                     | Power S1022s and S1022    | Power S1014               | Power S1024               |
 |-------------------------------------|---------------------------|---------------------------|---------------------------|
 | NVMe 8-device backplane without RDX | N/A                       | 1-2 Up to 16 devices      | 1-2 Up to 16 devices      |
@@ -4679,9 +4791,8 @@ Table 3-24   NVMe JBOF to backplane mappings
 | JBOFcard location when x16 adapter is required in C10 | C8               | C11              |
 | JBOF card location when OpenCAPI is in C10 b          | N/A              | C11              |
 
-a. JBOF cards are plugged in x16 slot first by default.
-
-b. JBOF card is not allowed in lower slot than OpenCAPI.
+- a. JBOF cards are plugged in x16 slot first by default.
+- b. JBOF card is not allowed in lower slot than OpenCAPI.
 
 Each connector on the JBOF card cables to the corresponding connector on the backplane:
 
@@ -4712,8 +4823,6 @@ Table 3-25 lists the PCIe based NVMe storage devices that are available for the 
 
 Table 3-25 PCIe-based NVMe storage devices for the Power S1022s and S1022 servers
 
-<!-- image -->
-
 | Feature Code   | CCIN   | Description                                             |   Minimum |   Maximum | Operating system support   |
 |----------------|--------|---------------------------------------------------------|-----------|-----------|----------------------------|
 | EC5C           | 58FD   | PCIe3 x8 LP 3.2 TB NVMe Flash adapter for AIX and Linux |         0 |         9 | IBM i a Linux AIX          |
@@ -4735,8 +4844,6 @@ Table 3-26   PCIe based NVMe storage adapters for the Power S1014 server
 | EC5D           | 58FD   | PCIe3 x8 3.2 TB NVMe Flash Adapter for AIX/Linux |         0 |         4 | IBM i a AIX Linux          |
 | EC5F           | 58FE   | PCIe3 x8 6.4 TB NVMe Flash Adapter for AIX/Linux |         0 |         4 | IBM i a AIX Linux          |
 
-<!-- image -->
-
 | Feature Code   | CCIN   | Description                                      |   Minimum |   Maximum | Operating system support   |
 |----------------|--------|--------------------------------------------------|-----------|-----------|----------------------------|
 | EC6V           | 58FC   | PCIe3 x8 1.6 TB NVMe Flash Adapter for IBM i     |         0 |         4 | IBM i b                    |
@@ -4750,14 +4857,11 @@ Table 3-26   PCIe based NVMe storage adapters for the Power S1014 server
 | EC7P           | 594C   | PCIe4 6.4 TB NVMe Flash Adapter x8 for IBM i     |         0 |         4 | IBM i b                    |
 
 - a. IBM i supported through VIOS.
-
-b. IBM i 7.5, or later, IBM i 7.4 TR6.
+- b. IBM i 7.5, or later, IBM i 7.4 TR6.
 
 Table 3-27 lists the PCIe-based NVMe storage devices that are available for the Power S1024 server.
 
 Table 3-27   PCIe based NVMe storage devices for the Power S1024 server
-
-<!-- image -->
 
 | Feature code   | CCIN   | Description                                      |   Min |   Max | Operating system support   |
 |----------------|--------|--------------------------------------------------|-------|-------|----------------------------|
@@ -4774,9 +4878,8 @@ Table 3-27   PCIe based NVMe storage devices for the Power S1024 server
 | EC7M           | 594B   | PCIe4 3.2 TB NVMe Flash Adapter x8 for IBM i     |     0 |     9 | IBM i b                    |
 | EC7P           | 594C   | PCIe4 6.4 TB NVMe Flash Adapter x8 for IBM i     |     0 |     9 | IBM i b                    |
 
-a. IBM i supported through VIOS.
-
-b. IBM i 7.5, or later, IBM i 7.4 TR6.
+- b. IBM i 7.5, or later, IBM i 7.4 TR6.
+- a. IBM i supported through VIOS.
 
 ## 3.5.3 RAID support
 
@@ -4789,22 +4892,14 @@ Several protection options are available for hard disk drives (HDDs) or SSDs tha
 The following supported PCIe based SAS adapters (see 'SAS adapters' on page 138) provide hardware support for RAID 0, 5, 6, and 10:
 
 - RAID 0 provides striping for performance, but does not offer any fault tolerance.
-
-The failure of a single drive results in the loss of all data on the array. This version of RAID increases I/O bandwidth by simultaneously accessing multiple data paths.
-
+- The failure of a single drive results in the loss of all data on the array. This version of RAID increases I/O bandwidth by simultaneously accessing multiple data paths.
 - RAID 5 uses block-level data striping with distributed parity.
-
-RAID 5 stripes both data and parity information across three or more drives. Fault tolerance is maintained by ensuring that the parity information for any block of data is placed on a drive that is separate from the ones that are used to store the data. This version of RAID provides data resiliency if a single drive fails in a RAID 5 array.
-
+- RAID 5 stripes both data and parity information across three or more drives. Fault tolerance is maintained by ensuring that the parity information for any block of data is placed on a drive that is separate from the ones that are used to store the data. This version of RAID provides data resiliency if a single drive fails in a RAID 5 array.
 - RAID 6 uses block-level data striping with dual distributed parity.
-
-RAID 6 is the same as RAID 5, except that it uses a second level of independently calculated and distributed parity information for more fault tolerance. A RAID 6 configuration requires N+2 drives to accommodate the added parity data, which makes it less cost-effective than RAID 5 for equivalent storage capacity.
-
-This version of RAID provides data resiliency if one or two drives fail in a RAID 6 array. When you work with large-capacity disks, RAID 6 enables you to sustain data parity during the rebuild process.
-
+- RAID 6 is the same as RAID 5, except that it uses a second level of independently calculated and distributed parity information for more fault tolerance. A RAID 6 configuration requires N+2 drives to accommodate the added parity data, which makes it less cost-effective than RAID 5 for equivalent storage capacity.
+- This version of RAID provides data resiliency if one or two drives fail in a RAID 6 array. When you work with large-capacity disks, RAID 6 enables you to sustain data parity during the rebuild process.
 - RAID 10 is a striped set of mirrored arrays.
-
-RAID 10 is a combination of RAID 0 and RAID 1. A RAID 0 stripe set of the data is created across a two-disk array for performance benefits. A duplicate of the first stripe set is then mirrored on another two-disk array for fault tolerance.
+- RAID 10 is a combination of RAID 0 and RAID 1. A RAID 0 stripe set of the data is created across a two-disk array for performance benefits. A duplicate of the first stripe set is then mirrored on another two-disk array for fault tolerance.
 
 This version of RAID provides data resiliency if a single drive fails, and it can provide resiliency for multiple drive failures.
 
@@ -4852,7 +4947,7 @@ Table 3-28   RDX removable disk drives
 | EU15 a         | 1.5TB Removable Disk Drive Cartridge |
 | EU2T           | 2TB Removable Disk Drive Cartridge   |
 
-a. Supported only. The feature can be migrated from existing systems only.
+- a. Supported only. The feature can be migrated from existing systems only.
 
 ## 3.7  Disk and media features
 
@@ -4871,7 +4966,7 @@ Table 3-29   Internal storage options in the Power S1014 and S1024 servers
 | EJ1Y a         | Storage backplane with eight NVMe U.2 drive slots |         2 |
 | EUA0           | RDX USB Internal Docking Station                  |         1 |
 
-a. Each backplane ships with 1 NVMe JBOF card that plugs into a PCIe slot.
+- a. Each backplane ships with 1 NVMe JBOF card that plugs into a PCIe slot.
 
 The Power S1014 and S1024 servers with two storage backplanes and RDX drive are shown in Figure 3-5 on page 149.
 
@@ -4912,9 +5007,8 @@ Table 3-30   U.2 form factor NVMe device features in the Power S1014 and S1024 s
 | ES3F           | 5B50   | Enterprise 6.4 TB SSD PCIe4 NVMe U.2 module for AIX/Linux |         0 |        16 | AIX, IBM i a , and Linux   |
 | ES3G           | 5B50   | Enterprise 6.4 TB SSD PCIe4 NVMe U.2 module for IBM i     |         0 |        16 | IBM i b                    |
 
-a. IBM i supported through VIOS.
-
-b. IBM i 7.5, or later, IBM i 7.4 TR6, or later.
+- b. IBM i 7.5, or later, IBM i 7.4 TR6, or later.
+- a. IBM i supported through VIOS.
 
 Table 3-31 lists the available internal storage option that can be installed in the Power S1022s and S1022 servers.
 
@@ -4924,7 +5018,7 @@ Table 3-31   Internal storage option in the Power S1022s and S1022 servers
 |----------------|--------------------------------------------------|-----------|
 | EJ1X a         | Storage backplane with four NVMe U.2 drive slots |         2 |
 
-a. Each backplane ships with 1 NVMe JBOF card that plugs into a PCIe slot.
+- a. Each backplane ships with 1 NVMe JBOF card that plugs into a PCIe slot.
 
 Table 3-32 lists the available U.2 form factor NVMe drive Feature Codes for the Power S1022s and S1022 servers.
 
@@ -4944,7 +5038,7 @@ Table 3-32   U.2 form factor NVMe device features in the Power S1022s and S1022 
 | ES3D           | 5B51   | Enterprise 3.2 TB SSD PCIe4 NVMe U.2 module for AIX/Linux |         0 |         8 | AIX, IBM i a , Linux       |
 | ES3F           | 5B50   | Enterprise 6.4 TB SSD PCIe4 NVMe U.2 module for AIX/Linux |         0 |         8 | AIX, IBM i a , Linux       |
 
-- a. IBM i supported through VIOS.
+a. IBM i supported through VIOS.
 
 The Stand-alone USB DVD drive (#EUA5) is an optional, stand-alone external USB-DVD device. This device includes a USB cable. The cable provides the data path and power to this drive.
 
@@ -4995,8 +5089,6 @@ Table 3-33 lists the PCI slots in the PCIe Gen4 I/O expansion drawer that is equ
 
 Table 3-33   PCIe slot configuration in the PCIe Gen4 I/O expansion drawer
 
-<!-- image -->
-
 | Slot                    | Location Code   | Description      |
 |-------------------------|-----------------|------------------|
 | Left I/O module Slot 0  | P0-C0           | PCIe x16 adapter |
@@ -5012,7 +5104,7 @@ Table 3-33   PCIe slot configuration in the PCIe Gen4 I/O expansion drawer
 | Right I/O module Slot 4 | P1-C4           | PCIe x8 adapter  |
 | Right I/O module Slot 5 | P1-C5           | PCIe x8 adapter  |
 
-Note that:
+## Note that:
 
 - -All slots are PCIe4 slots.
 - -All slots support full-length, full-height adapters or short form-factor with a full-height tailstock in single-wide, generation 3, blind-swap cassettes.
@@ -5028,8 +5120,6 @@ The number of fanout modules supported in a system differs by the system type an
 
 Table 3-34   Number of supported fanout modules per system
 
-<!-- image -->
-
 | System Name             | Maximum fanout modules   | Maximum number of G4 copper cables   | Maximum number of G4 AOC cables   |
 |-------------------------|--------------------------|--------------------------------------|-----------------------------------|
 | IBM Power System S1024  | 4                        | 4                                    | 8                                 |
@@ -5043,8 +5133,6 @@ Table 3-34   Number of supported fanout modules per system
 The supported cable card adapters for Power10 systems are listed in Table 3-35.
 
 Table 3-35   Supported cable card adapters by system type
-
-<!-- image -->
 
 | System Name             | Adapter feature code and CCIN            |
 |-------------------------|------------------------------------------|
@@ -5061,8 +5149,6 @@ Cables and part numbers used for the PCIe Gen4 expansion drawer (FC ENZ0) are no
 The supported cables and part numbers are listed in Table 3-36.
 
 Table 3-36   Supported cable features
-
-<!-- image -->
 
 | CCIN   | Feature Code   | Part number   | Description                             |
 |--------|----------------|---------------|-----------------------------------------|
@@ -5151,9 +5237,8 @@ Table 3-38   Maximum number of I/O drawers that are supported and total number o
 | Power S1024 (2-socket)   | 2                                   | 4                                       | 30                   |
 | Power S1012 (1 socket)   | Nor Supported                       | Nor Supported                           | Nor Supported        |
 
-a. The PCIe expansion drawer (#EMX0) cannot be used with the four-core configuration Power S1014 server.
-
-b. The empty PCIe module bay must be populated by a filler module.
+- a. The PCIe expansion drawer (#EMX0) cannot be used with the four-core configuration Power S1014 server.
+- b. The empty PCIe module bay must be populated by a filler module.
 
 ## PCIe3 x16 to CXP Converter Adapter
 
@@ -5392,8 +5477,6 @@ Figure 3-21   Drive installation order
 
 Table 3-44   Recommended drive installation order
 
-<!-- image -->
-
 |   Drive pair |   First drive slot |   Second drive slot |
 |--------------|--------------------|---------------------|
 |            1 |                  1 |                  13 |
@@ -5460,7 +5543,7 @@ Figure 3-22   EXP24SX drawer
 
 With AIX/Linux/VIOS, the EXP24SX can be ordered as configured with four sets of 6 bays (mode 4), two sets of 12 bays (mode 2), or one set of 24 bays (mode 1). With IBM i, one set of 24 bays (mode 1) is supported. It is possible to change the mode setting in the field by using software commands along with a documented procedure.
 
-Note: Consider the following points:
+## Note: Consider the following points:
 
 - For the EXP24SX drawer, a maximum of 24 2.5-inch SSDs or 2.5-inch HDDs are supported in the 24 SAS bays. HDDs and SSDs cannot be mixed in the same mode-1 drawer. HDDs and SSDs can be mixed in a mode-2 or mode-4 drawer, but they cannot be mixed within a logical split of the drawer. For example, in a mode-2 drawer with two sets of 12 bays, one set can hold SSDs and one set can hold HDDs, but SSDs and HDDs cannot be mixed in the same set of 12 bays.
 
@@ -5590,20 +5673,13 @@ High-function PDUs provide more electrical power per PDU and offer better 'PDU f
 The following high-function PDUs are orderable as #ECJJ, #ECJL, #ECJN, and #ECJQ:
 
 - High Function 9xC19 PDU plus (#ECJJ)
-
-This intelligent, switched 200 - 240-volt AC PDU includes nine C19 receptacles on the front of the PDU and three C13 receptacles on the rear of the PDU. The PDU is mounted on the rear of the rack, which makes the nine C19 receptacles easily accessible.
-
+- This intelligent, switched 200 - 240-volt AC PDU includes nine C19 receptacles on the front of the PDU and three C13 receptacles on the rear of the PDU. The PDU is mounted on the rear of the rack, which makes the nine C19 receptacles easily accessible.
 - High Function 9xC19 PDU plus 3-Phase (#ECJL)
-
-This intelligent, switched 208-volt 3-phase AC PDU includes nine C19 receptacles on the front of the PDU and three C13 receptacles on the rear of the PDU. The PDU is mounted on the rear of the rack, which makes the nine C19 receptacles easily accessible.
-
+- This intelligent, switched 208-volt 3-phase AC PDU includes nine C19 receptacles on the front of the PDU and three C13 receptacles on the rear of the PDU. The PDU is mounted on the rear of the rack, which makes the nine C19 receptacles easily accessible.
 - High Function 12xC13 PDU plus (#ECJN)
-
-This intelligent, switched 200 - 240-volt AC PDU includes 12 C13 receptacles on the front of the PDU. The PDU is mounted on the rear of the rack, which makes the 12 C13 receptacles easily accessible.
-
+- This intelligent, switched 200 - 240-volt AC PDU includes 12 C13 receptacles on the front of the PDU. The PDU is mounted on the rear of the rack, which makes the 12 C13 receptacles easily accessible.
 - High Function 12xC13 PDU plus 3-Phase (#ECJQ)
-
-This intelligent, switched 208-volt 3-phase AC PDU includes 12 C13 receptacles on the front of the PDU. The PDU is mounted on the rear of the rack, which makes the 12 C13 receptacles easily accessible.
+- This intelligent, switched 208-volt 3-phase AC PDU includes 12 C13 receptacles on the front of the PDU. The PDU is mounted on the rear of the rack, which makes the 12 C13 receptacles easily accessible.
 
 Table 3-46 lists the Feature Codes for the high-function PDUs.
 
@@ -5765,6 +5841,10 @@ The rack or cabinet must support an average load of 20 kg (44 lb.) of product we
 
 Chapter 4.
 
+4
+
+<!-- image -->
+
 ## Enterprise solutions
 
 In this chapter, we describe the major pillars that can help enterprises achieve their business goals and the reasons why Power10 processor-based scale-out servers provide a significant contribution to that end.
@@ -5776,8 +5856,6 @@ This chapter includes the following topics:
 - 4.3, 'Digital transformation and IT modernization' on page 192
 - 4.4, 'Protect trust from core to cloud' on page 197
 - 4.5, 'Running AI where operational data is created, processed, and stored' on page 204
-
-## 4
 
 ## 4.1  PowerVM virtualization
 
@@ -5881,11 +5959,11 @@ The Power Hypervisor provides a virtual SCSI mechanism for the virtualization of
 
 The Power Hypervisor provides a virtual Ethernet switch function that allows partitions fast and secure communication on the same server without any need for physical interconnection or connectivity outside of the server if a Layer 2 bridge to a physical Ethernet adapter is set in one VIOS partition, also known as Shared Ethernet Adapter (SEA).
 
-- Virtual Fibre Channel
+## Virtual Fibre Channel
 
 A virtual Fibre Channel adapter is a virtual adapter that provides customer LPARs with a Fibre Channel connection to a storage area network through the VIOS partition. The VIOS partition provides the connection between the virtual Fibre Channel adapters on the VIOS partition and the physical Fibre Channel adapters on the managed system.
 
-- Virtual (tty) console
+## Virtual (tty) console
 
 Each partition must have access to a system console. Tasks, such as operating system installation, network setup, and various problem analysis activities, require a dedicated system console. The Power Hypervisor provides the virtual console by using a virtual tty and a set of hypervisor calls to operate on them. Virtual tty does not require the purchase of any other features or software, such as the PowerVM Edition features.
 
@@ -6066,7 +6144,8 @@ Table 4-1   Supported SR-IOV adapters
 | PCIe4 2-port 100/40GbE NIC & RoCE QSFP28 Adapter x16   | EC67                                                | EC66                                                |
 | PCIe4 x16 2-port 100/40GbE NIC & RoCE QSFP28 Adapter b | EC75                                                | EC76                                                |
 
-a. Withdrawn b. SR-IOV support available on Power10 Servers with FW1030
+- a. Withdrawn
+- b. SR-IOV support available on Power10 Servers with FW1030
 
 Using SR-IOV provides a high-performance connection with performance very close to what is provided by a dedicated network adapter while allowing the sharing of an adapter across multiple partitions. However, since the SR-IOV virtual port is dedicated to a partition, the use of SR-IOV prevents a partition from being eligible for logical partition migration (LPM).
 
@@ -6618,9 +6697,7 @@ The following websites are also relevant as further information sources:
 http://www.ibm.com/support/fixcentral/
 
 - IBM documentation:
-
-https://www.ibm.com/docs/en
-
+- https://www.ibm.com/docs/en
 - IBM Power10 documentation:
 
 https://www.ibm.com/docs/en/power10
@@ -6638,9 +6715,7 @@ https://www.ibm.com/it-infrastructure/power
 https://www.ibm.com/it-infrastructure/storage
 
 - IBM Systems Energy Estimator:
-
-https://ibm.biz/energy-estimator
-
+- https://ibm.biz/energy-estimator
 - IBM System Planning Tool:
 
 https://www.ibm.com/support/pages/ibm-system-planning-tool-power-processor-base d-systems-0
@@ -6663,11 +6738,13 @@ https://www.ibm.com/mysupport/s/?language=en\_US
 
 ## Help from IBM
 
-IBM Support and downloads ibm.com /support
+IBM Support and downloads
 
-IBM Global Services ibm.com /services
+ibm.com /support
 
-<!-- image -->
+IBM Global Services
+
+ibm.com /services
 
 <!-- image -->
 
@@ -6676,7 +6753,5 @@ Back cover
 <!-- image -->
 
 ISBN 0738461768 REDP-5675-01
-
-Printed in U.S.A.
 
 <!-- image -->
