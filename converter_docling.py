@@ -15,8 +15,8 @@ from docling.datamodel.settings import settings
 
 
 # Specify the source directory containing the PDF files
-source_directory = "./db_files_all"
-output_directory = "./db_files_md"
+source_directory = "./db_files_html"
+output_directory = "./db_files_html_md"
 
 # Ensure the output directory exists
 os.makedirs(output_directory, exist_ok=True)

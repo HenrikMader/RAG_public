@@ -1,0 +1,29 @@
+AIX_COMMANDS:AIX Version 7.2_ Cluster management - cluster_pdf.md
+AIX_COMMANDS:AIX Version 7.3_ Commands, a - k - commands1.md
+AIX_COMMANDS:AIX Version 7.3_ Commands, l - q - commands2.md
+AIX_COMMANDS:AIX Version 7.3_ Commands, r - z - commands3.md
+AIX_COMMANDS:AIX Version 7.3_ Device management - devicemanagement_pdf.md
+AIX_COMMANDS:AIX Version 7.3_ Network management - network_pdf.md
+AIX_COMMANDS:AIX Version 7.3_ Operating system management - osmanagement_pdf.md
+POWERHA:Guide to IBM PowerHA SystemMirror for AIX 7.1.3 - sg248167.md
+POWER10:IBM P10 Scale Out Servers Technical Overview - redp5675.md
+POWER10:IBM Power E1050 Technical Overview and Introduction - redp5684.md
+POWER10:IBM Power E1080 Technical Overview and Introduction - redp5649.md
+POWER9:IBM Power System E950_ Technical Overview and Introduction - redp5509.md
+POWER9:IBM Power System E980_ Technical Overview and Introduction - redp5510.md
+POWER9:IBM Power Systems S922, S914, and S924 Featuring PCIe Gen 4 Technology - redp5595.md
+POWERHA:IBM PowerHA SystemMirror Enterprise Edition 7.1.2 for AIX - sg248106.md
+POWERHA:IBM PowerHA SystemMirror Standard Edition 7.1.1 for AIX Update - sg248030.md
+POWERHA:IBM PowerHA SystemMirror V7.2 for AIX Updates - sg248278.md
+POWERHA:IBM PowerHA SystemMirror V7.2.1 for IBM AIX Updates - sg248372.md
+POWERHA:IBM PowerHA SystemMirror and IBM VM Recovery Manager Solutions Updates - redp5694.md
+POWERHA:IBM PowerHA SystemMirror for AIX 7.1.3 Best Practices and Migration Guide - sg248234.md
+POWERHA:IBM PowerHA SystemMirror for AIX Best Practices - redp5117.md
+POWERHA:IBM PowerHA SystemMirror for AIX Cookbook - sg247739.md
+POWERHMC:IBM PowerVM Virtualization Introduction and Configuration - sg247940.md
+POWERHMC:Introduction to IBM PowerVM - sg248535.md
+POWERHMC:Power Systems_ Installing and configuring the Hardware Management Console - p10hai_vhmc.md
+POWERHMC:Powerhmc_man_10.3.1060.0.md
+
+
+
