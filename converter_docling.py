@@ -15,8 +15,8 @@ from docling.datamodel.settings import settings
 
 
 # Specify the source directory containing the PDF files
-source_directory = "./db_files_html"
-output_directory = "./db_files_html_md"
+source_directory = "./files_for_database/db_files_pdf"
+output_directory = "./files_for_database/db_files_md"
 
 # Ensure the output directory exists
 os.makedirs(output_directory, exist_ok=True)
@@ -28,9 +28,9 @@ os.makedirs(output_directory, exist_ok=True)
 
 pipeline_options = PdfPipelineOptions()
 
-accelerator_options = AcceleratorOptions(
-        num_threads=8, device=AcceleratorDevice.MPS
-    )
+#accelerator_options = AcceleratorOptions(
+#        num_threads=8, device=AcceleratorDevice.MPS
+#    )
 #pipeline_options.do_picture_description = True
 #pipeline_options.picture_description_options = (
 #    granite_picture_description  # <-- the model choice
@@ -47,7 +47,7 @@ accelerator_options = AcceleratorOptions(
 #pipeline_options.do_table_structure = True
 #pipeline_options.do_code_enrichment = True
 #pipeline_options.do_formula_enrichment = True
-pipeline_options.accelerator_options = accelerator_options
+#pipeline_options.accelerator_options = accelerator_options
 
 
 

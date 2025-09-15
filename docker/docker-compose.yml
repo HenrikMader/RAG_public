@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  # vLLM backend
+  vllm:
+    image: quay.io/modh/vllm:rhoai-2.19-cpu
+    container_name: vllm
+    ports:
+      - "30000:8000"  # optional for host access
+    command: >
+      --model ibm-granite/granite-3.3-2b-instruct
+      --port 8000
+      --host 0.0.0.0
+      --max-model-len 8192
+    environment:
+      - VLLM_USE_MODE=cpu
+      - OMP_NUM_THREADS=8
+    volumes:
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    restart: unless-stopped
+
+  # Frontend Gradio app
+  frontend:
+    build: 
+      context: .
+      dockerfile: Dockerfile_frontend
+    container_name: rag_frontend
+    ports:
+      - "7860:7860"  # Gradio port
+    environment:
+      - RAG_PORT=7860
+      - RAG_VLLM_URL=http://vllm:8000/v1
+    volumes:
+      - ./db:/app/db  # Mount ChromaDB folder
+    depends_on:
+      - vllm
+    restart: unless-stopped
+

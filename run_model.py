@@ -9,6 +9,7 @@ import time
 import re
 from sentence_transformers import CrossEncoder
 from openai import OpenAI
+import json
 
 
 
@@ -19,7 +20,7 @@ reranker = CrossEncoder("jinaai/jina-reranker-v2-base-multilingual", trust_remot
 chroma_client = chromadb.PersistentClient(path="./db")
 
 # Initialize LLaMA model with llama-cpp-python (local model)
-llama_model_path = os.getenv("RAG_MODEL_PATH") or "/data/LLMs/gguf/Llama-3.2-3B-Instruct-Q8_0.gguf"
+llama_model_path = os.getenv("RAG_MODEL_PATH") or "/data/LLMs/gguf/gemma-3-4b-it-Q4_K_M.gguf" #"/data/LLMs/gguf/gpt-oss-20b-mxfp4.gguf" #"/data/LLMs/gguf/Qwen3-4B-Thinking-2507-Q4_K_M.gguf" #"/data/LLMs/gguf/Qwen3-4B-Instruct-2507-Q8_0.gguf"
 llama = Llama(model_path=llama_model_path, n_ctx=0)
 
 #model = SentenceTransformer('all-mpnet-base-v2')
@@ -106,7 +107,7 @@ def generate_response(query, collection_name, chat_history):
         print(f"- {doc[:100]}...")
 
     # Rerank and select top 5
-    top_documents = rerank_documents(query, documents, top_k=3)
+    top_documents = rerank_documents(query, documents, top_k=2)
     context = "\n".join(
         f"--------- Chunk {i+1}:\n{doc}\n"
         for i, doc in enumerate(top_documents)
@@ -126,12 +127,13 @@ def generate_response(query, collection_name, chat_history):
     ### QUERY:
     {query}
 
+    You are a Retrieval-Augmented Generation (RAG) assistant. Use only the information provided in the DOCUMENTS above to answer the QUERY.
 
-    You are a Retrieval Augmented Generation Chatbot (RAG).
-    Answer the users QUERY using the DOCUMENTS above.
-    If you can not find an Answer to the QUERY in the DOCUMENTS, then use your internal knowledge.
+    If the answer is not clearly contained in the context, reply with: "I do not know."
 
-    ### Answer:
+    Keep your response concise, accurate, and to the point.
+
+    ### ANSWER:
     """
 
     print("input text")
@@ -202,15 +204,19 @@ def main():
         # A hidden state to store the chat hi:wq story (list of (user, bot) tuples).
         chat_history = gr.State([])
         choices = set()
-
-        with open("database_setup.txt", "r") as f:
-            for line in f:
-                line = line.strip()
-                if ":" in line:
-                    prefix = line.split(":")[0]  # Normalize case
-                    choices.add(prefix)
         
-        print(list(choices))
+        collections = chroma_client.list_collections()
+        choices = {col for col in collections}
+        print("all choices")
+        print(choices)
+        #with open("database_setup.txt", "r") as f:
+        #    for line in f:
+        #        line = line.strip()
+        #        if ":" in line:
+        #            prefix = line.split(":")[0]  # Normalize case
+        #            choices.add(prefix)
+        
+        #print(list(choices))
 
         with gr.Row():
             # Our Chatbot display
@@ -259,7 +265,7 @@ def main():
         f"PORT {server_port} outside of valid port Range 1-{MAX_PORT_NUMBER}!"
     )
     # Launch the Gradio app
-    demo.queue(default_concurrency_limit=5)
+    demo.queue()
     demo.launch(server_name="0.0.0.0", server_port = server_port)
 
 if __name__ == "__main__":
