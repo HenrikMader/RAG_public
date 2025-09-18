@@ -20,7 +20,7 @@ reranker = CrossEncoder("jinaai/jina-reranker-v2-base-multilingual", trust_remot
 chroma_client = chromadb.PersistentClient(path="./db")
 
 # Initialize LLaMA model with llama-cpp-python (local model)
-llama_model_path = os.getenv("RAG_MODEL_PATH") or "/data/LLMs/gguf/gemma-3-4b-it-Q4_K_M.gguf" #"/data/LLMs/gguf/gpt-oss-20b-mxfp4.gguf" #"/data/LLMs/gguf/Qwen3-4B-Thinking-2507-Q4_K_M.gguf" #"/data/LLMs/gguf/Qwen3-4B-Instruct-2507-Q8_0.gguf"
+llama_model_path = os.getenv("RAG_MODEL_PATH") or "./granite-3.3-2b-instruct-Q4_K_M.gguf" #"/data/LLMs/gguf/gemma-3-4b-it-Q4_K_M.gguf" #"/data/LLMs/gguf/gpt-oss-20b-mxfp4.gguf" #"/data/LLMs/gguf/Qwen3-4B-Thinking-2507-Q4_K_M.gguf" #"/data/LLMs/gguf/Qwen3-4B-Instruct-2507-Q8_0.gguf"
 llama = Llama(model_path=llama_model_path, n_ctx=0)
 
 #model = SentenceTransformer('all-mpnet-base-v2')
@@ -206,7 +206,8 @@ def main():
         choices = set()
         
         collections = chroma_client.list_collections()
-        choices = {col for col in collections}
+        print(collections)
+        choices = {col.name for col in collections}
         print("all choices")
         print(choices)
         #with open("database_setup.txt", "r") as f:
