@@ -106,7 +106,7 @@ def insert_markdown_from_path(path_str, collection_name):
 def list_collections():
     try:
         collections = chroma_client.list_collections()
-        return [col.names for col in collections]
+        return [col for col in collections]
     except Exception as e:
         return [f"Error: {e}"]
 
