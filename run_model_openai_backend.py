@@ -61,7 +61,7 @@ def generate_response(query, collection_name, chat_history):
     ## 
 
     stream = openai_client.chat.completions.create(
-        model="granite3-dense:2b",
+        model="granite3.3:2b",
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": query},
@@ -130,7 +130,7 @@ def main():
             outputs=[query_input, chatbot, chat_history, retreival_vector_db]
         )
 
-    server_port = int(os.getenv("RAG_PORT", "7860"))
+    server_port = int(os.getenv("RAG_PORT", "7680"))
     if not (1 <= server_port <= MAX_PORT_NUMBER):
         raise ValueError(f"PORT {server_port} outside of valid port Range 1-{MAX_PORT_NUMBER}!")
 
