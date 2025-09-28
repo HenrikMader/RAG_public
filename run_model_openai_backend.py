@@ -41,7 +41,7 @@ def rerank_documents(query, documents, top_k=5):
 
 def generate_response(query, collection_name, chat_history):
     documents = retrieve_documents(query, collection_name)
-    top_documents = rerank_documents(query, documents)
+    top_documents = rerank_documents(query, documents, top_k=2)
 
     context = "\n".join(
         f"--------- Chunk {i+1}:\n{doc}\n" for i, doc in enumerate(top_documents)
@@ -130,7 +130,7 @@ def main():
             outputs=[query_input, chatbot, chat_history, retreival_vector_db]
         )
 
-    server_port = int(os.getenv("RAG_PORT", "7680"))
+    server_port = int(os.getenv("RAG_PORT", "7860"))
     if not (1 <= server_port <= MAX_PORT_NUMBER):
         raise ValueError(f"PORT {server_port} outside of valid port Range 1-{MAX_PORT_NUMBER}!")
 
