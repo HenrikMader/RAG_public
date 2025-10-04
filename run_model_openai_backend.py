@@ -40,7 +40,7 @@ def rerank_documents(query, documents, top_k=5):
     return [doc for doc, score in ranked[:top_k]]
 
 def generate_response(query, collection_name, chat_history):
-    documents = retrieve_documents(query, collection_name)
+    documents = retrieve_documents(query, collection_name, top_k=10)
     top_documents = rerank_documents(query, documents, top_k=2)
 
     context = "\n".join(
