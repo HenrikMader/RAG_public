@@ -1,127 +1,188 @@
-# RAG Pipeline for RedBooks
+# RAG Pipeline Demo on IBM Power based on the IBM RedBooks
 
-This repository provides a Retrieval-Augmented Generation (RAG) pipeline for processing and utilizing RedBooks. The RedBooks are pre-converted into markdown files using the Python library `docling`. This pipeline uses ChromaDB for vector database storage and `llama-cpp-python` for Large Language Model (LLM) inference.
+This repository demonstrates how to set up a **Retrieval-Augmented Generation (RAG)** pipeline on an **IBM Power LPAR** environment.  
+It includes environment setup, model integration, and vector database management for AI inference using **IBM Granite models**.
 
-## Prerequisites
+---
 
-Before using this project, you need to install several python libraries. Run these commands in order to install micromamba (package manger):
+## 📦 Key Components
 
+- **Power LPAR** – Target environment for deployment  
+- **Micromamba + Python** – Lightweight package and environment management  
+- **Gradio** – Web-based UI for chatbot interaction  
+- **ChromaDB** – Vector database for document embeddings  
+- **HuggingFace Granite (4-bit, GGUF)** – Large Language Model for inference  
+- **LangChain + Docling** – Document chunking and RAG integration  
+- **Optional:** Ansible – Automation support
 
-$ curl -Ls https://micro.mamba.pm/api/micromamba/linux-ppc64le/latest | tar -xvj bin/micromamba
+---
 
-$ eval “$(micromamba shell hook –shell bash)”
+## 🧰 Prerequisites
 
-$ micromamba –version
+Install required system packages:
 
-This should display your current version of micromamba on your terminal. Now we need to create our virtual
-environment and install Python packages in it.
+```bash
+sudo dnf install git bzip2 gcc g++ zlib-devel vim gcc-toolset-12
+```
 
-$ micromamba create -n rag_env python=3.11
+Clone the project repository:
 
-$ micromamba activate rag_env
+```bash
+git clone https://github.com/HenrikMader/RAG_public
+cd RAG_public
+```
 
-Now you should see rag_env in the bottom left corner of your terminal. Now we are ready to install python packages into this environment:
+---
 
-$ micromamba install -c rocketce -c defaults pytorch-cpu pyyaml httptools onnxruntime "pandas<1.6.0"
-tokenizers
+## 🐍 Environment Setup
 
-$ pip install -U --extra-index-url https://repo.fury.io/mgiessing --prefer-binary chromadb transformers
-psutil langchain sentence_transformers gradio==3.50.2 llama-cpp-python scikit-learn docling
+### 1. Install Micromamba
 
+```bash
+cd ~
+curl -Ls https://micro.mamba.pm/api/micromamba/linux-ppc64le/latest | tar -xvj bin/micromamba
+eval "$(micromamba shell hook --shell bash)"
+micromamba --version
+```
 
+### 2. Create a Python environment
 
-## Usage
+```bash
+micromamba create -n rag_env python=3.11
+micromamba activate rag_env
+```
 
-Note that every step has been done beforehand, so you do not need to build up the VectorDB or convert the pdfs into markdown.  You need to do 2 steps:
+### 3. Install dependencies
 
-1. Update the `model:path` in the run_model.py variable to point to your **GGUF model**.
+```bash
+micromamba install -c rocketce -c defaults pytorch-cpu pyyaml httptools onnxruntime "pandas<1.6.0" tokenizers
+```
 
-2. $ python run_model.py 
+Then install additional packages via pip:
 
-and the Gradio frontend should be accesible on IP_your_machine:7680 in a webbrowser. 
+```bash
+pip install -U --extra-index-url https://repo.fury.io/mgiessing     --prefer-binary chromadb transformers psutil langchain     sentence_transformers gradio==3.50.2 llama-cpp-python scikit-learn     docling einops openai
+```
 
+Check installed packages:
 
-If you do want to go through the steps manually, then follow along. Also note, that you can enrich this application with your own files / RedBooks. This is also described in the following. Look at the architecture.png file to get an overall feel for this application.
+```bash
+pip list
+```
 
-### 1. Convert the pdf files into a markdown file
+---
 
-1. Run the `converter_docling.py` script:
+## 🗃️ Build the Vector Database
+
+1. Navigate to the project directory:
+
    ```bash
-   python converter_docling.py
+   cd ~/RAG_public
+   rm -rf db
    ```
 
-This will take for each RedBook file around 15 min.
+2. Edit the `database_setup.txt` file to define collections:
 
-### 2. Generate the Vector Database
+   ```bash
+   vim database_setup.txt
+   ```
 
-To generate the vector database from your markdown files:
+   Example configuration:
+   ```
+   POWER10:IBM P10 Scale Out Servers Technical Overview - redp5675.md
+   POWER9:IBM Power System E950 Technical Overview and Introduction - redp5509.md
+   ```
 
-1. Run the `chromaDB_md.py` script:
+3. Populate the database:
+
    ```bash
    python chromaDB_md.py
    ```
 
-   Note: If you do have other .md files in the markdown folder, then you need to specify this in the database_setup.txt file. Here you need to first give it the name of the collection that you want to add the file to and afterwards the name.
-
-Meaning, that this setup:
-
-POWER10:E1050.md
-POWER10:E1080.md
-POWER10:S1012.md
-POWER10:ScaleOut.md
-POWER11:E1180.md
-POWER11:E1150.md
-POWER11:P11_Scaleout.md
-OPENSHIFT:Openshift.md
-ANSIBLE:Ansible.md
-
-
-Creates 4 collections, which can be selected in the frontend, and querries are only going into the files in those collections. You can also do 1 large collections for all of your files.
-
-2. This will create a vector database in the `/db` directory.
-
-### 3. Configure the LLM
-
-To use the Large Language Model with the context from the vector DB (LLM):
-
-1. Open `run_model.py` in your preferred text editor.
-2. Update the `model:path` variable to point to your **GGUF model**.
-
-### 4. Run the LLM
-
-Execute the pipeline by running:
-```bash
-python run_model.py
-```
-
-This will start serving the gradio UI over HTTP port `e.g. 7680` 
-
-## Alternative Installation: Ansible Playbooks
-
-Alternatively this demo can be installed on a remote or local ppc64le RHEL host using the ansible playbook in the `ansible` directory.
-
-For possible configuration options see the [example inventory file](ansible/example-inventory.yml).
-
-## Folder Structure
-
-- `/db`: Contains the vector database with collections generated by ChromaDB.
-- `chromaDB_md.py`: Script for creating the vector database.
-- `run_model.py`: Script for running the RAG pipeline using the configured LLM.
-
-## Notes
-
-- Ensure the RedBooks markdown files are in the expected format before running the pipeline.
-- Make sure the GGUF model is compatible with `llama-cpp-python`.
-
-## Contributing
-
-If you would like to contribute to this project, feel free to fork the repository, make changes, and submit a pull request. 
-
-## License
-
-This project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute this project.
+   This process may take up to 5 minutes.
 
 ---
 
-Happy experimenting with the RAG Pipeline for RedBooks!
+## ⚙️ Run the Inference Server
+
+Run **Ollama** (based on `llama.cpp`) as a container:
+
+```bash
+podman run -d --name ollama --replace -p 11434:11434 -v ollama:/root/.ollama quay.io/anchinna/ollama:v2
+podman exec -it ollama /opt/ollama/ollama pull granite3.3:2b
+```
+
+The Granite 3.3 2B model is a **4-bit quantized** model optimized for performance on IBM Power.
+
+---
+
+## 💬 Run the RAG Application
+
+Start the chatbot application:
+
+```bash
+python run_model_openai_backend.py
+```
+
+Access the web UI:
+
+```
+http://<IP_of_your_machine>:7680
+```
+
+---
+
+## 🧩 Manage the Vector Database
+
+Stop the chatbot (`Ctrl + C`) and start the admin interface:
+
+```bash
+python admin_database.py
+```
+
+Access the admin UI at:
+
+```
+http://<IP_of_your_machine>:8082
+```
+
+From here, you can:
+- List collections  
+- Add or remove Markdown files  
+- View chunk statistics per collection  
+
+Example: Add a new document to the Power10 collection:
+
+```bash
+./files_for_database/db_files_md/IBM Power E1050 Technical Overview and Introduction - redp5684.md
+```
+
+After ingestion, restart the chatbot to query new data.
+
+---
+
+## 🔍 Query the RAG System
+
+Re-launch the chatbot app:
+
+```bash
+python run_model_openai_backend.py
+```
+
+Then open:
+
+```
+http://<IP_of_your_machine>:7680
+```
+
+Now you can ask questions about all loaded documents (e.g., Power10, Power9, E1050).
+
+---
+
+## 🔗 Additional Resources
+
+- [Sizing AI workloads on IBM Power](https://community.ibm.com/community/user/blogs/sebastian-lehrig/2024/03/26/sizing-for-ai)  
+- [Running vLLM on PPC64LE architecture](https://community.ibm.com/community/user/blogs/manjunath-kumatagi/2024/06/27/run-vllm-on-ppc64le-architecture)
+
+---
 
