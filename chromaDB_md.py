@@ -9,7 +9,6 @@ from chromadb import Collection
 from transformers import AutoTokenizer, AutoModel
 import os
 import re
-from langchain.text_splitter import MarkdownHeaderTextSplitter, RecursiveCharacterTextSplitter
 import time
 from docling.document_converter import DocumentConverter
 from docling.chunking import HybridChunker
@@ -129,7 +128,7 @@ def load_files_into_chroma(folder_path, client: chromadb.ClientAPI, collection_n
 def main() -> None:
     base_directory = Path(os.getcwd())
     db_directory = Path("./db")
-    files_directory = Path("./files_for_database/db_files_md_small")  # Folder containing markdown files
+    files_directory = Path("./files_for_database/test_md")  # Folder containing markdown files
 
     if not db_directory.exists():
         db_directory.mkdir()
