@@ -55,8 +55,8 @@ def rerank_documents(query, documents, top_k=5):
     return [doc for doc, score in ranked[:top_k]]
 
 def generate_response(query, collection_name, chat_history):
-    documents = retrieve_documents(query, collection_name, top_k=20)
-    top_documents = rerank_documents(query, documents, top_k=5)
+    documents = retrieve_documents(query, collection_name, top_k=10)
+    top_documents = rerank_documents(query, documents, top_k=3)
 
     context = "\n".join(
         f"--------- Chunk {i+1}:\n{doc}\n" for i, doc in enumerate(top_documents)
@@ -80,20 +80,17 @@ Remember: Ground every statement in the provided documents."""
     openai_client = get_openai_client()
     
     # Build messages with history
-    messages = [{"role": "system", "content": system_prompt}]
+    messages = [{"role": "system", "content": system_prompt}, {"role": "user", "content": query}]
     
     # Add previous chat history (excluding current query) - last 10 messages max
-    for msg in chat_history[-10:]:
-        messages.append({"role": msg["role"], "content": msg["content"]})
     
     # Add current query
-    messages.append({"role": "user", "content": query})
     
     # Attempt with retry logic for concurrent access
     for attempt in range(MAX_RETRIES):
         try:
             stream = openai_client.chat.completions.create(
-                model="granite4:tiny-h",
+                model="granite4:small-h",
                 messages=messages,
                 stream=True,
                 max_tokens=512,
@@ -174,7 +171,7 @@ Provide a concise, professional summary suitable for team review."""
     try:
         openai_client = get_openai_client()
         response = openai_client.chat.completions.create(
-            model="granite4:tiny-h",
+            model="granite4:small-h",
             messages=[{"role": "user", "content": summary_prompt}],
             stream=False,
             max_tokens=1024,
