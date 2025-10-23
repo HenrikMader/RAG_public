@@ -13,7 +13,8 @@ import time
 from docling.document_converter import DocumentConverter
 from docling.chunking import HybridChunker
 from docling_core.transforms.chunker.tokenizer.huggingface import HuggingFaceTokenizer
-
+import warnings
+warnings.filterwarnings("ignore")
 
 
 #doc = DocumentConverter().convert(source=DOC_SOURCE).document
@@ -79,7 +80,7 @@ def insert_document(document_path: Path, collection: Collection) -> None:
     document_name = document_path.stem.replace(" ", "-").replace("_", "-")
 
     for i, chunk in enumerate(chunk_iter):
-        print(chunk)
+        #print(chunk)
 
         document_ids.append(f"{document_name}_chunk{i}")
 
@@ -91,7 +92,7 @@ def insert_document(document_path: Path, collection: Collection) -> None:
         final_chunk += " Content: "
         final_chunk += chunk.text
 
-        print(final_chunk)
+        #print(final_chunk)
         document_chunks.append(final_chunk)
     
     collection.add(
@@ -128,59 +129,58 @@ def load_files_into_chroma(folder_path, client: chromadb.ClientAPI, collection_n
 def main() -> None:
     base_directory = Path(os.getcwd())
     db_directory = Path("./db")
-    files_directory = Path("./files_for_database/test_md")  # Folder containing markdown files
 
+    # Prompt user for folder path
+    folder_input = input("Enter the path to the folder you want to load into ChromaDB: ").strip()
+    files_directory = Path(folder_input)
+
+    # Prompt user for collection name
+    collection_name = input("Enter the name of the collection to insert all files into: ").strip()
+
+    # Ensure DB directory exists
     if not db_directory.exists():
         db_directory.mkdir()
 
+    # Check if folder exists
     if not files_directory.exists():
-        print("DB files were not copied! Abort.")
+        print(f"The folder '{files_directory}' does not exist! Abort.")
         sys.exit(1)
 
+    # Initialize ChromaDB client
     chroma_client = chromadb.PersistentClient(path=str(db_directory))
 
+    # Ensure or create collection
+    collection_status, collection = ensure_collection(chroma_client, collection_name)
 
-    file = open("database_setup.txt")
-    for i in file:
-        print(i)
-        x = i.split(":", 1)
-        collection_name = str(x[0]).strip()
-        file_name = str(x[1]).strip()
-        print("Adding")
-        print(file_name)
-        print("to")
-        print(collection_name)
-        
-        print(type(collection_name))
-        # Ensure the collection exists or create it
-        collection_status, collection = ensure_collection(chroma_client, str(collection_name))
+    if collection_status == CollectionStatus.COLLECTION_EXISTS:
+        print(f"Collection '{collection_name}' already exists. New files will be added to it.")
+    else:
+        print(f"Created new collection '{collection_name}'.")
 
-        if collection_status == CollectionStatus.COLLECTION_EXISTS:
-            print(f"Collection '{collection_name}' already exists. Skipping file insertion.")
-        else:
-            print(f"Creating collection '{collection_name}' and inserting documents.")
-            
-            # Process the file
-            #document_path = Path(".") / files_directory / Path(file_name)
-            document_path = files_directory / file_name
-            print(document_path)
-            if document_path.exists():
-                insert_document(document_path, collection)
-                print(f"Inserted {file_name} into {collection_name}")
-            else:
-                print(f"File {file_name} not found!")
-            
-    print("Setup completed.")
+    # Loop through all files in the folder
+    for file_path in files_directory.iterdir():
+        if file_path.is_file() and file_path.suffix.lower() in [".md", ".txt"]:
+            print(f"\nProcessing file: {file_path.name}")
+            try:
+                insert_document(file_path, collection)
+                print(f"✅ Inserted '{file_path.name}' into '{collection_name}'")
+            except Exception as e:
+                print(f"❌ Failed to insert '{file_path.name}': {e}")
+
+    print("\nSetup completed.")
 
     # Example query for testing
-    result = collection.query(
-        query_texts=["What is IBM POWER"],
-        n_results=5,
-        include=["documents"]
-    )
-    print(result)
-
+    try:
+        result = collection.query(
+            query_texts=["What is IBM POWER"],
+            n_results=5,
+            include=["documents"]
+        )
+        print("\nExample query results:")
+        print(result)
+    except Exception as e:
+        print(f"Query test failed: {e}")
 
 if __name__ == "__main__":
     main()
-                                                       
+
