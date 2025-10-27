@@ -61,7 +61,7 @@ micromamba install -c rocketce -c defaults pytorch-cpu pyyaml httptools onnxrunt
 Then install additional packages via pip:
 
 ```bash
-pip install -U --extra-index-url https://repo.fury.io/mgiessing     --prefer-binary chromadb transformers psutil langchain     sentence_transformers gradio==3.50.2 llama-cpp-python scikit-learn     docling einops openai
+pip install -U --extra-index-url https://repo.fury.io/mgiessing     --prefer-binary streamlit chromadb transformers psutil langchain     sentence_transformers gradio==3.50.2 llama-cpp-python scikit-learn     docling einops openai
 ```
 
 Check installed packages:
@@ -112,6 +112,14 @@ podman run -d --name ollama --replace -p 11434:11434 -v ollama:/root/.ollama qua
 podman exec -it ollama /opt/ollama/ollama pull granite3.3:2b
 ```
 
+Note: If you want to use Granite 4, then run the following container:
+```bash
+podman run -d --name ollama --replace -p 11434:11434 -v ollama:/root/.ollama quay.io/anchinna/ollama:v3
+podman exec -it ollama /opt/ollama/ollama pull granite4:tiny-h
+```
+
+
+
 The Granite 3.3 2B model is a **4-bit quantized** model optimized for performance on IBM Power.
 
 ---
@@ -123,6 +131,11 @@ Start the chatbot application:
 ```bash
 python run_model_openai_backend.py
 ```
+Note: All of the following steps (the frontend chat) can also be done with Streamlit instead of Gradio. Run: 
+```bash
+streamlit run streamlit_adv.py --server.port 7680
+```
+
 
 Access the web UI:
 
