@@ -1,6 +1,0 @@
-POWER10:IBM P10 Scale Out Servers Technical Overview - redp5675.md
-POWER10:IBM Power E1050 Technical Overview and Introduction - redp5684.md  
-POWER10:IBM Power E1080 Technical Overview and Introduction - redp5649.md
-POWER9:IBM Power System E950_ Technical Overview and Introduction - redp5509.md
-POWER9:IBM Power System E980_ Technical Overview and Introduction - redp5510.md
-POWER9:IBM Power Systems S922, S914, and S924 Featuring PCIe Gen 4 Technology - redp5595.md
