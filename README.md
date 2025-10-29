@@ -22,7 +22,7 @@ It includes environment setup, model integration, and vector database management
 Install required system packages:
 
 ```bash
-sudo dnf install git bzip2 gcc g++ zlib-devel vim gcc-toolset-12
+sudo dnf install git mesa-libGL bzip2 gcc g++ zlib-devel vim gcc-toolset-12
 ```
 
 Clone the project repository:
