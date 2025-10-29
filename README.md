@@ -72,6 +72,24 @@ pip list
 
 ---
 
+## 🗃️  Convert PDF files to Markdown
+
+
+   With the script 
+
+   ``converted_docling.py```
+   
+   you can convert a folder which contains pdf files to markdown files.
+
+   ```bash
+   python converted_docling.py
+   ```
+
+   When prompted with the path for your pdf files, take in the absolute path to a folder which contains all of your PDF files. The output folder for markdown does not need to exist.
+
+
+---
+
 ## 🗃️ Build the Vector Database
 
 1. Navigate to the project directory:
@@ -81,25 +99,16 @@ pip list
    rm -rf db
    ```
 
-2. Edit the `database_setup.txt` file to define collections:
 
-   ```bash
-   vim database_setup.txt
-   ```
-
-   Example configuration:
-   ```
-   POWER10:IBM P10 Scale Out Servers Technical Overview - redp5675.md
-   POWER9:IBM Power System E950 Technical Overview and Introduction - redp5509.md
-   ```
-
-3. Populate the database:
+2. Populate the database:
 
    ```bash
    python chromaDB_md.py
    ```
+   Insert the pull path to the converted Markdown files when prompted. 
+   Afterwards, you need to insert a name for the collection that you are creating.
 
-   This process may take up to 5 minutes.
+   This process may take up several minutes.
 
 ---
 
@@ -119,9 +128,6 @@ podman exec -it ollama /opt/ollama/ollama pull granite4:tiny-h
 ```
 
 
-
-The Granite 3.3 2B model is a **4-bit quantized** model optimized for performance on IBM Power.
-
 ---
 
 ## 💬 Run the RAG Application
@@ -129,11 +135,13 @@ The Granite 3.3 2B model is a **4-bit quantized** model optimized for performanc
 Start the chatbot application:
 
 ```bash
-python run_model_openai_backend.py
-```
-Note: All of the following steps (the frontend chat) can also be done with Streamlit instead of Gradio. Run: 
-```bash
 streamlit run streamlit_adv.py --server.port 7680
+```
+
+
+Note: Old Gradio Frontend (Does not need to be started if you want to use new frontend (streamlit))
+```bash
+python run_model_openai_backend.py
 ```
 
 
@@ -179,8 +187,10 @@ After ingestion, restart the chatbot to query new data.
 Re-launch the chatbot app:
 
 ```bash
-python run_model_openai_backend.py
+streamlit run streamlit_adv.py --server.port 7680
 ```
+
+
 
 Then open:
 

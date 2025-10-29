@@ -158,10 +158,13 @@ def delete_document(collection_name, document_id):
 with gr.Blocks(title="ChromaDB Admin UI") as demo:
     gr.Markdown("## 🧠 ChromaDB Vector Database Admin Panel")
 
+    gr.Markdown("### 🔄 List all collection which are in VectorDB")
     with gr.Row():
         collection_output = gr.Textbox(label="Collections", lines=5)
     with gr.Row():
         collection_list_btn = gr.Button("🔄 List Collections")
+    
+    gr.Markdown("### ❌ Delete whole collection")
 
     with gr.Row():
         del_col_name = gr.Textbox(label="Collection to Delete")
@@ -170,6 +173,7 @@ with gr.Blocks(title="ChromaDB Admin UI") as demo:
     with gr.Row():
         del_col_btn = gr.Button("❌ Delete Collection")
 
+    gr.Markdown("### 📄 List Documents in Vector Database")
     with gr.Row():
         doc_col_name = gr.Textbox(label="Collection Name (to list docs)")
     with gr.Row():
@@ -177,25 +181,7 @@ with gr.Blocks(title="ChromaDB Admin UI") as demo:
     with gr.Row():
         list_docs_btn = gr.Button("📄 List Documents")
 
-    with gr.Row():
-        del_doc_col = gr.Textbox(label="Collection Name")
-    with gr.Row():
-        del_doc_id = gr.Textbox(label="Document ID to Delete")
-    with gr.Row():
-        del_doc_output = gr.Textbox(label="Document Delete Status")
-    with gr.Row():
-        del_doc_btn = gr.Button("🗑️  Delete Document")
 
-    gr.Markdown("---")
-
-    with gr.Row():
-        upload_collection_name = gr.Textbox(label="Target Collection Name for Upload")
-    with gr.Row():
-        md_file_upload = gr.File(label="Upload Markdown (.md) File", file_types=[".md"])
-    with gr.Row():
-        upload_output = gr.Textbox(label="Upload Status")
-    with gr.Row():
-        upload_btn = gr.Button("📤 Upload Markdown to Collection")
 
     gr.Markdown("### 📂 Import Markdown Files from Local Path")
 
@@ -218,8 +204,6 @@ with gr.Blocks(title="ChromaDB Admin UI") as demo:
     collection_list_btn.click(fn=list_collections, outputs=collection_output)
     del_col_btn.click(fn=delete_collection, inputs=del_col_name, outputs=del_col_output)
     list_docs_btn.click(fn=list_documents, inputs=doc_col_name, outputs=doc_ids_output)
-    del_doc_btn.click(fn=delete_document, inputs=[del_doc_col, del_doc_id], outputs=del_doc_output)
-    upload_btn.click(fn=insert_markdown_to_collection, inputs=[md_file_upload, upload_collection_name], outputs=upload_output)
 
 # --- Launch App ---
 demo.launch(server_name="0.0.0.0", server_port=8082)
