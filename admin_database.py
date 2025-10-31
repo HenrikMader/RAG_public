@@ -18,10 +18,12 @@ embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(model_na
 EMBED_MODEL_ID = "sentence-transformers/all-mpnet-base-v2"
 MAX_TOKENS = 512
 
-tokenizer = HuggingFaceTokenizer(
+custom_tokenizer = HuggingFaceTokenizer(
     tokenizer=AutoTokenizer.from_pretrained(EMBED_MODEL_ID),
     max_tokens=MAX_TOKENS,
 )
+
+chunker = HybridChunker(tokenizer=custom_tokenizer, merge_peers=True)
 
 # --- Core Utility Functions ---
 
@@ -30,33 +32,6 @@ def ensure_collection(client: chromadb.ClientAPI, collection_name: str) -> Colle
         return client.get_collection(name=collection_name, embedding_function=embedding_fn)
     except Exception:
         return client.create_collection(name=collection_name, embedding_function=embedding_fn)
-
-def insert_markdown_to_collection(md_file, collection_name):
-    try:
-        # Ensure collection exists
-        collection = ensure_collection(chroma_client, collection_name)
-
-        file_path = Path(md_file.name)
-        document_name = file_path.stem.replace(" ", "-").replace("_", "-")
-
-        doc = DocumentConverter().convert(source=md_file.name).document
-        chunker = HybridChunker(tokenizer=tokenizer)
-        chunk_iter = chunker.chunk(dl_doc=doc)
-
-        document_chunks = []
-        document_ids = []
-
-        for i, chunk in enumerate(chunk_iter):
-            doc_id = f"{document_name}_chunk{i}"
-            chunk_text = f"Heading: {chunk.meta.headings[0]} Content: {chunk.text}"
-            document_ids.append(doc_id)
-            document_chunks.append(chunk_text)
-
-        collection.add(documents=document_chunks, ids=document_ids)
-
-        return f"✅ Successfully added {len(document_ids)} chunks to collection '{collection_name}'"
-    except Exception as e:
-        return f"❌ Failed to insert document: {e}"
 
 def insert_markdown_from_path(path_str, collection_name):
     try:
@@ -83,21 +58,34 @@ def insert_markdown_from_path(path_str, collection_name):
             print(f"Processing file {idx} of {total_files}: {file_path.name}")  # progress bar on terminal
             
             doc = DocumentConverter().convert(source=str(file_path)).document
-            chunker = HybridChunker(tokenizer=tokenizer)
             chunk_iter = chunker.chunk(dl_doc=doc)
-
-            document_chunks = []
+            
+            
+            BATCH_SIZE = 10  # adjust depending on your DB limits
             document_ids = []
+            document_chunks = []
+
 
             document_name = file_path.stem.replace(" ", "-").replace("_", "-")
-            for i, chunk in enumerate(chunk_iter):
-                doc_id = f"{document_name}_chunk{i}"
-                chunk_text = f"Heading: {chunk.meta.headings[0]} Content: {chunk.text}"
-                document_ids.append(doc_id)
-                document_chunks.append(chunk_text)
 
-            collection.add(documents=document_chunks, ids=document_ids)
-            total_chunks += len(document_ids)
+            for i, chunk in enumerate(chunk_iter):
+                if not chunk or not chunk.text:
+                    continue  # skip empty chunks
+                document_ids.append(f"{document_name}_chunk{i}")
+
+                enriched_text = chunker.contextualize(chunk=chunk)
+                
+                document_chunks.append(enriched_text)
+
+                if len(document_chunks) >= BATCH_SIZE:
+                    print("Adding chunks now in batch = 10")
+                    collection.add(documents=document_chunks, ids=document_ids)
+                    document_ids = []
+                    document_chunks = []
+            
+            # --- Insert remaining chunks ---
+            if document_chunks:
+                collection.add(documents=document_chunks, ids=document_ids)
 
         return f"✅ Imported {total_files} file(s) with total {total_chunks} chunks into '{collection_name}'"
     except Exception as e:
