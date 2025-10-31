@@ -26,12 +26,12 @@ sentence_transformer_ef = embedding_functions.SentenceTransformerEmbeddingFuncti
 EMBED_MODEL_ID = "sentence-transformers/all-mpnet-base-v2"
 MAX_TOKENS = 512  # set to a small number for illustrative purposes
 
-tokenizer = HuggingFaceTokenizer(
+custom_tokenizer = HuggingFaceTokenizer(
     tokenizer=AutoTokenizer.from_pretrained(EMBED_MODEL_ID),
     max_tokens=MAX_TOKENS, 
 )
 
-
+chunker = HybridChunker(tokenizer=custom_tokenizer, merge_peers=True)
 
 class CollectionStatus(Enum):
     COLLECTION_CREATED = auto()
@@ -69,11 +69,9 @@ def insert_document(document_path: Path, collection: Collection) -> None:
     and inserts the chunks into a ChromaDB collection.
     """
     doc = DocumentConverter().convert(source=str(document_path)).document
-    chunker = HybridChunker(
-        tokenizer=tokenizer
-    )
-    chunk_iter = chunker.chunk(dl_doc=doc)
     
+    chunk_iter = chunker.chunk(dl_doc=doc)
+    BATCH_SIZE=10
     document_chunks = []
     document_ids = []
 
@@ -81,24 +79,24 @@ def insert_document(document_path: Path, collection: Collection) -> None:
 
     for i, chunk in enumerate(chunk_iter):
         #print(chunk)
-
+        txt_tokens = custom_tokenizer.count_tokens(chunk.text)
+        print(f"chunk.text ({txt_tokens} tokens):\n{chunk.text!r}")
+    
         document_ids.append(f"{document_name}_chunk{i}")
-
+        
         enriched_text = chunker.contextualize(chunk=chunk)
 
-        final_chunk = ""
-        final_chunk += "Heading: "
-        final_chunk += chunk.meta.headings[0]
-        final_chunk += " Content: "
-        final_chunk += chunk.text
+        document_chunks.append(enriched_text)
 
-        #print(final_chunk)
-        document_chunks.append(final_chunk)
-    
-    collection.add(
-                documents=document_chunks,
-                ids=document_ids
-            )
+        if len(document_chunks) >= BATCH_SIZE:
+            print("Adding chunks now in batch = 10")
+            collection.add(documents=document_chunks, ids=document_ids)
+            document_ids = []
+            document_chunks = []
+
+            # --- Insert remaining chunks ---
+    if document_chunks:
+        collection.add(documents=document_chunks, ids=document_ids)
 
 
 ## Folder_path = path to e config files
