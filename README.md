@@ -117,7 +117,7 @@ pip list
 Run **Ollama** (based on `llama.cpp`) as a container:
 
 ```bash
-podman run -d --name ollama --replace -p 11434:11434 -v ollama:/root/.ollama quay.io/anchinna/ollama:v3
+podman run -d --name ollama --replace -p 11434:11434 -v ollama:/root/.ollama quay.io/andre_lutz/ollama-ppc64le:latest
 podman exec -it ollama /opt/ollama/ollama pull granite4:tiny-h
 ```
 
