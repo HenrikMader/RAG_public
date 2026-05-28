@@ -90,7 +90,7 @@ Remember: Ground every statement in the provided documents."""
     for attempt in range(MAX_RETRIES):
         try:
             stream = openai_client.chat.completions.create(
-                model="granite4:tiny-h",
+                model="gemma4:e2b",
                 messages=messages,
                 stream=True,
                 max_tokens=512,
@@ -171,7 +171,7 @@ Provide a concise, professional summary suitable for team review."""
     try:
         openai_client = get_openai_client()
         response = openai_client.chat.completions.create(
-            model="granite4:tiny-h",
+            model="gemma4:e2b",
             messages=[{"role": "user", "content": summary_prompt}],
             stream=False,
             max_tokens=1024,
