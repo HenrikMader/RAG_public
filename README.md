@@ -77,12 +77,12 @@ pip list
 
    With the script 
 
-   ``converted_docling.py```
+   ``converter_docling.py```
    
    you can convert a folder which contains pdf files to markdown files.
 
    ```bash
-   python converted_docling.py
+   python converter_docling.py
    ```
 
    When prompted with the path for your pdf files, take in the absolute path to a folder which contains all of your PDF files. The output folder for markdown does not need to exist.
