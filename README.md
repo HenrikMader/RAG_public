@@ -105,7 +105,7 @@ pip list
    ```bash
    python chromaDB_md.py
    ```
-   Insert the pull path to the converted Markdown files when prompted. 
+   Insert the full path to the converted Markdown files when prompted. 
    Afterwards, you need to insert a name for the collection that you are creating.
 
    This process may take up several minutes.
